@@ -1,30 +1,45 @@
-# React + TypeScript + Vite
+## Project Setup Guide
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Follow these steps to set up and run the project:
 
-Currently, two official plugins are available:
+### Prerequisites
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Ensure you have the following extensions installed:
 
-## Expanding the ESLint configuration
+- **ESLint**
+- **Prettier**
+- **EditorConfig**
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+### Installation Steps
 
-- Configure the top-level `parserOptions` property like this:
+1. **Install Dependencies**  
+   Run the following command to install the necessary dependencies:
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname
-  }
-}
+   ```bash
+   npm install
+   ```
+
+2. **Start the Project**
+   Start the project by running:
+
+   ```bash
+   npm run dev
+   ```
+
+## Convention
+
+Follow git commit message convention:
+
+```
+type(scope): message
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Types include:
+
+- feat: new feature
+- fix: bug fix
+- docs: changes in documentation
+- style: everything related to styling
+- refactor: code changes that neither fixes a bug nor adds a feature
+- test: everything related to testing
+- chore: updating tasks, etc; no production code change
