@@ -1,12 +1,9 @@
-import {
-  createBrowserRouter,
-  createRoutesFromElements,
-} from 'react-router-dom';
-import { Route } from 'react-router-dom';
-import Layout from './pages/Layout';
-import LayoutAuth from './pages/auth/Layout';
-import Login from './pages/auth/Login';
-import NotFound from './pages/misc/NotFound';
+import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
+import { Route } from 'react-router-dom'
+import Layout from './pages/Layout'
+import LayoutAuth from './pages/auth/Layout'
+import Login from './pages/auth/Login'
+import NotFound from './pages/misc/NotFound'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -17,6 +14,6 @@ const router = createBrowserRouter(
       <Route path='error' element={<NotFound />} />
     </Route>
   )
-);
+)
 
-export default router;
+export default router
