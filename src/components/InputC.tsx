@@ -1,5 +1,5 @@
 import { Input } from 'antd'
-import cn from '../../utils/cn'
+import cn from '../utils/cn'
 import React from 'react'
 
 type IInput = React.ComponentProps<typeof Input>

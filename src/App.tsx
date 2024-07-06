@@ -1,5 +1,5 @@
 import { DatePicker } from 'antd'
-import InputC from './components/UI/InputC'
+import InputC from './components/InputC'
 
 function App() {
   return (

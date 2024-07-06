@@ -1,2 +1,4 @@
-export const DASHBOARD_PATH = '/'
-export const LOGIN_PATH = '/login'
+export const HOMEPAGE = '/'
+export const LOGIN = '/login'
+export const REGISTER = '/register'
+export const HR = '/hr'

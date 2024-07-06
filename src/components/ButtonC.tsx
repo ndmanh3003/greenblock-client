@@ -1,24 +1,30 @@
-import { Button } from 'antd'
-import React from 'react'
+import { Button, ButtonProps } from 'antd'
+import cn from '../utils/cn'
 
-interface IButtonC {
-  //2 loại type là primary và variant
-  type: 'primary' | 'variant'
-  icon: React.ReactNode
-  children: React.ReactNode
+interface IButtonC extends ButtonProps {
+  variant: 'primary' | 'linear'
 }
 
-const ButtonC = (props: IButtonC) => {
-  if (props.type === 'primary')
-    return (
-      <Button
-        icon={props.icon}
-        className='!text-lg !font-semibold !text-black !pr-8 !p-5 hover:!text-black !border-0'
-        type='primary'
-      >
-        <div className='pl-1'>{props.children}</div>
-      </Button>
-    )
+const style = {
+  primary: 'hover:!text-black !text-black',
+  linear:
+    '!bg-linear2 hover:!bg-linear3 transition ease-in-out duration-300 delay-150'
+}
+
+const ButtonC = ({ variant, children, className, ...rest }: IButtonC) => {
+  return (
+    <Button
+      className={cn(
+        '!font-semibold !p-5 !pr-8 !border-0 !text-lg',
+        style[variant],
+        className
+      )}
+      type='primary'
+      {...rest}
+    >
+      <div className='pl-1'>{children}</div>
+    </Button>
+  )
 }
 
 export default ButtonC
