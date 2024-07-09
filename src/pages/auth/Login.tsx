@@ -12,6 +12,7 @@ interface ILogin {
 
 export default function Login() {
   const onFinish = (values: ILogin) => {
+    values.isBusiness = values.isBusiness ? true : false
     console.log('Received values of form: ', values)
   }
 

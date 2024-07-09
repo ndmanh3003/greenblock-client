@@ -71,7 +71,7 @@ export default function Layout() {
           <img src='/logo.svg' className='absolute w-full h-full z-0' />
         </div>
       )}
-      <div className='h-full w-full max-w-[1500px] mx-auto px-14 flex flex-col justify-between'>
+      <div className='h-fit min-h-full w-full max-w-[1500px] mx-auto px-14 flex flex-col justify-between'>
         <Outlet />
       </div>
       {media != 1 && (

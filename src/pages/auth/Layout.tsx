@@ -17,7 +17,7 @@ const _content = [
 ]
 
 export const cnInput =
-  '!py-2 !px-5 !rounded-xl border-white hover:!bg-transparent focus:!bg-transparent !text-white !bg-transparent !text-lg'
+  '!py-2 !px-5 !rounded-xl border-white hover:!bg-transparent focus:!bg-transparent !bg-transparent !text-lg'
 
 export default function Layout() {
   const location = useLocation()
@@ -35,7 +35,10 @@ export default function Layout() {
       <main className='w-full'>
         <ConfigProvider
           theme={{
-            token: { colorTextPlaceholder: '#fff' },
+            token: {
+              colorTextPlaceholder: '#ffffffa2',
+              colorText: '#ffffff'
+            },
             components: {
               Form: {
                 marginLG: 27
