@@ -2,6 +2,7 @@ import cn from '../../utils/cn'
 
 interface ILine {
   theme: 'light' | 'dark'
+  className?: string
 }
 
 const _theme = {
@@ -9,9 +10,15 @@ const _theme = {
   light: 'bg-black'
 }
 
-const Line = ({ theme }: ILine) => {
+const Line = ({ theme, className }: ILine) => {
   return (
-    <div className={cn('w-full h-[1px] my-2 bg-opacity-10', _theme[theme])} />
+    <div
+      className={cn(
+        'w-full h-[1px] my-2 bg-opacity-10',
+        _theme[theme],
+        className
+      )}
+    />
   )
 }
 

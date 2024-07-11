@@ -1,4 +1,4 @@
-import FrameContent from '../../components/FrameContent'
+import PromotionCard from '../../components/PromotionCard'
 import { Carousel } from 'antd'
 
 interface IPromotion {
@@ -46,9 +46,12 @@ const Promotion = () => {
             className='overflow-hidden rounded-2xl'
             arrows
             infinite={false}
+            autoplay
+            draggable
+            // afterChange={(current) => console.log(current)}
           >
             {_promotion.map((item, index) => (
-              <FrameContent
+              <PromotionCard
                 key={index}
                 desc={item.description}
                 link={item.link}
