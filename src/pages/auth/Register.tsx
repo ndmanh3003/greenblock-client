@@ -18,6 +18,9 @@ export default function Register() {
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const [hash, setHash] = useState('')
 
+  const data = Date.now()
+  console.log(data)
+
   const onFinish = (values: IRegister) => {
     values.imgCert = hash
     values.isBusiness = values.isBusiness ? true : false

@@ -3,20 +3,21 @@ import { Link, useNavigate } from 'react-router-dom'
 import ButtonC from '../components/ButtonC'
 import { Input } from 'antd'
 import * as Routes from '../routing/paths'
+import Line from '../components/layout/Line'
 
 const _prouductInfo = ['About us', 'Our solution', 'Process & Usage Guide']
 const _nav = [
   { name: 'Our Inspectors', link: '/' },
   { name: 'Our Partners', link: '/' },
-  { name: 'Inspector Registration', link: '/' },
-  { name: 'Business Registration', link: '/' },
-  { name: 'Promotions', link: '' }
+  { name: 'Inspector Workpace', link: Routes.INSPECTOR },
+  { name: 'Business Workpace', link: Routes.BUSINESS },
+  { name: 'Promotions', link: Routes.PROMOTION }
 ]
 
 const HomePage = () => {
   const navigate = useNavigate()
   return (
-    <div className='h-full w-full pt-2 pb-10 flex flex-col justify-between items-stretch'>
+    <div className='h-screen w-full pt-2 pb-10 flex flex-col justify-between items-stretch'>
       <header className='w-full'>
         <div className='bg-white bg-opacity-50 w-fit px-2 py-1 rounded-md flex gap-1 items-center ml-auto'>
           <PhoneFilled rotate={90} className='text-xl' />
@@ -25,7 +26,7 @@ const HomePage = () => {
           </span>
         </div>
 
-        <div className='w-full h-[1px] bg-white my-2 bg-opacity-10' />
+        <Line theme='dark' />
 
         <div className='flex items-center justify-between'>
           <div className='flex items-end text-white font-medium gap-10'>
@@ -69,9 +70,10 @@ const HomePage = () => {
 
       <footer className='self-center rounded-full w-full max-w-6xl h-20 bg-white flex justify-between divide-x-2 overflow-hidden'>
         {_nav.map((item, index) => (
-          <div
-            className='group w-full text-center flex flex-col items-center justify-center gap-1 px-auto cursor-pointer hover:bg-linear1'
+          <Link
             key={index}
+            to={item.link}
+            className='group w-full text-center flex flex-col items-center justify-center gap-1 px-auto cursor-pointer hover:bg-linear1'
           >
             <img
               className='w-8 group-hover:-translate-y-1.5 transition-all ease-in-out delay-75 duration-200'
@@ -80,7 +82,7 @@ const HomePage = () => {
             <span className='font-medium group-hover:font-semibold'>
               {item.name}
             </span>
-          </div>
+          </Link>
         ))}
       </footer>
     </div>
