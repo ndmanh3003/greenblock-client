@@ -25,7 +25,7 @@ const PromotionCard = ({ title, desc, link, index }: IPromotionCard) => {
     // eslint-disable-next-line quotes
     <div
       className={cn(
-        `h-[460px] w-full text-white relative overflow-hidden flex flex-col justify-center items-center p-10 text-center gap-5 ${color}`
+        `h-[460px] w-full text-white relative flex flex-col justify-center items-center p-10 text-center gap-5 overflow-hidden rounded-2xl ${color}`
       )}
     >
       {type ? (
