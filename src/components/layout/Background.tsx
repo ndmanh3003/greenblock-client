@@ -23,6 +23,15 @@ const Background = ({ media }: IBackground) => {
           className='fixed object-cover h-full w-full -z-40 object-center'
         />
       )}
+      {media == 3 && (
+        <>
+          <img
+            src='/hr-bg.jpg'
+            className='fixed object-cover h-full w-full -z-40 object-center'
+          />
+          <div className='fixed h-full w-full bg-black bg-opacity-40 -z-40 backdrop-blur-sm' />
+        </>
+      )}
     </>
   )
 }

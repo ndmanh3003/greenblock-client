@@ -1,17 +1,17 @@
 import { PhoneFilled, LoginOutlined, SearchOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
-import ButtonC from '../components/ButtonC'
+import ButtonC from '../../src/components/ButtonC'
 import { Input } from 'antd'
-import * as Routes from '../routing/paths'
-import Line from '../components/layout/Line'
+import * as Routes from '../../src/routing/paths'
+import Line from '../../src/components/layout/Line'
 
 const _prouductInfo = ['About us', 'Our solution', 'Process & Usage Guide']
 const _nav = [
-  { name: 'Our Inspectors', link: '/' },
   { name: 'Our Partners', link: '/' },
+  { name: 'Promotions', link: Routes.PROMOTION },
   { name: 'Inspector Workpace', link: Routes.INSPECTOR },
   { name: 'Business Workpace', link: Routes.BUSINESS },
-  { name: 'Promotions', link: Routes.PROMOTION }
+  { name: 'Employee Workpace', link: Routes.HR }
 ]
 
 const HomePage = () => {

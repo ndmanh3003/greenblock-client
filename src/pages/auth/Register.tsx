@@ -131,7 +131,7 @@ export default function Register() {
         className='-translate-y-2'
       >
         <Checkbox className={cn(cnInput, '!text-base !px-0')}>
-          You are business
+          Check this box if you are a business
         </Checkbox>
       </Form.Item>
       {/* <img src='https://ipfs.io/ipfs/QmbFdofdZ5fRaNhSRnoarWmTMQPpb8nAjkzYGwoXdEEBX4' /> */}

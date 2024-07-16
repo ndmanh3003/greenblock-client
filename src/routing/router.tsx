@@ -5,12 +5,12 @@ import Layout from '../pages/Layout'
 import Login from '../pages/auth/Login'
 import LayoutAuth from '../pages/auth/Layout'
 import LayoutWorkSpace from '../pages/workspace/Layout'
-// import NotFound from '../pages/misc/NotFound'
-import HomePage from '../pages/HomePage'
 import Register from '../pages/auth/Register'
 import Promotion from '../pages/workspace/Promotion'
 import Inspector from '../pages/workspace/Inspector'
 import Business from '../pages/workspace/Business'
+import Hr from '../pages/hr/Hr'
+import HomePage from '../pages/HomePage'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -27,7 +27,8 @@ const router = createBrowserRouter(
         <Route path={Routes.INSPECTOR} element={<Inspector />} />
         <Route path={Routes.BUSINESS} element={<Business />} />
       </Route>
-      {/* <Route path='error' element={<NotFound />} /> */}
+
+      <Route path={Routes.HR} element={<Hr />} />
     </Route>
   )
 )

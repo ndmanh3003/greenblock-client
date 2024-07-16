@@ -25,3 +25,51 @@ body {
 ::-webkit-scrollbar-thumb:hover {
   background: #21ba43;
 }
+
+/*! ANTD: Step config */
+.ant-steps-item-wait .ant-steps-item-content .ant-steps-item-title {
+  color: rgba(255, 255, 255, 0.5) !important;
+}
+
+.ant-steps-item-title {
+  color: white !important;
+}
+
+.ant-select-selection-item {
+  padding: '20px' !important;
+  background-color: 'red' !important;
+}
+
+.ant-steps-item-title::after {
+  background-color: rgba(255, 255, 255, 0.5) !important;
+}
+
+/*! ANTD: Select dropdown config  */
+.ant-select-selector {
+  padding: 6px 20px !important;
+  border-radius: 12px !important;
+  margin-bottom: 20px;
+  height: fit-content !important;
+}
+
+.ant-select-single {
+  height: auto !important;
+}
+
+.ant-select-selection-search {
+  /* background-color: #fff !important; */
+  padding: 6px 8px !important;
+}
+
+.ant-select-selection-search-input {
+  font-size: 18px !important;
+  /* background-color: #fff !important; */
+}
+
+.ant-select-selection-placeholder {
+  font-size: 18px !important;
+}
+
+.ant-select-selection-item {
+  font-size: 18px !important;
+}

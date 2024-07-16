@@ -65,7 +65,7 @@ export default function Login() {
         className='-translate-y-2'
       >
         <Checkbox className={cn(cnInput, '!text-base !px-0')}>
-          You are business
+          Check this box if you are a business
         </Checkbox>
       </Form.Item>
       <Form.Item>
