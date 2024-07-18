@@ -82,33 +82,7 @@ const Hr = () => {
         </ConfigProvider>
       </div>
 
-      <div className='mt-10 w-[600px] mx-auto'>
-        <ConfigProvider
-          theme={{
-            token: {
-              colorTextPlaceholder: '#ffffffa2',
-              colorText: '#ffffff',
-              colorTextDescription: '#ffffff'
-            },
-            components: {
-              Form: {
-                labelColor: 'white',
-                labelFontSize: 18,
-                marginLG: 27
-              },
-              Select: {
-                optionSelectedColor: '#21BA43',
-                selectorBg: 'transparent',
-                paddingContentHorizontal: 20,
-                optionFontSize: 16,
-                optionSelectedBg: 'rgba(0, 0, 0, 0.2)'
-              }
-            }
-          }}
-        >
-          {_steps[current].form}
-        </ConfigProvider>
-      </div>
+      <div className='mt-10 w-[600px] mx-auto'>{_steps[current].form}</div>
     </div>
   )
 }

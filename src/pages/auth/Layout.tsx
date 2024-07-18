@@ -1,7 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import * as Routes from '../../routing/paths'
 import { useEffect, useState } from 'react'
-import { ConfigProvider } from 'antd'
 
 const _content = [
   {
@@ -33,21 +32,7 @@ export default function Layout() {
       <img src='/logo-horizontal.svg' className='h-12' />
       <span className='text-white'>Welcome</span>
       <main className='w-full'>
-        <ConfigProvider
-          theme={{
-            token: {
-              colorTextPlaceholder: '#ffffffa2',
-              colorText: '#ffffff'
-            },
-            components: {
-              Form: {
-                marginLG: 27
-              }
-            }
-          }}
-        >
-          <Outlet />
-        </ConfigProvider>
+        <Outlet />
       </main>
       <Link
         className='text-white font-medium -mt-5 hover:text-green1 transition ease-in-out duration-200'

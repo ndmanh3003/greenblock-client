@@ -1,7 +1,7 @@
 import { UploadOutlined } from '@ant-design/icons'
 import type { UploadFile, UploadProps } from 'antd'
 import { Upload } from 'antd'
-import ButtonC from './ButtonC'
+import ButtonC from '../ButtonC'
 import axios from 'axios'
 
 interface IUploadC {
