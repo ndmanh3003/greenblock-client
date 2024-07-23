@@ -1,4 +1,4 @@
-import { ConfigProvider, Steps } from 'antd'
+import { ConfigProvider, StepProps, Steps, Upload } from 'antd'
 import {
   ProductOutlined,
   CloudUploadOutlined,
@@ -6,16 +6,7 @@ import {
   CheckCircleOutlined
 } from '@ant-design/icons'
 import React, { useState } from 'react'
-import { default as HrForm } from '../components/hr/Hr'
-import Product from '../components/hr/Product'
-import Upload from '../components/hr/Upload'
-
-interface IStep {
-  title: string
-  status?: 'finish' | 'process' | 'wait'
-  icon: React.ReactNode
-  form: React.ReactNode
-}
+import { HrInfo, Product } from '../components/status'
 
 export interface IStatus {
   businessId: string
@@ -27,16 +18,16 @@ export interface IStatus {
   type: 0 | 1 | 2 | 3
 }
 
-const Hr = () => {
+const Status = () => {
   const [current, setCurrent] = useState(0)
   const [data, setData] = useState<IStatus>()
   console.log(data)
 
-  const _steps: IStep[] = [
+  const _steps: (StepProps & { form: React.ReactNode })[] = [
     {
       title: 'HR Information',
       icon: <UserOutlined />,
-      form: <HrForm setData={setData} setCurrent={setCurrent} />
+      form: <HrInfo data={data} setData={setData} setCurrent={setCurrent} />
     },
     {
       title: 'Product Information',
@@ -87,4 +78,4 @@ const Hr = () => {
   )
 }
 
-export default Hr
+export default Status

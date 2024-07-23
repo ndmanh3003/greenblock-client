@@ -9,7 +9,7 @@ const style = {
   primary: 'hover:!text-black !text-black',
   linear: '!bg-linear2 hover:!bg-linear3 ',
   outline:
-    '!bg-transparent !border-2 border-white hover:!bg-white hover:!bg-opacity-10'
+    '!bg-transparent outline !outline-2 !outline-white hover:!bg-white hover:!bg-opacity-10'
 }
 
 const ButtonC = ({ variant, children, className, ...rest }: IButtonC) => {

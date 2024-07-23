@@ -1,17 +1,18 @@
-import { Image, Modal, Pagination } from 'antd'
+import { ConfigProvider, Image, Modal, Pagination } from 'antd'
 import { EyeOutlined } from '@ant-design/icons'
 import ButtonC from './ButtonC'
 import { useState } from 'react'
 
-interface IHistory {
-  isModalOpen: boolean
+interface IHistoryModal {
   // eslint-disable-next-line no-unused-vars
   setIsModalOpen: (value: boolean) => void
+  isModalOpen: boolean
 }
 
-const History = ({ isModalOpen, setIsModalOpen }: IHistory) => {
+const HistoryModal = ({ isModalOpen, setIsModalOpen }: IHistoryModal) => {
   const [index, setIndex] = useState(0)
   const [isPreviewVisible, setPreviewVisible] = useState(false)
+
   return (
     <Modal
       className='!text-lg'
@@ -20,16 +21,18 @@ const History = ({ isModalOpen, setIsModalOpen }: IHistory) => {
       onCancel={() => setIsModalOpen(false)}
       footer={() => (
         <div className='flex justify-between'>
-          <Pagination
-            simple
-            defaultCurrent={2}
-            total={70}
-            pageSize={1}
-            hideOnSinglePage
-            showSizeChanger={false}
-            className='!inline'
-            onChange={(page) => setIndex(page - 1)}
-          />
+          <ConfigProvider theme={{ token: { colorText: 'black' } }}>
+            <Pagination
+              simple
+              defaultCurrent={2}
+              total={70}
+              pageSize={1}
+              hideOnSinglePage
+              showSizeChanger={false}
+              className='!inline'
+              onChange={(page) => setIndex(page - 1)}
+            />
+          </ConfigProvider>
           <div>
             <ButtonC
               className='!text-base !font-medium !py-0 mr-3'
@@ -103,4 +106,4 @@ const History = ({ isModalOpen, setIsModalOpen }: IHistory) => {
   )
 }
 
-export default History
+export default HistoryModal

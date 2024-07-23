@@ -1,7 +1,7 @@
 import { Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import * as Routes from '../../routing/paths'
+import * as Routes from '../../routes/paths'
 
 const Styled = styled.div`
   .ant-tooltip-inner {

@@ -32,6 +32,9 @@ const Background = ({ media }: IBackground) => {
           <div className='fixed h-full w-full bg-black bg-opacity-40 -z-40 backdrop-blur-sm' />
         </>
       )}
+      {media == 0 && (
+        <div className='fixed h-full w-full -z-50 backdrop-blur-sm' />
+      )}
     </>
   )
 }

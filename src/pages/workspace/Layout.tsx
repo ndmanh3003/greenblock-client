@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import Line from '../../components/layout/Line'
-import * as Routes from '../../routing/paths'
+import * as Routes from '../../routes/paths'
 import { Outlet, useLocation } from 'react-router-dom'
 
 const Layout = () => {

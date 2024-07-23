@@ -10,7 +10,7 @@ import Promotion from '../pages/workspace/Promotion'
 import Inspector from '../pages/workspace/Inspector'
 import Business from '../pages/workspace/Business'
 import HomePage from '../pages/HomePage'
-import Hr from '../pages/Hr'
+import Status from '../pages/Status'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -25,8 +25,7 @@ const router = createBrowserRouter(
         <Route path={Routes.INSPECTOR} element={<Inspector />} />
         <Route path={Routes.BUSINESS} element={<Business />} />
       </Route>
-      //////
-      <Route path={Routes.HR} element={<Hr />} />
+      <Route path={Routes.STATUS} element={<Status />} />
     </Route>
   )
 )

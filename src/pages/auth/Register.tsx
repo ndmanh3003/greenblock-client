@@ -1,11 +1,15 @@
 import { Form, UploadFile } from 'antd'
 import { useState } from 'react'
-import InputC from '../../components/form/InputC'
-import { ruleEmail, rulePassword } from '../../const/constForm'
-import PasswordC from '../../components/form/PasswordC'
-import SubmitC from '../../components/form/SubmitC'
-import CheckboxC from '../../components/form/CheckboxC'
-import IpfsUpload from '../../components/IpfsUpload'
+import {
+  CheckboxC,
+  InputC,
+  IpfsUpload,
+  PasswordC,
+  ruleEmail,
+  rulePassword,
+  ruleRequired,
+  SubmitC
+} from '../../components/form'
 
 interface IRegister {
   email: string
@@ -32,11 +36,7 @@ export default function Register() {
       onFinish={onFinish}
       autoComplete='off'
     >
-      <InputC
-        placeholder='Company name'
-        rules={[{ required: true, message: 'Please input your company name' }]}
-        name='name'
-      />
+      <InputC placeholder='Company name' rules={ruleRequired} name='name' />
       <InputC placeholder='Email' rules={ruleEmail} name='email' />
       <PasswordC
         name='password'
@@ -53,6 +53,7 @@ export default function Register() {
         placeholder='Upload certificate'
         maxCount={1}
         listType='picture'
+        rules={ruleRequired}
       />
       <CheckboxC
         name='isBusiness'

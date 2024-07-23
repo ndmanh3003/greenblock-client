@@ -1,17 +1,9 @@
 import { Form } from 'antd'
-import InputC from './../form/InputC'
-import CheckboxC from '../form/CheckboxC'
-import SubmitC from '../form/SubmitC'
-import SelectC from './../form/SelectC'
-import { IStatus } from '../../pages/Hr'
+import { IStatus } from '../../pages/Status'
+import { CheckboxC, InputC, ruleRequired, SelectC, SubmitC } from '../form'
+import { IHr } from './types'
 
-export interface IHr {
-  // eslint-disable-next-line no-unused-vars
-  setData: (data: IStatus) => void
-  // eslint-disable-next-line no-unused-vars
-  setCurrent: (current: number) => void
-}
-const Hr = ({ setData, setCurrent }: IHr) => {
+export const HrInfo = ({ setData, setCurrent }: IHr) => {
   const onFinish = (values: IStatus) => {
     values.isFarmer = values.isFarmer ? true : false
     setData(values)
@@ -33,14 +25,14 @@ const Hr = ({ setData, setCurrent }: IHr) => {
         <InputC
           name='phone'
           label='Phone number'
-          rules={[{ required: true, message: 'Please input your information' }]}
+          rules={ruleRequired}
           placeholder='Input your phone number'
         />
         <SelectC
           name='businessId'
           label='Company'
           placeholder='Select your company'
-          rules={[{ required: true, message: 'Select your company' }]}
+          rules={ruleRequired}
           value={[
             { value: 'china', label: 'China' },
             { value: 'usa', label: 'U.S.A' }
@@ -57,5 +49,3 @@ const Hr = ({ setData, setCurrent }: IHr) => {
     </div>
   )
 }
-
-export default Hr

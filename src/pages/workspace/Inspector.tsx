@@ -25,12 +25,10 @@ const Inspector = () => {
           <Line theme='light' />
         </h1>
         <div className='grid-cols-3 grid gap-4 '>
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
-          <ProductCard />
+          <ProductCard key={1} />
+          <ProductCard key={2} />
+          <ProductCard key={3} />
+          <ProductCard key={4} />
         </div>
       </main>
       <div className='mt-10 w-full flex justify-center relative'>

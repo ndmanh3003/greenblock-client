@@ -1,12 +1,9 @@
 import { Checkbox, Form } from 'antd'
-import { cnInput, IInputC } from '../../const/constForm'
+import { cnInput } from '../classNames'
 import cn from '../../utils/cn'
+import { IInputC } from './types'
 
-interface ICheckboxC extends IInputC {
-  wrapperCol?: number
-}
-
-const CheckboxC = (props: ICheckboxC) => {
+export const CheckboxC = (props: IInputC) => {
   return (
     <Form.Item
       name={props.name}
@@ -14,11 +11,12 @@ const CheckboxC = (props: ICheckboxC) => {
       className='-translate-y-2'
       wrapperCol={{ offset: props.wrapperCol }}
     >
-      <Checkbox className={cn(cnInput, '!text-base !px-0')}>
+      <Checkbox
+        className={cn(cnInput, '!text-base !px-0')}
+        disabled={props.disabled}
+      >
         {props.placeholder}
       </Checkbox>
     </Form.Item>
   )
 }
-
-export default CheckboxC

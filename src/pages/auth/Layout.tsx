@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import * as Routes from '../../routing/paths'
+import * as Routes from '../../routes/paths'
 import { useEffect, useState } from 'react'
 
 const _content = [
@@ -14,9 +14,6 @@ const _content = [
     link: Routes.REGISTER
   }
 ]
-
-export const cnInput =
-  '!py-2 !px-5 !rounded-xl border-white hover:!bg-transparent focus:!bg-transparent !bg-transparent !text-lg'
 
 export default function Layout() {
   const location = useLocation()

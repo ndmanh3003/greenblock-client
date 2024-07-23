@@ -1,9 +1,12 @@
 import { Form } from 'antd'
-import InputC from '../../components/form/InputC'
-import { ruleEmail, rulePassword } from '../../const/constForm'
-import PasswordC from '../../components/form/PasswordC'
-import CheckboxC from '../../components/form/CheckboxC'
-import SubmitC from './../../components/form/SubmitC'
+import {
+  CheckboxC,
+  InputC,
+  PasswordC,
+  ruleEmail,
+  rulePassword,
+  SubmitC
+} from '../../components/form'
 
 interface ILogin {
   email: string

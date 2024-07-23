@@ -1,15 +1,12 @@
 import { Form, Select } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
-import { IInputC } from '../../const/constForm'
+import { ISelectC } from './types'
 
-interface ISelectC extends IInputC {
-  value: { value: string | number; label: string }[]
-}
-
-const SelectC = (props: ISelectC) => {
+export const SelectC = (props: ISelectC) => {
   return (
     <Form.Item label={props.label} name={props.name} rules={props.rules}>
       <Select
+        disabled={props.disabled}
         showSearch
         suffixIcon={
           <DownOutlined style={{ color: 'white', fontSize: '13px' }} />
@@ -30,5 +27,3 @@ const SelectC = (props: ISelectC) => {
     </Form.Item>
   )
 }
-
-export default SelectC

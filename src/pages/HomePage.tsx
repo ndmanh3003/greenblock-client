@@ -2,16 +2,16 @@ import { PhoneFilled, LoginOutlined, SearchOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import ButtonC from '../../src/components/ButtonC'
 import { ConfigProvider, Input } from 'antd'
-import * as Routes from '../../src/routing/paths'
+import * as Routes from '../routes/paths'
 import Line from '../../src/components/layout/Line'
 
 const _prouductInfo = ['About us', 'Our solution', 'Process & Usage Guide']
 const _nav = [
   { name: 'Our Partners', link: '/' },
   { name: 'Promotions', link: Routes.PROMOTION },
-  { name: 'Inspector Workpace', link: Routes.INSPECTOR },
-  { name: 'Business Workpace', link: Routes.BUSINESS },
-  { name: 'Employee Workpace', link: Routes.HR }
+  { name: 'Inspector Space', link: Routes.INSPECTOR },
+  { name: 'Business Space', link: Routes.BUSINESS },
+  { name: 'Status Management', link: Routes.STATUS }
 ]
 
 const HomePage = () => {

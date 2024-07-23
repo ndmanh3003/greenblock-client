@@ -1,13 +1,10 @@
 import { Form, Input } from 'antd'
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
-import { cnInput, IInputC } from '../../const/constForm'
+import { cnInput } from '../classNames'
 import cn from '../../utils/cn'
+import { IPasswordC } from './types'
 
-interface IPasswordC extends IInputC {
-  isConfirm?: boolean
-}
-
-const PasswordC = (props: IPasswordC) => {
+export const PasswordC = (props: IPasswordC) => {
   return (
     <>
       <Form.Item name={props.name} rules={props.rules} label={props.label}>
@@ -46,6 +43,7 @@ const PasswordC = (props: IPasswordC) => {
           ]}
         >
           <Input
+            disabled={props.disabled}
             type='password'
             className={cnInput}
             placeholder='Confirm Password'
@@ -55,5 +53,3 @@ const PasswordC = (props: IPasswordC) => {
     </>
   )
 }
-
-export default PasswordC

@@ -1,16 +1,13 @@
 import ButtonC from '../ButtonC'
-import { IInputC } from '../../const/constForm'
 import { Form } from 'antd'
 import cn from './../../utils/cn'
+import { IInputC } from './types'
 
-interface ISubmitC extends IInputC {
-  wrapperCol?: number
-}
-
-const SubmitC = (props: ISubmitC) => {
+export const SubmitC = (props: IInputC) => {
   return (
     <Form.Item wrapperCol={{ offset: props.wrapperCol }}>
       <ButtonC
+        disabled={props.disabled}
         htmlType='submit'
         variant='linear'
         className={cn('rounded-xl w-full', props.className)}
@@ -20,5 +17,3 @@ const SubmitC = (props: ISubmitC) => {
     </Form.Item>
   )
 }
-
-export default SubmitC

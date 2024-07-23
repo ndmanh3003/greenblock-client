@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import 'antd/dist/reset.css'
 import { useEffect, useState } from 'react'
-import * as Routes from '../routing/paths'
+import * as Routes from '../routes/paths'
 import Float from '../components/layout/Float'
 import Footer from '../components/layout/Footer'
 import Background from '../components/layout/Background'
@@ -17,7 +17,7 @@ export default function Layout() {
       location.pathname == Routes.REGISTER
     )
       setPage(2)
-    else if (location.pathname == Routes.HR) setPage(3)
+    else if (location.pathname == Routes.STATUS) setPage(3)
     else setPage(0)
   }, [location])
 

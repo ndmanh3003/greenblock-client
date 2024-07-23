@@ -1,11 +1,13 @@
 import { Form, Input } from 'antd'
-import { cnInput, IInputC } from '../../const/constForm'
+import { cnInput } from '../classNames'
 import cn from '../../utils/cn'
+import { IInputC } from './types'
 
-const TextAreaC = (props: IInputC) => {
+export const TextAreaC = (props: IInputC) => {
   return (
     <Form.Item name={props.name} rules={props.rules} label={props.label}>
       <Input.TextArea
+        disabled={props.disabled}
         className={cn(cnInput, '!px-2', props.className)}
         placeholder={props.placeholder}
         autoSize={{ minRows: 2 }}
@@ -15,5 +17,3 @@ const TextAreaC = (props: IInputC) => {
     </Form.Item>
   )
 }
-
-export default TextAreaC

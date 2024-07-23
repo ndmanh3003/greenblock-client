@@ -1,24 +1,12 @@
-import ipfs from '../service/ipfs'
-import cn from '../utils/cn'
-import ButtonC from './ButtonC'
-import { cnInput, IInputC } from '../const/constForm'
-import { Form, Input, Upload, UploadFile, UploadProps } from 'antd'
+import ipfs from '../../service/ipfs'
+import cn from '../../utils/cn'
+import ButtonC from '../ButtonC'
+import { cnInput } from '../classNames'
+import { Form, Input, Upload, UploadProps } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
+import { IUploadC } from '.'
 
-interface IUploadC extends IInputC {
-  // eslint-disable-next-line no-unused-vars
-  setHash: (data: string[]) => void
-  // eslint-disable-next-line no-unused-vars
-  setFileList: (data: UploadFile[]) => void
-  fileList: UploadFile[]
-  hash: string[] | undefined
-  placeholder: string
-  maxCount: number
-  wrapperCol?: number
-  listType: 'picture' | 'picture-card'
-}
-
-const IpfsUpload = ({
+export const IpfsUpload = ({
   setHash,
   setFileList,
   fileList,
@@ -85,19 +73,13 @@ const IpfsUpload = ({
             className={cn(
               !fileList.length && '!absolute !-bottom-2 translate-y-1/2'
             )}
-            rules={[
-              { required: true, message: 'Please upload your certificate' }
-            ]}
+            rules={props.rules}
           >
-            <Input
-              className={cn(
-                cnInput,
-                '!mt-[22px] !w-2 !h-2 !border-transparent'
-              )}
-            />
+            <Input className={cn(cnInput, '!mt-[22px] !w-2 !h-2 !border-0')} />
           </Form.Item>
         )}
         <Upload
+          disabled={props.disabled}
           multiple={false}
           maxCount={props.maxCount}
           fileList={fileList}
@@ -123,7 +105,7 @@ const IpfsUpload = ({
               {props.placeholder}
             </ButtonC>
           ) : fileList.length >= props.maxCount ? null : (
-            <div className='h-full w-full flex flex-col items-center justify-center p-1'>
+            <div className='h-full w-full flex flex-col items-center justify-center m-1 backdrop-blur-sm !overflow-hidden'>
               <UploadOutlined
                 style={{
                   fontSize: '20px'
@@ -137,5 +119,3 @@ const IpfsUpload = ({
     </div>
   )
 }
-
-export default IpfsUpload
