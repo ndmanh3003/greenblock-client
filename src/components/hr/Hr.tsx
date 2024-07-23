@@ -1,9 +1,9 @@
 import { Form } from 'antd'
-import { IStatus } from '../../pages/hr/Hr'
 import InputC from './../form/InputC'
 import CheckboxC from '../form/CheckboxC'
 import SubmitC from '../form/SubmitC'
 import SelectC from './../form/SelectC'
+import { IStatus } from '../../pages/Hr'
 
 export interface IHr {
   // eslint-disable-next-line no-unused-vars
@@ -16,7 +16,6 @@ const Hr = ({ setData, setCurrent }: IHr) => {
     values.isFarmer = values.isFarmer ? true : false
     setData(values)
     setCurrent(1)
-    console.log('Received values of form: ', values)
   }
 
   return (

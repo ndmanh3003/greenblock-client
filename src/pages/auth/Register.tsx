@@ -1,11 +1,11 @@
 import { Form, UploadFile } from 'antd'
 import { useState } from 'react'
 import InputC from '../../components/form/InputC'
-import { ruleEmail, rulePassword } from '../../components/form/constForm'
+import { ruleEmail, rulePassword } from '../../const/constForm'
 import PasswordC from '../../components/form/PasswordC'
 import SubmitC from '../../components/form/SubmitC'
 import CheckboxC from '../../components/form/CheckboxC'
-import IpfsUpload from './../../components/IpfsUpload/index'
+import IpfsUpload from '../../components/IpfsUpload'
 
 interface IRegister {
   email: string
@@ -17,10 +17,10 @@ interface IRegister {
 
 export default function Register() {
   const [fileList, setFileList] = useState<UploadFile[]>([])
-  const [hash, setHash] = useState('')
+  const [hash, setHash] = useState<string[]>([])
 
   const onFinish = (values: IRegister) => {
-    values.imgCert = hash
+    values.imgCert = hash[0]
     values.isBusiness = values.isBusiness ? true : false
     console.log('Received values of form: ', values)
   }
@@ -48,6 +48,11 @@ export default function Register() {
         setHash={setHash}
         fileList={fileList}
         setFileList={setFileList}
+        hash={hash}
+        name='imgCert'
+        placeholder='Upload certificate'
+        maxCount={1}
+        listType='picture'
       />
       <CheckboxC
         name='isBusiness'
@@ -56,8 +61,4 @@ export default function Register() {
       <SubmitC name='Register' />
     </Form>
   )
-}
-
-{
-  /* <img src='https://ipfs.io/ipfs/QmbFdofdZ5fRaNhSRnoarWmTMQPpb8nAjkzYGwoXdEEBX4' /> */
 }

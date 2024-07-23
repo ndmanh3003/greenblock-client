@@ -1,5 +1,5 @@
 import { Checkbox, Form } from 'antd'
-import { cnInput, IInputC } from './constForm'
+import { cnInput, IInputC } from '../../const/constForm'
 import cn from '../../utils/cn'
 
 interface ICheckboxC extends IInputC {

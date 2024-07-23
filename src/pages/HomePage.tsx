@@ -1,7 +1,7 @@
 import { PhoneFilled, LoginOutlined, SearchOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import ButtonC from '../../src/components/ButtonC'
-import { Input } from 'antd'
+import { ConfigProvider, Input } from 'antd'
 import * as Routes from '../../src/routing/paths'
 import Line from '../../src/components/layout/Line'
 
@@ -61,11 +61,20 @@ const HomePage = () => {
             </span>
           </div>
         </div>
-        <Input
-          prefix={<SearchOutlined className='mr-3 text-2xl' />}
-          className='text-lg rounded-full py-3 px-5 w-[450px] mt-5'
-          placeholder='ID Product'
-        />
+        <ConfigProvider
+          theme={{
+            token: {
+              colorText: 'black',
+              colorTextPlaceholder: '#00000063'
+            }
+          }}
+        >
+          <Input
+            prefix={<SearchOutlined className='mr-3 text-2xl' />}
+            className='text-lg rounded-full py-3 px-5 w-[450px] mt-5'
+            placeholder='ID Product'
+          />
+        </ConfigProvider>
       </section>
 
       <footer className='self-center rounded-full w-full max-w-6xl h-20 bg-white flex justify-between divide-x-2 overflow-hidden'>

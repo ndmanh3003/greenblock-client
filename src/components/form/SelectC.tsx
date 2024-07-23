@@ -1,9 +1,9 @@
 import { Form, Select } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
-import { IInputC } from './constForm'
+import { IInputC } from '../../const/constForm'
 
 interface ISelectC extends IInputC {
-  value: { value: string; label: string }[]
+  value: { value: string | number; label: string }[]
 }
 
 const SelectC = (props: ISelectC) => {

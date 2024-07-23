@@ -1,6 +1,6 @@
 import { Form, Input } from 'antd'
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
-import { cnInput, IInputC } from './constForm'
+import { cnInput, IInputC } from '../../const/constForm'
 import cn from '../../utils/cn'
 
 interface IPasswordC extends IInputC {

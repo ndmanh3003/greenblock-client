@@ -9,25 +9,23 @@ import Register from '../pages/auth/Register'
 import Promotion from '../pages/workspace/Promotion'
 import Inspector from '../pages/workspace/Inspector'
 import Business from '../pages/workspace/Business'
-import Hr from '../pages/hr/Hr'
 import HomePage from '../pages/HomePage'
+import Hr from '../pages/Hr'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path={Routes.HOMEPAGE} element={<Layout />}>
       <Route index element={<HomePage />} />
-
       <Route path='/' element={<LayoutAuth />}>
         <Route path={Routes.LOGIN} element={<Login />} />
         <Route path={Routes.REGISTER} element={<Register />} />
       </Route>
-
       <Route path='/' element={<LayoutWorkSpace />}>
         <Route path={Routes.PROMOTION} element={<Promotion />} />
         <Route path={Routes.INSPECTOR} element={<Inspector />} />
         <Route path={Routes.BUSINESS} element={<Business />} />
       </Route>
-
+      //////
       <Route path={Routes.HR} element={<Hr />} />
     </Route>
   )

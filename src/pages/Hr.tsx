@@ -6,9 +6,9 @@ import {
   CheckCircleOutlined
 } from '@ant-design/icons'
 import React, { useState } from 'react'
-import Upload from '../../components/hr/Upload'
-import Product from '../../components/hr/Product'
-import HrForm from '../../components/hr/Hr'
+import { default as HrForm } from '../components/hr/Hr'
+import Product from '../components/hr/Product'
+import Upload from '../components/hr/Upload'
 
 interface IStep {
   title: string
@@ -21,7 +21,7 @@ export interface IStatus {
   businessId: string
   isFarmer: boolean
   phone: string
-  productId: number
+  productId: string
   desc: string
   img: string[]
   type: 0 | 1 | 2 | 3
@@ -41,7 +41,7 @@ const Hr = () => {
     {
       title: 'Product Information',
       icon: <ProductOutlined />,
-      form: <Product />
+      form: <Product data={data} setData={setData} setCurrent={setCurrent} />
     },
     {
       title: 'Upload Information',

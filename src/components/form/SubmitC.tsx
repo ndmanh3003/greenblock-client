@@ -1,5 +1,5 @@
 import ButtonC from '../ButtonC'
-import { IInputC } from './constForm'
+import { IInputC } from '../../const/constForm'
 import { Form } from 'antd'
 import cn from './../../utils/cn'
 

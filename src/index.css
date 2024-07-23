@@ -15,6 +15,7 @@ body {
 
 ::-webkit-scrollbar-track {
   background: white;
+  border-radius: 9999px;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -57,13 +58,11 @@ body {
 }
 
 .ant-select-selection-search {
-  /* background-color: #fff !important; */
   padding: 6px 8px !important;
 }
 
 .ant-select-selection-search-input {
   font-size: 18px !important;
-  /* background-color: #fff !important; */
 }
 
 .ant-select-selection-placeholder {
@@ -72,4 +71,10 @@ body {
 
 .ant-select-selection-item {
   font-size: 18px !important;
+}
+
+.ant-input-data-count {
+  bottom: -25px !important;
+  font-size: 14px !important;
+  opacity: 0.5;
 }
