@@ -33,7 +33,7 @@ const Background = ({ media }: IBackground) => {
         </>
       )}
       {media == 0 && (
-        <div className='fixed h-full w-full -z-50 backdrop-blur-sm' />
+        <div className='fixed h-full w-full -z-50 backdrop-blur-sm'></div>
       )}
     </>
   )

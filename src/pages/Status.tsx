@@ -1,4 +1,4 @@
-import { ConfigProvider, StepProps, Steps, Upload } from 'antd'
+import { ConfigProvider, StepProps, Steps } from 'antd'
 import {
   ProductOutlined,
   CloudUploadOutlined,
@@ -6,7 +6,7 @@ import {
   CheckCircleOutlined
 } from '@ant-design/icons'
 import React, { useState } from 'react'
-import { HrInfo, Product } from '../components/status'
+import { Hr, Product, Upload } from '../components/status'
 
 export interface IStatus {
   businessId: string
@@ -27,7 +27,7 @@ const Status = () => {
     {
       title: 'HR Information',
       icon: <UserOutlined />,
-      form: <HrInfo data={data} setData={setData} setCurrent={setCurrent} />
+      form: <Hr data={data} setData={setData} setCurrent={setCurrent} />
     },
     {
       title: 'Product Information',
@@ -37,7 +37,7 @@ const Status = () => {
     {
       title: 'Upload Information',
       icon: <CloudUploadOutlined />,
-      form: <Upload />
+      form: <Upload data={data} setData={setData} setCurrent={setCurrent} />
     }
   ]
   return (

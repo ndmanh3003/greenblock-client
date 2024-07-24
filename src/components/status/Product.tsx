@@ -1,17 +1,11 @@
 import { IStatus } from '../../pages/Status'
-import { Form, UploadFile } from 'antd'
-import { useState } from 'react'
-import { IpfsUpload, ruleRequired, SelectC, SubmitC, TextAreaC } from '../form'
+import { Form } from 'antd'
+import { ruleRequired, SelectC, SubmitC } from '../form'
 import { IHr } from './types'
 import ButtonC from '../ButtonC'
 
 export const Product = ({ data, setData, setCurrent }: IHr) => {
-  const [fileList, setFileList] = useState<UploadFile[]>([])
-  const [hash, setHash] = useState<string[]>([])
-
   const onFinish = (values: IStatus) => {
-    if (fileList.some((f) => f.status !== 'done')) return
-    values.img = hash
     setData({ ...data, ...values })
     setCurrent(2)
   }
@@ -27,6 +21,7 @@ export const Product = ({ data, setData, setCurrent }: IHr) => {
         autoComplete='off'
         requiredMark={false}
         colon={false}
+        initialValues={data}
       >
         <SelectC
           name='type'
@@ -42,27 +37,8 @@ export const Product = ({ data, setData, setCurrent }: IHr) => {
           rules={ruleRequired}
           value={_products}
         />
-        <TextAreaC
-          name='desc'
-          label='Description'
-          rules={ruleRequired}
-          placeholder='Description your activity'
-        />
-        <IpfsUpload
-          setHash={setHash}
-          fileList={fileList}
-          setFileList={setFileList}
-          wrapperCol={8}
-          hash={hash}
-          name='img'
-          maxCount={5}
-          listType='picture-card'
-          label='Upload'
-          rules={ruleRequired}
-        >
-          Upload
-        </IpfsUpload>
-        <Form.Item className='relative'>
+
+        <Form.Item className='relative mt-16'>
           <SubmitC className='!w-fit' wrapperCol={8}>
             Continue
           </SubmitC>

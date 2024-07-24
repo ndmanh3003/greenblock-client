@@ -3,7 +3,7 @@ import { IStatus } from '../../pages/Status'
 import { CheckboxC, InputC, ruleRequired, SelectC, SubmitC } from '../form'
 import { IHr } from './types'
 
-export const HrInfo = ({ setData, setCurrent }: IHr) => {
+export const Hr = ({ setData, setCurrent, data }: IHr) => {
   const onFinish = (values: IStatus) => {
     values.isFarmer = values.isFarmer ? true : false
     setData(values)
@@ -21,6 +21,7 @@ export const HrInfo = ({ setData, setCurrent }: IHr) => {
         autoComplete='off'
         requiredMark={false}
         colon={false}
+        initialValues={data}
       >
         <InputC
           name='phone'
