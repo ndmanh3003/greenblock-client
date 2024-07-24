@@ -1,24 +1,30 @@
-import { Form, Select } from 'antd'
+import { Form, Select, SelectProps } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
-import { ISelectC } from './types'
+import React from 'react'
+import { IFormItem, ISelectC } from '.'
 
-export const SelectC = (props: ISelectC) => {
+export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
+  name,
+  rules,
+  label,
+  value,
+  ...props
+}) => {
   return (
-    <Form.Item label={props.label} name={props.name} rules={props.rules}>
+    <Form.Item label={label} name={name} rules={rules}>
       <Select
-        disabled={props.disabled}
         showSearch
         suffixIcon={
           <DownOutlined style={{ color: 'white', fontSize: '13px' }} />
         }
-        placeholder={props.placeholder}
         dropdownStyle={{
           backgroundColor: 'transparent',
           backdropFilter: 'blur(20px)'
         }}
         dropdownAlign={{ offset: [0, 10] }}
+        {...props}
       >
-        {props.value.map((item) => (
+        {value.map((item: { value: string; label: string }) => (
           <Select.Option key={item.value} value={item.value}>
             {item.label}
           </Select.Option>

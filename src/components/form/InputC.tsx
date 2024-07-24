@@ -1,16 +1,18 @@
-import { Form, Input } from 'antd'
-import { cnInput } from '../classNames'
-import cn from '../../utils/cn'
-import { IInputC } from './types'
+import { Form, Input, InputProps } from 'antd'
+import { IFormItem } from './types'
+import React from 'react'
+import { cn, cnInput } from '../../utils'
 
-export const InputC = (props: IInputC) => {
+export const InputC: React.FC<IFormItem & InputProps> = ({
+  name,
+  rules,
+  label,
+  className,
+  ...props
+}) => {
   return (
-    <Form.Item name={props.name} rules={props.rules} label={props.label}>
-      <Input
-        className={cn(cnInput, props.className)}
-        placeholder={props.placeholder}
-        disabled={props.disabled}
-      />
+    <Form.Item name={name} rules={rules} label={label}>
+      <Input className={cn(cnInput, className)} {...props} />
     </Form.Item>
   )
 }

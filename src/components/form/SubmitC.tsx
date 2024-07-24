@@ -1,18 +1,24 @@
 import ButtonC from '../ButtonC'
-import { Form } from 'antd'
-import cn from './../../utils/cn'
-import { IInputC } from './types'
+import { ButtonProps, Form } from 'antd'
+import { IFormItem } from '.'
+import React from 'react'
+import { cn } from '../../utils'
 
-export const SubmitC = (props: IInputC) => {
+export const SubmitC: React.FC<IFormItem & ButtonProps> = ({
+  wrapperCol,
+  className,
+  children,
+  ...props
+}) => {
   return (
-    <Form.Item wrapperCol={{ offset: props.wrapperCol }}>
+    <Form.Item wrapperCol={{ offset: wrapperCol }}>
       <ButtonC
-        disabled={props.disabled}
         htmlType='submit'
         variant='linear'
-        className={cn('rounded-xl w-full', props.className)}
+        className={cn('rounded-xl w-full', className)}
+        {...props}
       >
-        {props.name}
+        {children}
       </ButtonC>
     </Form.Item>
   )

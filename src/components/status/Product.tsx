@@ -9,9 +9,6 @@ export const Product = ({ data, setData, setCurrent }: IHr) => {
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const [hash, setHash] = useState<string[]>([])
 
-  const [form] = Form.useForm<IStatus>()
-  const type = Form.useWatch('type', form)
-
   const onFinish = (values: IStatus) => {
     if (fileList.some((f) => f.status !== 'done')) return
     values.img = hash
@@ -22,7 +19,6 @@ export const Product = ({ data, setData, setCurrent }: IHr) => {
   return (
     <div>
       <Form
-        form={form}
         className='mx-auto'
         name='form'
         labelCol={{ span: 8 }}
@@ -47,33 +43,35 @@ export const Product = ({ data, setData, setCurrent }: IHr) => {
           value={_products}
         />
         <TextAreaC
-          disabled={type == 1}
           name='desc'
           label='Description'
-          rules={type != 1 ? ruleRequired : []}
+          rules={ruleRequired}
           placeholder='Description your activity'
         />
         <IpfsUpload
-          disabled={type == 1}
           setHash={setHash}
           fileList={fileList}
           setFileList={setFileList}
+          wrapperCol={8}
           hash={hash}
           name='img'
-          placeholder='Upload'
           maxCount={5}
           listType='picture-card'
           label='Upload'
-          rules={type != 1 ? ruleRequired : []}
-        />
+          rules={ruleRequired}
+        >
+          Upload
+        </IpfsUpload>
         <Form.Item className='relative'>
-          <SubmitC name='Continue' className='!w-fit' wrapperCol={8} />
+          <SubmitC className='!w-fit' wrapperCol={8}>
+            Continue
+          </SubmitC>
           <ButtonC
             variant='primary'
             className='!rounded-xl !w-fit absolute top-0 !text-base !font-medium !text-white hover:!text-white'
             onClick={() => setCurrent(0)}
           >
-            Prev
+            Previous
           </ButtonC>
         </Form.Item>
       </Form>

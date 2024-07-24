@@ -1,18 +1,24 @@
 import { Form, Input } from 'antd'
-import { cnInput } from '../classNames'
-import cn from '../../utils/cn'
-import { IInputC } from './types'
+import React from 'react'
+import { IFormItem } from '.'
+import { TextAreaProps } from 'antd/es/input'
+import { cn, cnInput } from '../../utils'
 
-export const TextAreaC = (props: IInputC) => {
+export const TextAreaC: React.FC<IFormItem & TextAreaProps> = ({
+  name,
+  rules,
+  label,
+  className,
+  ...props
+}) => {
   return (
-    <Form.Item name={props.name} rules={props.rules} label={props.label}>
+    <Form.Item name={name} rules={rules} label={label}>
       <Input.TextArea
-        disabled={props.disabled}
-        className={cn(cnInput, '!px-2', props.className)}
-        placeholder={props.placeholder}
+        className={cn(cnInput, '!px-2', className)}
+        showCount
         autoSize={{ minRows: 2 }}
         maxLength={100}
-        showCount
+        {...props}
       />
     </Form.Item>
   )

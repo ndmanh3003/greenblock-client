@@ -30,11 +30,10 @@ export default function Login() {
     >
       <InputC placeholder='Email' rules={ruleEmail} name='email' />
       <PasswordC name='password' placeholder='Password' rules={rulePassword} />
-      <CheckboxC
-        name='isBusiness'
-        placeholder='Check this box if you are a business'
-      />
-      <SubmitC name='Login' />
+      <CheckboxC name='isBusiness'>
+        Check this box if you are a business
+      </CheckboxC>
+      <SubmitC> Log in </SubmitC>
     </Form>
   )
 }

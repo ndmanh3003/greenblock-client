@@ -1,5 +1,5 @@
 import { Button, ButtonProps } from 'antd'
-import cn from '../utils/cn'
+import { cn } from '../utils'
 
 interface IButtonC extends ButtonProps {
   variant: 'primary' | 'linear' | 'outline'

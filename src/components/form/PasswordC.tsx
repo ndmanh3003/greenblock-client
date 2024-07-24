@@ -1,13 +1,20 @@
-import { Form, Input } from 'antd'
+import { Form, Input, InputProps } from 'antd'
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
-import { cnInput } from '../classNames'
-import cn from '../../utils/cn'
-import { IPasswordC } from './types'
+import { IFormItem, IPasswordC } from '.'
+import React from 'react'
+import { cn, cnInput } from '../../utils'
 
-export const PasswordC = (props: IPasswordC) => {
+export const PasswordC: React.FC<IPasswordC & IFormItem & InputProps> = ({
+  name,
+  rules,
+  label,
+  className,
+  isConfirm,
+  ...props
+}) => {
   return (
     <>
-      <Form.Item name={props.name} rules={props.rules} label={props.label}>
+      <Form.Item name={name} rules={rules} label={label}>
         <Input.Password
           iconRender={(visible) =>
             visible ? (
@@ -16,14 +23,14 @@ export const PasswordC = (props: IPasswordC) => {
               <EyeInvisibleOutlined style={{ color: 'white' }} />
             )
           }
-          placeholder={props.placeholder}
-          className={cn(cnInput, props.className)}
+          className={cn(cnInput, className)}
+          {...props}
         />
       </Form.Item>
-      {props.isConfirm && (
+      {isConfirm && (
         <Form.Item
           name='confirm'
-          dependencies={[props.name]}
+          dependencies={[name]}
           hasFeedback
           rules={[
             {
@@ -43,9 +50,8 @@ export const PasswordC = (props: IPasswordC) => {
           ]}
         >
           <Input
-            disabled={props.disabled}
+            className={cn(cnInput, className)}
             type='password'
-            className={cnInput}
             placeholder='Confirm Password'
           />
         </Form.Item>

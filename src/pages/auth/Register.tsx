@@ -50,16 +50,16 @@ export default function Register() {
         setFileList={setFileList}
         hash={hash}
         name='imgCert'
-        placeholder='Upload certificate'
         maxCount={1}
         listType='picture'
         rules={ruleRequired}
-      />
-      <CheckboxC
-        name='isBusiness'
-        placeholder='Check this box if you are a business'
-      />
-      <SubmitC name='Register' />
+      >
+        Upload certificate{' '}
+      </IpfsUpload>
+      <CheckboxC name='isBusiness'>
+        Check this box if you are a business
+      </CheckboxC>
+      <SubmitC>Register</SubmitC>
     </Form>
   )
 }

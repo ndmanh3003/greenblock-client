@@ -2,33 +2,27 @@
 import { UploadFile } from 'antd'
 import { Rule } from 'antd/es/form'
 
-interface IInputC {
-  name: string
+interface IFormItem {
+  name?: string
   rules?: Rule[]
-  placeholder?: string
-  className?: string
   label?: string
   wrapperCol?: number
-  disabled?: boolean
 }
 
-interface IUploadC extends IInputC {
+interface IIpfsUploadC {
   setHash: (data: string[]) => void
   setFileList: (data: UploadFile[]) => void
   fileList: UploadFile[]
   hash: string[] | undefined
-  placeholder: string
-  maxCount: number
-  wrapperCol?: number
   listType: 'picture' | 'picture-card'
 }
 
-interface ISelectC extends IInputC {
+interface ISelectC {
   value: { value: string | number; label: string }[]
 }
 
-interface IPasswordC extends IInputC {
+interface IPasswordC {
   isConfirm?: boolean
 }
 
-export type { IInputC, IUploadC, ISelectC, IPasswordC }
+export type { IFormItem, IIpfsUploadC, ISelectC, IPasswordC }

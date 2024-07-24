@@ -38,13 +38,12 @@ export const HrInfo = ({ setData, setCurrent }: IHr) => {
             { value: 'usa', label: 'U.S.A' }
           ]}
         />
-        <CheckboxC
-          name='isFarmer'
-          placeholder='Check this box if you are a farmer'
-          className='!px-0'
-          wrapperCol={8}
-        />
-        <SubmitC name='Continue' className='!w-fit mt-2' wrapperCol={8} />
+        <CheckboxC name='isFarmer' className='!px-0' wrapperCol={8}>
+          Check this box if you are a farmer{' '}
+        </CheckboxC>
+        <SubmitC className='!w-fit mt-2' wrapperCol={8}>
+          Continue
+        </SubmitC>
       </Form>
     </div>
   )
