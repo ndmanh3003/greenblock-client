@@ -1,4 +1,4 @@
-import PromotionCard from '../../components/PromotionCard'
+import { PromotionCard } from '../../components/business'
 import { Carousel } from 'antd'
 
 interface IPromotion {

@@ -1,6 +1,6 @@
-import { cn } from '../utils'
-import ButtonC from './ButtonC'
 import { Link } from 'react-router-dom'
+import { cn } from '../../utils'
+import ButtonC from '../ButtonC'
 
 const _color = [
   'bg-red-500',
@@ -17,8 +17,7 @@ interface IPromotionCard {
   link: string
   index: number
 }
-
-const PromotionCard = ({ title, desc, link, index }: IPromotionCard) => {
+export const PromotionCard = ({ title, desc, link, index }: IPromotionCard) => {
   const type = index % 2
   const color = _color[index % _color.length]
   return (
@@ -57,5 +56,3 @@ const PromotionCard = ({ title, desc, link, index }: IPromotionCard) => {
     </div>
   )
 }
-
-export default PromotionCard
