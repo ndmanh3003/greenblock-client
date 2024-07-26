@@ -125,7 +125,7 @@ interface Editable1RowTableProps {
   title: string
 }
 
-export const Editable1RowTable: React.FC<Editable1RowTableProps> = ({
+export const SimpleTable: React.FC<Editable1RowTableProps> = ({
   data,
   title
 }) => {
@@ -135,7 +135,7 @@ export const Editable1RowTable: React.FC<Editable1RowTableProps> = ({
 
   const handleDelete = (index: number | string) => {
     const newData = dataSource.filter((item) => item.index != index)
-    setDataSource(newData)
+    setDataSource(arr2obj(obj2arr(newData)))
   }
 
   const defaultColumns: (ColumnTypes[number] & {
@@ -261,21 +261,21 @@ export const Editable1RowTable: React.FC<Editable1RowTableProps> = ({
   ]
   return (
     <div>
-      <div className='flex justify-between items-end mb-5'>
+      <div className='flex justify-between items-center mb-5'>
         <h1 className='text-3xl font-semibold'>{title}</h1>
         <div className='flex space-x-5'>
           {_action.map((item, index) => (
             <ConfigProvider theme={{ token: { fontSize: 14 } }}>
-              <Tooltip placement='top' title={item.desc} className='!text-sm'>
-                <Upload
-                  name='file'
-                  disabled={index != 1}
-                  accept='.csv,.txt'
-                  showUploadList={false}
-                  maxCount={1}
-                  onChange={handleImport}
-                  beforeUpload={() => false}
-                >
+              <Upload
+                name='file'
+                disabled={index != 1}
+                accept='.csv,.txt'
+                showUploadList={false}
+                maxCount={1}
+                onChange={handleImport}
+                beforeUpload={() => false}
+              >
+                <Tooltip placement='top' title={item.desc} className='!text-sm'>
                   <ButtonC
                     key={index}
                     onClick={item.onClick}
@@ -286,8 +286,8 @@ export const Editable1RowTable: React.FC<Editable1RowTableProps> = ({
                       className: 'group-hover:text-white'
                     })}
                   </ButtonC>
-                </Upload>
-              </Tooltip>
+                </Tooltip>
+              </Upload>
             </ConfigProvider>
           ))}
 
