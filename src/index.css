@@ -82,8 +82,16 @@ body {
 /*! ANTD: Menu */
 
 .ant-menu-title-content {
-  font-weight: 500 !important;
+  font-weight: 600 !important;
   padding: 0 !important;
+}
+
+.ant-menu-item-selected {
+  background-color: #074c321a !important;
+}
+
+.ant-menu-item:active {
+  background-color: #074c324c !important;
 }
 
 /*! ANTD: COLLAPSE */

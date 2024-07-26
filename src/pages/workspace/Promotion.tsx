@@ -48,7 +48,6 @@ const Promotion = () => {
             infinite={false}
             autoplay
             draggable
-            // afterChange={(current) => console.log(current)}
           >
             {_promotion.map((item, index) => (
               <PromotionCard

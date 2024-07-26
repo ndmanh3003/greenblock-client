@@ -10,7 +10,6 @@ import { PromotionTable, SimpleTable, Guide } from '../../components/business'
 
 const Business = () => {
   const [current, setCurrent] = useState(0)
-  console.log(current)
 
   const onClick: MenuProps['onClick'] = (e) => {
     setCurrent(Number(e.key))
@@ -25,8 +24,8 @@ const Business = () => {
               theme={{
                 token: {
                   colorText: 'black',
-                  colorPrimary: '#21BA43',
-                  fontSize: 16
+                  fontSize: 16,
+                  colorPrimary: '#074C31'
                 }
               }}
             >

@@ -6,7 +6,7 @@ export const Guide = () => {
     <div className='rounded-2xl w-full h-fit overflow-hidden p-10 pb-3 px-10 relative'>
       <img
         src='bs-guide.svg'
-        className='absolute h-full right-10 bottom-0 -z-10'
+        className='absolute h-5/6 w-auto bottom-2 -z-10 right-1/4 translate-x-2/3'
       />
       <div className='w-full h-full bg-linear1 absolute -z-20 top-0 right-0' />
       <h1 className='font-bold text-3xl'>File Data Manager and Editor</h1>
@@ -67,8 +67,8 @@ const items = [
       <div>
         - All changes are updated automatically - no need for manual saving!
         <br />
-        - Search, sort, and filter options available in the header row (or the
-        frist list).
+        - Search, sort, and filter options available in the header row of a
+        table (or at the first of a list).
         <br />- Filters and sorts reset when you navigate away from the table.
         <div className='text-red-500 mt-3 flex space-x-2'>
           <ExclamationCircleFilled style={{ fontSize: 20 }} />

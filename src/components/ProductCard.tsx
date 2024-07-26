@@ -4,7 +4,7 @@ import HistoryModal from './HistoryModal'
 
 const ProductCard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
-  console.log(isModalOpen)
+
   return (
     <div className='p-6 w-full border-[1px] rounded-lg bg-white group cursor-pointer'>
       <div

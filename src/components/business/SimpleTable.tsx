@@ -14,7 +14,9 @@ import {
   DeleteOutlined,
   ImportOutlined,
   ExportOutlined,
-  PlusOutlined
+  PlusOutlined,
+  CloseOutlined,
+  CheckOutlined
 } from '@ant-design/icons'
 import { arr2obj, obj2arr } from '../../utils'
 
@@ -159,13 +161,18 @@ export const SimpleTable: React.FC<Editable1RowTableProps> = ({
       width: '10%',
       render: (_, record) =>
         dataSource.length >= 1 ? (
-          <Popconfirm
-            title='Sure to delete?'
-            onConfirm={() => handleDelete(record.index)}
-            style={{ fontSize: 14 }}
-          >
-            <DeleteOutlined style={{ fontSize: 16, color: 'red' }} />
-          </Popconfirm>
+          <ConfigProvider theme={{ token: { fontSize: 14 } }}>
+            <Popconfirm
+              title='Sure to delete?'
+              onConfirm={() => handleDelete(record.index)}
+              style={{ fontSize: 14 }}
+              cancelText={<CloseOutlined />}
+              cancelButtonProps={{ className: '!aspect-square' }}
+              okText={<CheckOutlined />}
+            >
+              <DeleteOutlined style={{ fontSize: 16, color: 'red' }} />
+            </Popconfirm>
+          </ConfigProvider>
         ) : null
     }
   ]
