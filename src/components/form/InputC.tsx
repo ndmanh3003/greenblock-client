@@ -1,5 +1,5 @@
 import { Form, Input, InputProps } from 'antd'
-import { IFormItem } from './types'
+import { IFormItem } from '.'
 import React from 'react'
 import { cn, cnInput } from '../../utils'
 

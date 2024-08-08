@@ -2,11 +2,9 @@ import { Outlet, useLocation } from 'react-router-dom'
 import 'antd/dist/reset.css'
 import { useEffect, useState } from 'react'
 import * as Routes from '../routes/paths'
-import Float from '../components/layout/Float'
-import Footer from '../components/layout/Footer'
-import Background from '../components/layout/Background'
+import { Background, Float, Footer } from '../components'
 
-export default function Layout() {
+export const Layout = () => {
   const location = useLocation()
   const [page, setPage] = useState(0)
 
@@ -17,7 +15,7 @@ export default function Layout() {
       location.pathname == Routes.REGISTER
     )
       setPage(2)
-    else if (location.pathname == Routes.STATUS) setPage(3)
+    else if (location.pathname == Routes.RECORD) setPage(3)
     else setPage(0)
   }, [location])
 

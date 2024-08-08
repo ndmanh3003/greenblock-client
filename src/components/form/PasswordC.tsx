@@ -1,8 +1,12 @@
 import { Form, Input, InputProps } from 'antd'
 import { EyeOutlined, EyeInvisibleOutlined } from '@ant-design/icons'
-import { IFormItem, IPasswordC } from '.'
+import { IFormItem } from '.'
 import React from 'react'
 import { cn, cnInput } from '../../utils'
+
+interface IPasswordC {
+  isConfirm?: boolean
+}
 
 export const PasswordC: React.FC<IPasswordC & IFormItem & InputProps> = ({
   name,

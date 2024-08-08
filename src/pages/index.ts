@@ -1,0 +1,10 @@
+export * from './auth/Login'
+export * from './auth/Register'
+export * from './workspace/Business'
+export * from './workspace/Inspector'
+export * from './HomePage'
+export * from './Record'
+
+export { Layout as LayoutAuth } from './auth/Layout'
+export { Layout as LayoutWorkspace } from './workspace/Layout'
+export { Layout } from './Layout'

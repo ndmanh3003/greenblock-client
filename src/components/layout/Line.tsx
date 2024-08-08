@@ -10,7 +10,7 @@ const _theme = {
   light: 'bg-black'
 }
 
-const Line = ({ theme, className }: ILine) => {
+export const Line = ({ theme, className }: ILine) => {
   return (
     <div
       className={cn(
@@ -21,5 +21,3 @@ const Line = ({ theme, className }: ILine) => {
     />
   )
 }
-
-export default Line

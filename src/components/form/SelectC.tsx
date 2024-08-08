@@ -1,7 +1,11 @@
 import { Form, Select, SelectProps } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
 import React from 'react'
-import { IFormItem, ISelectC } from '.'
+import { IFormItem } from '.'
+
+interface ISelectC {
+  value: { value: string | number; label: string }[]
+}
 
 export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
   name,

@@ -1,6 +1,6 @@
 import { ConfigProvider, Image, Modal, Pagination } from 'antd'
 import { EyeOutlined } from '@ant-design/icons'
-import ButtonC from './ButtonC'
+import { ButtonC } from '.'
 import { useState } from 'react'
 
 interface IHistoryModal {
@@ -9,7 +9,10 @@ interface IHistoryModal {
   isModalOpen: boolean
 }
 
-const HistoryModal = ({ isModalOpen, setIsModalOpen }: IHistoryModal) => {
+export const HistoryModal = ({
+  isModalOpen,
+  setIsModalOpen
+}: IHistoryModal) => {
   const [index, setIndex] = useState(0)
   const [isPreviewVisible, setPreviewVisible] = useState(false)
 
@@ -105,5 +108,3 @@ const HistoryModal = ({ isModalOpen, setIsModalOpen }: IHistoryModal) => {
     </Modal>
   )
 }
-
-export default HistoryModal

@@ -13,7 +13,7 @@ const Styled = styled.div`
   }
 `
 
-const Float = () => {
+export const Float = () => {
   return (
     <div className='fixed bottom-10 right-10 cursor-pointer w-14 h-14 z-[100]'>
       <Link to={Routes.HOMEPAGE}>
@@ -35,5 +35,3 @@ const Float = () => {
     </div>
   )
 }
-
-export default Float

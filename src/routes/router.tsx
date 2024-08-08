@@ -1,31 +1,21 @@
 import { createBrowserRouter, createRoutesFromElements } from 'react-router-dom'
 import * as Routes from './paths'
 import { Route } from 'react-router-dom'
-import Layout from '../pages/Layout'
-import Login from '../pages/auth/Login'
-import LayoutAuth from '../pages/auth/Layout'
-import LayoutWorkSpace from '../pages/workspace/Layout'
-import Register from '../pages/auth/Register'
-import Promotion from '../pages/workspace/Promotion'
-import Inspector from '../pages/workspace/Inspector'
-import Business from '../pages/workspace/Business'
-import HomePage from '../pages/HomePage'
-import Status from '../pages/Status'
+import * as Pages from '../pages'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={Routes.HOMEPAGE} element={<Layout />}>
-      <Route index element={<HomePage />} />
-      <Route path='/' element={<LayoutAuth />}>
-        <Route path={Routes.LOGIN} element={<Login />} />
-        <Route path={Routes.REGISTER} element={<Register />} />
+    <Route path={Routes.HOMEPAGE} element={<Pages.Layout />}>
+      <Route index element={<Pages.HomePage />} />
+      <Route path='/' element={<Pages.LayoutAuth />}>
+        <Route path={Routes.LOGIN} element={<Pages.Login />} />
+        <Route path={Routes.REGISTER} element={<Pages.Register />} />
       </Route>
-      <Route path='/' element={<LayoutWorkSpace />}>
-        <Route path={Routes.PROMOTION} element={<Promotion />} />
-        <Route path={Routes.INSPECTOR} element={<Inspector />} />
-        <Route path={Routes.BUSINESS} element={<Business />} />
+      <Route path='/' element={<Pages.LayoutWorkspace />}>
+        <Route path={Routes.INSPECTOR} element={<Pages.Inspector />} />
+        <Route path={Routes.BUSINESS} element={<Pages.Business />} />
       </Route>
-      <Route path={Routes.STATUS} element={<Status />} />
+      <Route path={Routes.RECORD} element={<Pages.Record />} />
     </Route>
   )
 )

@@ -19,7 +19,7 @@ interface IRegister {
   name: string
 }
 
-export default function Register() {
+export const Register = () => {
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const [hash, setHash] = useState<string[]>([])
 
@@ -54,11 +54,9 @@ export default function Register() {
         listType='picture'
         rules={ruleRequired}
       >
-        Upload certificate{' '}
+        Upload certificate
       </IpfsUpload>
-      <CheckboxC name='isBusiness'>
-        Check this box if you are a business
-      </CheckboxC>
+      <CheckboxC name='isBusiness'>I am a business</CheckboxC>
       <SubmitC>Register</SubmitC>
     </Form>
   )

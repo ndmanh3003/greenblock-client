@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
-import Line from '../../components/layout/Line'
 import * as Routes from '../../routes/paths'
 import { Outlet, useLocation } from 'react-router-dom'
+import { Line } from '../../components'
 
-const Layout = () => {
+export const Layout = () => {
   const location = useLocation()
   const [page, setPage] = useState(0)
 
@@ -38,5 +38,3 @@ const Layout = () => {
     </div>
   )
 }
-
-export default Layout

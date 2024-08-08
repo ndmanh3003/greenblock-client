@@ -6,19 +6,9 @@ import {
   CheckCircleOutlined
 } from '@ant-design/icons'
 import React, { useState } from 'react'
-import { Hr, Product, Upload } from '../components/status'
+import { Hr, IStatus, Product, Upload } from '../components'
 
-export interface IStatus {
-  businessId: string
-  isFarmer: boolean
-  phone: string
-  productId: string
-  desc: string
-  img: string[]
-  type: 0 | 1 | 2 | 3
-}
-
-const Status = () => {
+export const Record = () => {
   const [current, setCurrent] = useState(0)
   const [data, setData] = useState<IStatus>()
   console.log(data)
@@ -77,5 +67,3 @@ const Status = () => {
     </div>
   )
 }
-
-export default Status

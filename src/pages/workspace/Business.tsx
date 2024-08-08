@@ -6,9 +6,9 @@ import {
 } from '@ant-design/icons'
 import { useState } from 'react'
 import { arr2obj } from '../../utils'
-import { PromotionTable, SimpleTable, Guide } from '../../components/business'
+import { SimpleTable, TableGuide } from '../../components'
 
-const Business = () => {
+export const Business = () => {
   const [current, setCurrent] = useState(0)
 
   const onClick: MenuProps['onClick'] = (e) => {
@@ -16,7 +16,7 @@ const Business = () => {
   }
   return (
     <>
-      <Guide />
+      <TableGuide />
       <div className='flex space-x-10 pt-5'>
         <div>
           <div className='w-[350px] h-fit rounded-2xl bg-white border-[1px] overflow-hidden py-[1px] px-[1px]'>
@@ -51,15 +51,15 @@ const Business = () => {
                 }
               }}
             >
-              {current !== 4 ? (
-                <SimpleTable
-                  key={current}
-                  data={arr2obj(_table[current].data)}
-                  title={_table[current].title}
-                />
-              ) : (
-                <PromotionTable />
-              )}
+              {/* {current !== 4 ? ( */}
+              <SimpleTable
+                key={current}
+                data={arr2obj(_table[current].data)}
+                title={_table[current].title}
+              />
+              {/* // ) : (
+              //   <PromotionTable />
+              // )} */}
             </ConfigProvider>
           </div>
         </div>
@@ -67,8 +67,6 @@ const Business = () => {
     </>
   )
 }
-
-export default Business
 
 type MenuItem = Required<MenuProps>['items'][number]
 

@@ -1,8 +1,8 @@
-import ButtonC from '../ButtonC'
 import { ButtonProps, Form } from 'antd'
 import { IFormItem } from '.'
 import React from 'react'
 import { cn } from '../../utils'
+import { ButtonC } from '../../components'
 
 export const SubmitC: React.FC<IFormItem & ButtonProps> = ({
   wrapperCol,

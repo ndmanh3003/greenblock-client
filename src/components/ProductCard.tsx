@@ -1,8 +1,7 @@
 import { useState } from 'react'
-import ButtonC from './ButtonC'
-import HistoryModal from './HistoryModal'
+import { ButtonC, HistoryModal } from '.'
 
-const ProductCard = () => {
+export const ProductCard = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
 
   return (
@@ -25,7 +24,7 @@ const ProductCard = () => {
       >
         <p className='line-clamp-1 my-0'>ABC Company: Xoài vụ 01/2024</p>
         <p className='text-base font-medium text-black line-clamp-1'>
-          Started: 03/03/24 - Harvested: 05/05/24
+          Exported at: 01/01/2024
         </p>
       </div>
       <ButtonC
@@ -39,5 +38,3 @@ const ProductCard = () => {
     </div>
   )
 }
-
-export default ProductCard

@@ -1,10 +1,19 @@
-import ipfs from '../../service/ipfs'
-import ButtonC from '../ButtonC'
-import { Form, Input, Upload, UploadProps } from 'antd'
+import { ipfs } from '../../service'
+import { Form, Input, Upload, UploadProps, UploadFile } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import React from 'react'
-import { IFormItem, IIpfsUploadC } from '.'
+import { IFormItem, ButtonC } from '../../components'
 import { cn, cnInput } from '../../utils'
+
+interface IIpfsUploadC {
+  // eslint-disable-next-line no-unused-vars
+  setHash: (data: string[]) => void
+  // eslint-disable-next-line no-unused-vars
+  setFileList: (data: UploadFile[]) => void
+  fileList: UploadFile[]
+  hash: string[] | undefined
+  listType: 'picture' | 'picture-card'
+}
 
 export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
   name,

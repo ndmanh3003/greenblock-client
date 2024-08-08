@@ -1,8 +1,4 @@
-interface IBackground {
-  media: number
-}
-
-const Background = ({ media }: IBackground) => {
+export const Background = ({ media }: { media: number }) => {
   return (
     <>
       {media == 1 && (
@@ -38,5 +34,3 @@ const Background = ({ media }: IBackground) => {
     </>
   )
 }
-
-export default Background

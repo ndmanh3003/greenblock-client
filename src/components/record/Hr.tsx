@@ -1,11 +1,15 @@
 import { Form } from 'antd'
-import { IStatus } from '../../pages/Status'
-import { CheckboxC, InputC, ruleRequired, SelectC, SubmitC } from '../form'
-import { IHr } from './types'
+import {
+  InputC,
+  ruleRequired,
+  SelectC,
+  SubmitC,
+  IStatus,
+  IRecord
+} from '../../components'
 
-export const Hr = ({ setData, setCurrent, data }: IHr) => {
+export const Hr = ({ setData, setCurrent, data }: IRecord) => {
   const onFinish = (values: IStatus) => {
-    values.isFarmer = values.isFarmer ? true : false
     setData(values)
     setCurrent(1)
   }
@@ -24,10 +28,10 @@ export const Hr = ({ setData, setCurrent, data }: IHr) => {
         initialValues={data}
       >
         <InputC
-          name='phone'
-          label='Phone number'
+          name='code'
+          label='Code'
           rules={ruleRequired}
-          placeholder='Input your phone number'
+          placeholder='Input your company code'
         />
         <SelectC
           name='businessId'
@@ -39,9 +43,6 @@ export const Hr = ({ setData, setCurrent, data }: IHr) => {
             { value: 'usa', label: 'U.S.A' }
           ]}
         />
-        <CheckboxC name='isFarmer' className='!px-0' wrapperCol={8}>
-          Check this box if you are a farmer{' '}
-        </CheckboxC>
         <SubmitC className='!w-fit mt-2' wrapperCol={8}>
           Continue
         </SubmitC>

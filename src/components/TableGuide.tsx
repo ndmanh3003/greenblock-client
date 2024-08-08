@@ -1,7 +1,7 @@
 import { ExclamationCircleFilled, CaretRightOutlined } from '@ant-design/icons'
 import { Collapse, ConfigProvider } from 'antd'
 
-export const Guide = () => {
+export const TableGuide = () => {
   return (
     <div className='rounded-2xl w-full h-fit overflow-hidden p-10 pb-3 px-10 relative'>
       <img

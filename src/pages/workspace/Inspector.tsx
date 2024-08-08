@@ -1,8 +1,6 @@
-import ButtonC from '../../components/ButtonC'
-import Line from '../../components/layout/Line'
-import ProductCard from '../../components/ProductCard'
+import { ButtonC, Line, ProductCard } from '../../components'
 
-const Inspector = () => {
+export const Inspector = () => {
   return (
     <div>
       <header className='h-[250px] w-full rounded-2xl my-3 bg-[url("inspector-bg.svg")] bg-right bg-no-repeat bg-cover flex flex-col justify-center pl-20'>
@@ -51,5 +49,3 @@ const Inspector = () => {
     </div>
   )
 }
-
-export default Inspector

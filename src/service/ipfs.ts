@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-export default async function ipfs(file: File) {
+export const ipfs = async (file: File) => {
   try {
     const fileData = new FormData()
     fileData.append('file', file as File)

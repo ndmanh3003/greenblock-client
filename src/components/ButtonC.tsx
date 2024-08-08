@@ -12,7 +12,12 @@ const style = {
     '!bg-transparent outline !outline-2 !outline-white hover:!bg-white hover:!bg-opacity-10'
 }
 
-const ButtonC = ({ variant, children, className, ...rest }: IButtonC) => {
+export const ButtonC = ({
+  variant,
+  children,
+  className,
+  ...rest
+}: IButtonC) => {
   return (
     <Button
       className={cn(
@@ -27,5 +32,3 @@ const ButtonC = ({ variant, children, className, ...rest }: IButtonC) => {
     </Button>
   )
 }
-
-export default ButtonC

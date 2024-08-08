@@ -1,11 +1,18 @@
-import { IStatus } from '../../pages/Status'
 import { Form } from 'antd'
 import { ruleRequired, SelectC, SubmitC } from '../form'
-import { IHr } from './types'
-import ButtonC from '../ButtonC'
+import { ButtonC, IRecord, IStatus } from '../../components'
+import { useState } from 'react'
 
-export const Product = ({ data, setData, setCurrent }: IHr) => {
+export const Product = ({ data, setData, setCurrent }: IRecord) => {
+  const [type, setType] = useState<number | null>(null)
+
   const onFinish = (values: IStatus) => {
+    values.isHarvested = values.isDeleted = undefined
+
+    if (type === 2) values.isDeleted = true
+    else if (type === 1) values.isHarvested = true
+    else values.isHarvested = false
+
     setData({ ...data, ...values })
     setCurrent(2)
   }
@@ -24,11 +31,18 @@ export const Product = ({ data, setData, setCurrent }: IHr) => {
         initialValues={data}
       >
         <SelectC
-          name='type'
           label='Activity'
           placeholder='Select your activity'
           rules={ruleRequired}
-          value={_activities[data?.isFarmer ? 1 : 0].activities}
+          value={_activities}
+          onChange={(value) => setType(value)}
+          defaultValue={() => {
+            if (data?.isDeleted == null && data?.isHarvested == null)
+              return null
+            if (data?.isDeleted) return 2
+            if (data?.isHarvested) return 1
+            return 0
+          }}
         />
         <SelectC
           name='productId'
@@ -37,7 +51,6 @@ export const Product = ({ data, setData, setCurrent }: IHr) => {
           rules={ruleRequired}
           value={_products}
         />
-
         <Form.Item className='relative mt-16'>
           <SubmitC className='!w-fit' wrapperCol={8}>
             Continue
@@ -56,18 +69,9 @@ export const Product = ({ data, setData, setCurrent }: IHr) => {
 }
 
 const _activities = [
-  {
-    role: 'processor',
-    activities: [{ value: 3, label: 'Record product export ' }]
-  },
-  {
-    role: 'farmer',
-    activities: [
-      { value: 0, label: 'Record product growth update' },
-      { value: 1, label: 'Retract recent product update' },
-      { value: 2, label: 'Record product harvest' }
-    ]
-  }
+  { value: 0, label: 'Record product update' },
+  { value: 1, label: 'Record product harvest' },
+  { value: 2, label: 'Delete nearest status' }
 ]
 
 const _products = [

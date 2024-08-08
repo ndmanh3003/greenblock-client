@@ -2,20 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 import * as Routes from '../../routes/paths'
 import { useEffect, useState } from 'react'
 
-const _content = [
-  {
-    name: 'Register',
-    footText: 'Already have an account? Login now!',
-    link: Routes.LOGIN
-  },
-  {
-    name: 'Login',
-    footText: 'You do not have an account? Register now!',
-    link: Routes.REGISTER
-  }
-]
-
-export default function Layout() {
+export const Layout = () => {
   const location = useLocation()
   const [isLogin, setIsLogin] = useState(1)
 
@@ -40,3 +27,16 @@ export default function Layout() {
     </div>
   )
 }
+
+const _content = [
+  {
+    name: 'Register',
+    footText: 'Already have an account? Login now!',
+    link: Routes.LOGIN
+  },
+  {
+    name: 'Login',
+    footText: 'You do not have an account? Register now!',
+    link: Routes.REGISTER
+  }
+]

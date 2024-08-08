@@ -9,7 +9,6 @@ import {
   Tooltip,
   Upload
 } from 'antd'
-import ButtonC from '../ButtonC'
 import {
   DeleteOutlined,
   ImportOutlined,
@@ -19,6 +18,7 @@ import {
   CheckOutlined
 } from '@ant-design/icons'
 import { arr2obj, obj2arr } from '../../utils'
+import { ButtonC } from '../ButtonC'
 
 type FormInstance<T> = GetRef<typeof Form<T>>
 

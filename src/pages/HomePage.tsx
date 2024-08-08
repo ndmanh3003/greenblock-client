@@ -1,20 +1,11 @@
 import { PhoneFilled, LoginOutlined, SearchOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
-import ButtonC from '../../src/components/ButtonC'
 import { ConfigProvider, Input } from 'antd'
 import * as Routes from '../routes/paths'
-import Line from '../../src/components/layout/Line'
+import { ButtonC } from '../components'
+import { Line } from '../components/layout/Line'
 
-const _prouductInfo = ['About us', 'Our solution', 'Process & Usage Guide']
-const _nav = [
-  { name: 'Our Partners', link: '/' },
-  { name: 'Promotions', link: Routes.PROMOTION },
-  { name: 'Inspector Space', link: Routes.INSPECTOR },
-  { name: 'Business Space', link: Routes.BUSINESS },
-  { name: 'Status Management', link: Routes.STATUS }
-]
-
-const HomePage = () => {
+export const HomePage = () => {
   const navigate = useNavigate()
   return (
     <div className='h-screen w-full pt-2 pb-10 flex flex-col justify-between items-stretch'>
@@ -98,4 +89,12 @@ const HomePage = () => {
   )
 }
 
-export default HomePage
+const _prouductInfo = ['About us', 'Our solution', 'Process & Usage Guide']
+
+const _nav = [
+  { name: 'Our Partners', link: '/' },
+  { name: 'Our Inspector', link: '/' },
+  { name: 'Inspector Space', link: Routes.INSPECTOR },
+  { name: 'Business Space', link: Routes.BUSINESS },
+  { name: 'Record Management', link: Routes.RECORD }
+]

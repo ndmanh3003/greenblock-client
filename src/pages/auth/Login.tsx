@@ -14,7 +14,7 @@ interface ILogin {
   isBusiness: boolean
 }
 
-export default function Login() {
+export const Login = () => {
   const onFinish = (values: ILogin) => {
     values.isBusiness = values.isBusiness ? true : false
     console.log('Received values of form: ', values)
@@ -30,9 +30,7 @@ export default function Login() {
     >
       <InputC placeholder='Email' rules={ruleEmail} name='email' />
       <PasswordC name='password' placeholder='Password' rules={rulePassword} />
-      <CheckboxC name='isBusiness'>
-        Check this box if you are a business
-      </CheckboxC>
+      <CheckboxC name='isBusiness'>I am a business</CheckboxC>
       <SubmitC> Log in </SubmitC>
     </Form>
   )
