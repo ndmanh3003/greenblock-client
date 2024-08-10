@@ -9,7 +9,11 @@ import { ProtectedPage, RetrictedPage } from '../components'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path={Routes.HOMEPAGE} element={<Pages.Layout />}>
+    <Route
+      path={Routes.HOMEPAGE}
+      element={<Pages.Layout />}
+      errorElement={<Pages.Error />}
+    >
       <Route index element={<Pages.HomePage />} />
 
       <Route path='/' element={<RetrictedPage />}>
@@ -28,6 +32,10 @@ const router = createBrowserRouter(
 
       <Route path={Routes.RECORD} element={<Pages.Record />} />
       <Route path={Routes.WAITLIST} element={<Pages.Waitlist />} />
+      <Route
+        path={import.meta.env.VITE_API_ERROR_PAGE}
+        element={<Pages.Error />}
+      />
     </Route>
   )
 )

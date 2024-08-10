@@ -13,6 +13,7 @@ interface IError {
 export const useHandleError = (err: unknown[]) => {
   useEffect(() => {
     if (!err || err.length === 0) return
+    console.log(err)
 
     const errors = err as IError[]
 

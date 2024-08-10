@@ -35,10 +35,7 @@ export const Layout = () => {
     isPending
   } = useLogoutMutation()
   useHandleError([errorLogout, error])
-  useHandleSuccess(dataLogout, true, () => {
-    navigate('')
-    tokensStorage.removeToken()
-  })
+  useHandleSuccess(dataLogout, true, () => navigate(''))
 
   return (
     <div className='h-full w-full'>
@@ -52,7 +49,10 @@ export const Layout = () => {
           </div>
           <Button
             className='!font-semibold !text-green2 !text-base !mr-2'
-            onClick={() => logout()}
+            onClick={() => {
+              tokensStorage.removeToken()
+              logout()
+            }}
             type='link'
             loading={isPending}
           >

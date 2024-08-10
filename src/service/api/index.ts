@@ -53,6 +53,7 @@ const refreshAccessToken = async () => {
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
+  timeout: 5000,
   headers: {
     'Content-Type': 'application/json'
   }
@@ -79,6 +80,11 @@ instance.interceptors.response.use(
   async (error: AxiosError) => {
     const { config } = error
     const originalRequest = config
+
+    if (error?.code === 'ERR_NETWORK') {
+      window.location.href = import.meta.env.VITE_API_ERROR_PAGE
+      return
+    }
 
     if (error?.response?.status === 401) {
       if (!isRefreshing) {
