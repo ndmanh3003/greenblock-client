@@ -9,24 +9,29 @@ import {
   rulePassword,
   ruleRequired,
   SubmitC
-} from '../../components/form'
-
-interface IRegister {
-  email: string
-  password: string
-  isBusiness: boolean
-  imgCert: string
-  name: string
-}
+} from '../../components'
+import { useRegisterMutation } from '../../service/store/auth/auth.query'
+import { useHandleError, useHandleSuccess } from '../../hooks'
+import { IRegisterReq } from '../../service/store/auth'
+import { Routes } from '../../routes'
+import { useNavigate } from 'react-router-dom'
 
 export const Register = () => {
+  const navigate = useNavigate()
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const [hash, setHash] = useState<string[]>([])
 
-  const onFinish = (values: IRegister) => {
-    values.imgCert = hash[0]
-    values.isBusiness = values.isBusiness ? true : false
-    console.log('Received values of form: ', values)
+  const { error, data, mutate: register, isPending } = useRegisterMutation()
+  useHandleError([error])
+  useHandleSuccess(data, false, () => navigate(Routes.WAITLIST))
+
+  const onFinish = (values: IRegisterReq & { confirm: string }) => {
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    const { confirm, ...rest } = values
+
+    rest.cert = hash[0]
+    rest.isBusiness = !!rest.isBusiness
+    register(rest)
   }
 
   return (
@@ -49,7 +54,7 @@ export const Register = () => {
         fileList={fileList}
         setFileList={setFileList}
         hash={hash}
-        name='imgCert'
+        name='cert'
         maxCount={1}
         listType='picture'
         rules={ruleRequired}
@@ -57,7 +62,7 @@ export const Register = () => {
         Upload certificate
       </IpfsUpload>
       <CheckboxC name='isBusiness'>I am a business</CheckboxC>
-      <SubmitC>Register</SubmitC>
+      <SubmitC loading={isPending}>Register</SubmitC>
     </Form>
   )
 }

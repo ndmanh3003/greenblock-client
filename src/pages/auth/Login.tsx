@@ -7,23 +7,30 @@ import {
   rulePassword,
   SubmitC
 } from '../../components'
-import { useHandleError } from '../../hooks'
-import { useLoginMutation } from '../../service/store/auth/auth.query'
-
-interface ILogin {
-  email: string
-  password: string
-  isBusiness: boolean
-}
+import { useHandleError, useHandleSuccess } from '../../hooks'
+import { tokensStorage } from '../../service/localStorage'
+import { ILoginReq, useLoginMutation } from '../../service/store/auth'
+import { Routes } from '../../routes'
+import { useNavigate } from 'react-router-dom'
 
 export const Login = () => {
-  const { error, mutate: loginApi, isPending } = useLoginMutation()
+  const navigate = useNavigate()
 
+  const { error, data, mutate: login, isPending } = useLoginMutation()
   useHandleError([error])
+  useHandleSuccess(data, false, async (data) => {
+    await tokensStorage.setToken({
+      accessToken: data.accessToken,
+      refreshToken: data.refreshToken
+    })
 
-  const onFinish = async (values: ILogin) => {
+    if (data.isBusiness) navigate(Routes.BUSINESS)
+    else navigate(Routes.INSPECTOR)
+  })
+
+  const onFinish = async (values: ILoginReq) => {
     values.isBusiness = !!values.isBusiness
-    loginApi(values)
+    login(values)
   }
 
   return (

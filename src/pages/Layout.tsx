@@ -1,9 +1,9 @@
 import { Outlet, useLocation } from 'react-router-dom'
 import 'antd/dist/reset.css'
 import { useEffect, useState } from 'react'
-import * as Routes from '../routes/paths'
 import { Background, Float, Footer } from '../components'
 import { message } from 'antd'
+import { Routes } from '../routes'
 
 export const Layout = () => {
   const location = useLocation()
@@ -11,7 +11,11 @@ export const Layout = () => {
   message.config({ maxCount: 3, duration: 2 })
 
   useEffect(() => {
-    if (location.pathname == Routes.HOMEPAGE) setPage(1)
+    if (
+      location.pathname == Routes.HOMEPAGE ||
+      location.pathname == Routes.WAITLIST
+    )
+      setPage(1)
     else if (
       location.pathname == Routes.LOGIN ||
       location.pathname == Routes.REGISTER

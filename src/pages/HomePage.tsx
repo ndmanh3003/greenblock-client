@@ -1,9 +1,8 @@
 import { PhoneFilled, LoginOutlined, SearchOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { ConfigProvider, Input } from 'antd'
-import * as Routes from '../routes/paths'
-import { ButtonC } from '../components'
-import { Line } from '../components/layout/Line'
+import { ButtonC, Line } from '../components'
+import { Routes } from '../routes'
 
 export const HomePage = () => {
   const navigate = useNavigate()
@@ -71,7 +70,7 @@ export const HomePage = () => {
       <footer className='self-center rounded-full w-full max-w-6xl h-20 bg-white flex justify-between divide-x-2 overflow-hidden'>
         {_nav.map((item, index) => (
           <Link
-            key={index}
+            key={item.name}
             to={item.link}
             className='group w-full text-center flex flex-col items-center justify-center gap-1 px-auto cursor-pointer hover:bg-linear1'
           >

@@ -22,7 +22,7 @@ function subscribeTokenRefresh(cb: (token: string) => void) {
 
 const logout = () => {
   tokensStorage.removeToken()
-  window.location.href = '/'
+  window.location.href = ''
 }
 
 const refreshAccessToken = async () => {
@@ -42,8 +42,8 @@ const refreshAccessToken = async () => {
     clearTimeout(timeout)
 
     if (response.status === 200) {
-      tokensStorage.setToken(response.data)
-      return response.data.accessToken
+      tokensStorage.setToken(response.data.data)
+      return response.data.data.accessToken
     }
   } catch (error) {
     logout()

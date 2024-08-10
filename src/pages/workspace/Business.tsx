@@ -1,8 +1,7 @@
 import { ConfigProvider, Menu, MenuProps } from 'antd'
 import { AppstoreAddOutlined, SnippetsOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-import { TableGuide } from '../../components'
-import { PlantTable } from './../../components/table/PlantTable'
+import { PlantTable, TableGuide } from '../../components'
 import { VarietyTable } from '../../components/table/VarietyTable'
 
 export const Business = () => {

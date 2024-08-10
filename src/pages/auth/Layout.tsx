@@ -1,6 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import * as Routes from '../../routes/paths'
 import { useEffect, useState } from 'react'
+import { Routes } from '../../routes'
 
 export const Layout = () => {
   const location = useLocation()
