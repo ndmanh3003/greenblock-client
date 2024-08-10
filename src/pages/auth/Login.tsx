@@ -6,7 +6,9 @@ import {
   ruleEmail,
   rulePassword,
   SubmitC
-} from '../../components/form'
+} from '../../components'
+import { useHandleError } from '../../hooks'
+import { useLoginMutation } from '../../service/store/auth/auth.query'
 
 interface ILogin {
   email: string
@@ -15,9 +17,13 @@ interface ILogin {
 }
 
 export const Login = () => {
-  const onFinish = (values: ILogin) => {
-    values.isBusiness = values.isBusiness ? true : false
-    console.log('Received values of form: ', values)
+  const { error, mutate: loginApi, isPending } = useLoginMutation()
+
+  useHandleError([error])
+
+  const onFinish = async (values: ILogin) => {
+    values.isBusiness = !!values.isBusiness
+    loginApi(values)
   }
 
   return (
@@ -31,7 +37,7 @@ export const Login = () => {
       <InputC placeholder='Email' rules={ruleEmail} name='email' />
       <PasswordC name='password' placeholder='Password' rules={rulePassword} />
       <CheckboxC name='isBusiness'>I am a business</CheckboxC>
-      <SubmitC> Log in </SubmitC>
+      <SubmitC loading={isPending}> Log in </SubmitC>
     </Form>
   )
 }

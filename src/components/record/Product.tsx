@@ -6,14 +6,16 @@ import { useState } from 'react'
 export const Product = ({ data, setData, setCurrent }: IRecord) => {
   const [type, setType] = useState<number | null>(null)
 
-  const onFinish = (values: IStatus) => {
-    values.isHarvested = values.isDeleted = undefined
+  const onFinish = (values: IStatus & { type: number }) => {
+    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+    const { type: _type, ...rest } = values
+    rest.isHarvested = rest.isDeleted = undefined
 
-    if (type === 2) values.isDeleted = true
-    else if (type === 1) values.isHarvested = true
-    else values.isHarvested = false
+    if (type === 2) rest.isDeleted = true
+    else if (type === 1) rest.isHarvested = true
+    else rest.isHarvested = false
 
-    setData({ ...data, ...values })
+    setData({ ...data, ...rest })
     setCurrent(2)
   }
 
@@ -31,6 +33,7 @@ export const Product = ({ data, setData, setCurrent }: IRecord) => {
         initialValues={data}
       >
         <SelectC
+          name='type'
           label='Activity'
           placeholder='Select your activity'
           rules={ruleRequired}

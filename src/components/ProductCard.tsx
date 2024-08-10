@@ -14,12 +14,12 @@ export const ProductCard = () => {
           src='auth-bg-dark.png'
           className='w-full aspect-video object-cover group-hover:scale-110 transition ease-in-out delay-75 '
         />
-        <span className='absolute bottom-1 right-1 text-sm bg-green-200 px-1 rounded-lg z-50 text-green3 font-semibold'>
-          ID: 00000123
+        <span className='absolute bottom-1 right-1 text-sm bg-green-200 px-2 rounded-lg z-50 text-green3 font-semibold'>
+          00000123
         </span>
       </div>
       <div
-        className='mt-4 font-semibold text-green3 text-lg'
+        className='mt-4 font-semibold text-lg'
         onClick={() => setIsModalOpen(true)}
       >
         <p className='line-clamp-1 my-0'>ABC Company: Xoài vụ 01/2024</p>

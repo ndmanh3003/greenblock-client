@@ -1,1 +1,2 @@
-export * from './SimpleTable'
+export * from './PlantTable'
+export * from './EditableCell'

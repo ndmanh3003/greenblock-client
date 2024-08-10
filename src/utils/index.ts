@@ -1,3 +1,3 @@
 export * from './cn'
-export * from './arr2obj'
+export * from './table'
 export * from './date'

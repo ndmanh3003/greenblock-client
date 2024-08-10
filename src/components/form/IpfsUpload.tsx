@@ -1,9 +1,9 @@
-import { ipfs } from '../../service'
 import { Form, Input, Upload, UploadProps, UploadFile } from 'antd'
 import { UploadOutlined } from '@ant-design/icons'
 import React from 'react'
 import { IFormItem, ButtonC } from '../../components'
 import { cn, cnInput } from '../../utils'
+import { ipfs } from '../../service/ipfs'
 
 interface IIpfsUploadC {
   // eslint-disable-next-line no-unused-vars

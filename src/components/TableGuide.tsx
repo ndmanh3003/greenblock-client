@@ -4,11 +4,7 @@ import { Collapse, ConfigProvider } from 'antd'
 export const TableGuide = () => {
   return (
     <div className='rounded-2xl w-full h-fit overflow-hidden p-10 pb-3 px-10 relative'>
-      <img
-        src='bs-guide.svg'
-        className='absolute h-5/6 w-auto bottom-2 -z-10 right-1/4 translate-x-2/3'
-      />
-      <div className='w-full h-full bg-linear1 absolute -z-20 top-0 right-0' />
+      <div className='w-full h-full bg-[url("bs-guide.png")] absolute -z-20 top-0 right-0' />
       <h1 className='font-bold text-3xl'>File Data Manager and Editor</h1>
       <div className='font-medium leading-normal'>
         Here's a quick guide on how to use our data management features:

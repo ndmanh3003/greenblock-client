@@ -6,6 +6,7 @@ import {
   IpfsUpload,
   IRecord,
   IStatus,
+  ruleNumber,
   ruleRequired,
   SubmitC,
   TextAreaC
@@ -49,7 +50,7 @@ export const Upload = ({ data, setData, setCurrent }: IRecord) => {
               <InputC
                 name='quantityOut'
                 label='Quantity'
-                rules={ruleRequired}
+                rules={ruleNumber}
                 placeholder='Input product quantity'
               />
             )}

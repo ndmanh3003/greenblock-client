@@ -19,10 +19,7 @@ export const CheckboxC: React.FC<IFormItem & CheckboxProps> = ({
       wrapperCol={{ offset: wrapperCol }}
       rules={rules}
     >
-      <Checkbox
-        className={cn(cnInput, '!text-base !px-0', className)}
-        {...props}
-      >
+      <Checkbox className={cn(cnInput, '!px-0', className)} {...props}>
         {children}
       </Checkbox>
     </Form.Item>

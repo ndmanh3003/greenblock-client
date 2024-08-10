@@ -1,19 +1,13 @@
 import { ConfigProvider, Menu, MenuProps } from 'antd'
-import {
-  AppstoreAddOutlined,
-  UserOutlined,
-  SnippetsOutlined
-} from '@ant-design/icons'
+import { AppstoreAddOutlined, SnippetsOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-import { arr2obj } from '../../utils'
-import { SimpleTable, TableGuide } from '../../components'
+import { TableGuide } from '../../components'
+import { PlantTable } from './../../components/table/PlantTable'
+import { VarietyTable } from '../../components/table/VarietyTable'
 
 export const Business = () => {
-  const [current, setCurrent] = useState(0)
+  const [current, setCurrent] = useState<number>(0)
 
-  const onClick: MenuProps['onClick'] = (e) => {
-    setCurrent(Number(e.key))
-  }
   return (
     <>
       <TableGuide />
@@ -25,15 +19,15 @@ export const Business = () => {
                 token: {
                   colorText: 'black',
                   fontSize: 16,
-                  colorPrimary: '#074C31'
+                  colorPrimary: '#A1C038'
                 }
               }}
             >
               <Menu
-                onClick={onClick}
+                onClick={(e) => setCurrent(Number(e.key))}
                 style={{ width: 348 }}
                 defaultSelectedKeys={['0']}
-                defaultOpenKeys={['hr']}
+                defaultOpenKeys={['batch']}
                 mode='inline'
                 items={items}
               />
@@ -51,15 +45,7 @@ export const Business = () => {
                 }
               }}
             >
-              {/* {current !== 4 ? ( */}
-              <SimpleTable
-                key={current}
-                data={arr2obj(_table[current].data)}
-                title={_table[current].title}
-              />
-              {/* // ) : (
-              //   <PromotionTable />
-              // )} */}
+              {_table[current]}
             </ConfigProvider>
           </div>
         </div>
@@ -72,58 +58,19 @@ type MenuItem = Required<MenuProps>['items'][number]
 
 const items: MenuItem[] = [
   {
-    key: 'hr',
-    label: 'Human Resource',
-    icon: <UserOutlined />,
-    children: [
-      { key: '0', label: 'Farmer' },
-      { key: '1', label: 'Processor' }
-    ]
-  },
-  {
-    key: 'ecosys',
-    label: 'Ecosystem',
+    key: 'batch',
+    label: 'Batch',
     icon: <AppstoreAddOutlined />,
     children: [
-      { key: '2', label: 'Planting Area' },
-      { key: '3', label: 'Cultivated Variety' }
+      { key: '0', label: 'Planting Area' },
+      { key: '1', label: 'Cultivated Variety' }
     ]
   },
   {
-    key: '4',
-    label: 'Promotion',
+    key: '2',
+    label: 'Production',
     icon: <SnippetsOutlined />
   }
 ]
 
-const _table = [
-  {
-    title: 'Farmer Table',
-    data: [112, 21211, 212]
-  },
-  {
-    title: 'Processor Table',
-    data: [112, 21211, 212]
-  },
-  {
-    title: 'Planting Area Table',
-    data: [112, 21211, 212]
-  },
-  {
-    title: 'Cultivated Variety Table',
-    data: [112, 21211, 212]
-  },
-  {
-    title: 'Promotion Table',
-    data: [
-      {
-        index: '0928392938917391',
-        name: 'Name 1',
-        desc: 'Description 1',
-        link: 'Link 1',
-        startDay: '2021-09-01',
-        endDay: '2021-09-10'
-      }
-    ]
-  }
-]
+const _table = [<PlantTable />, <VarietyTable />, <div>Table 3</div>]
