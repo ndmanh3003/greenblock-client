@@ -20,5 +20,6 @@ export const useHandleSuccess = <T>(
 
     if (isMessage) message.success(messageS)
     fn?.(data as T)
-  }, [response, fn, isMessage])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [response])
 }

@@ -6,6 +6,7 @@ export * from './HomePage'
 export * from './Record'
 export * from './misc/Waitlist'
 export * from './misc/Error'
+export * from './misc/Admin'
 
 export { Layout as LayoutAuth } from './auth/Layout'
 export { Layout as LayoutWorkspace } from './workspace/Layout'

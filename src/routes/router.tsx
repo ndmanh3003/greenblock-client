@@ -32,6 +32,7 @@ const router = createBrowserRouter(
 
       <Route path={Routes.RECORD} element={<Pages.Record />} />
       <Route path={Routes.WAITLIST} element={<Pages.Waitlist />} />
+      <Route path={Routes.ADMIN} element={<Pages.Admin />} />
       <Route
         path={import.meta.env.VITE_API_ERROR_PAGE}
         element={<Pages.Error />}

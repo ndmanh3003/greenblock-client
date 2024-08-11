@@ -100,7 +100,7 @@ export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
           onPreview={async (file) => {
             const index = fileList.findIndex((f) => f.uid === file.uid)
             const ipfsHash = hash![index]
-            window.open(`https://ipfs.io/ipfs/${ipfsHash}`)
+            window.open(`${import.meta.env.VITE_GETWAY_IPFS}${ipfsHash}`)
           }}
           {...props}
         >

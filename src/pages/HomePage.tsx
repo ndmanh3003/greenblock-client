@@ -3,11 +3,16 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ConfigProvider, Input } from 'antd'
 import { ButtonC, Line } from '../components'
 import { Routes } from '../routes'
+import { useState } from 'react'
+import { FooterModal } from '../components/FooterModal'
 
 export const HomePage = () => {
   const navigate = useNavigate()
+  const [modal, setModal] = useState<number | string>(0)
+
   return (
     <div className='h-screen w-full pt-2 pb-10 flex flex-col justify-between items-stretch'>
+      <FooterModal modal={modal} setModal={setModal} />
       <header className='w-full'>
         <div className='bg-white bg-opacity-50 w-fit px-2 py-1 rounded-md flex gap-1 items-center ml-auto'>
           <PhoneFilled rotate={90} className='text-xl' />
@@ -71,8 +76,9 @@ export const HomePage = () => {
         {_nav.map((item, index) => (
           <Link
             key={item.name}
-            to={item.link}
+            to={item?.link || ''}
             className='group w-full text-center flex flex-col items-center justify-center gap-1 px-auto cursor-pointer hover:bg-linear1'
+            onClick={() => setModal(item?.key || 0)}
           >
             <img
               className='w-8 group-hover:-translate-y-1.5 transition-all ease-in-out delay-75 duration-200'
@@ -91,8 +97,8 @@ export const HomePage = () => {
 const _prouductInfo = ['About us', 'Our solution', 'Process & Usage Guide']
 
 const _nav = [
-  { name: 'Our Partners', link: '/' },
-  { name: 'Our Inspector', link: '/' },
+  { name: 'Our Partners', key: 'business' },
+  { name: 'Our Inspector', key: 'inspector' },
   { name: 'Inspector Space', link: Routes.INSPECTOR },
   { name: 'Business Space', link: Routes.BUSINESS },
   { name: 'Record Management', link: Routes.RECORD }

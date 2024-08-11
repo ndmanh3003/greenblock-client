@@ -11,7 +11,6 @@ import { Hr, IStatus, Product, Upload } from '../components'
 export const Record = () => {
   const [current, setCurrent] = useState(0)
   const [data, setData] = useState<IStatus>()
-  console.log(data)
 
   const _steps: (StepProps & { form: React.ReactNode })[] = [
     {

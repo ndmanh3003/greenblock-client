@@ -1,5 +1,13 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { getmeApi, loginApi, logoutApi, registerApi } from './auth.api'
+import {
+  getAllApi,
+  getmeApi,
+  loginApi,
+  logoutApi,
+  registerApi,
+  verifyApi
+} from './auth.api'
+import { IGetAllReq } from './auth.type'
 
 export const useLoginMutation = () =>
   useMutation({
@@ -20,4 +28,18 @@ export const useGetMeQuery = () =>
 export const useLogoutMutation = () =>
   useMutation({
     mutationFn: logoutApi
+  })
+
+export const useGetAllQuery = (data: IGetAllReq) =>
+  useQuery({
+    queryKey: ['all', data.type, data.code],
+    queryFn: () => getAllApi(data),
+    enabled: false,
+    retry: false
+  })
+
+export const useVerifyMutation = () =>
+  useMutation({
+    mutationFn: (data: { accountId: string; isVerified: boolean }) =>
+      verifyApi(data.accountId, data.isVerified)
   })

@@ -25,3 +25,16 @@ export interface IGetMeRes {
   isBusiness: boolean
   cert: string
 }
+
+export interface IAccount {
+  _id: string
+  name: string
+  email: string
+  cert: string
+  isBusiness: boolean
+}
+
+export interface IGetAllReq {
+  type: 'business' | 'inspector'
+  code?: string
+}
