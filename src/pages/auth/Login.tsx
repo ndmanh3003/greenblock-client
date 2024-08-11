@@ -39,7 +39,6 @@ export const Login = () => {
       className='login-form'
       initialValues={{ remember: true }}
       onFinish={onFinish}
-      autoComplete='off'
     >
       <InputC placeholder='Email' rules={ruleEmail} name='email' />
       <PasswordC name='password' placeholder='Password' rules={rulePassword} />

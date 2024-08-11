@@ -29,7 +29,7 @@ import {
   useUpdateBatchMutation
 } from '../../service/store/batch'
 
-interface LandTableItem extends Omit<IItem, '_id'> {
+interface LandTableItem extends Omit<IItem, '_id' | 'metadata'> {
   key: string
   _id?: string
 }
