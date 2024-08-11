@@ -1,7 +1,7 @@
 import { ConfigProvider, Menu, MenuProps } from 'antd'
 import { AppstoreAddOutlined, SnippetsOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-import { PlantTable, TableGuide } from '../../components'
+import { LandTable, TableGuide } from '../../components'
 import { VarietyTable } from '../../components/table/VarietyTable'
 
 export const Business = () => {
@@ -61,7 +61,7 @@ const items: MenuItem[] = [
     label: 'Batch',
     icon: <AppstoreAddOutlined />,
     children: [
-      { key: '0', label: 'Planting Area' },
+      { key: '0', label: 'Landing Area' },
       { key: '1', label: 'Cultivated Variety' }
     ]
   },
@@ -72,4 +72,4 @@ const items: MenuItem[] = [
   }
 ]
 
-const _table = [<PlantTable />, <VarietyTable />, <div>Table 3</div>]
+const _table = [<LandTable />, <VarietyTable />, <div>Table 3</div>]

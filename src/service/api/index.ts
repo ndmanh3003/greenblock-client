@@ -4,6 +4,7 @@ import axios, {
   InternalAxiosRequestConfig
 } from 'axios'
 import { tokensStorage } from '../localStorage/token'
+import NProgress from 'nprogress'
 
 // eslint-disable-next-line no-unused-vars
 type callback = (token: string) => void
@@ -61,6 +62,7 @@ export const instance = axios.create({
 
 instance.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    NProgress.start()
     const auth = tokensStorage.getToken()
     if (
       config.headers &&
@@ -76,17 +78,19 @@ instance.interceptors.request.use(
 )
 
 instance.interceptors.response.use(
-  (response: AxiosResponse) => response,
+  (response: AxiosResponse) => {
+    NProgress.done()
+    return response
+  },
   async (error: AxiosError) => {
     const { config } = error
     const originalRequest = config
 
     if (error?.code === 'ERR_NETWORK') {
       window.location.href = import.meta.env.VITE_API_ERROR_PAGE
+      NProgress.done()
       return
-    }
-
-    if (error?.response?.status === 401) {
+    } else if (error?.response?.status === 401) {
       if (!isRefreshing) {
         isRefreshing = true
         refreshAccessToken().then((newToken) => {
@@ -104,7 +108,7 @@ instance.interceptors.response.use(
         })
       })
       return retryOrigReq
-    }
+    } else NProgress.done()
     return Promise.reject(error)
   }
 )

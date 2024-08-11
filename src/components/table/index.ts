@@ -1,2 +1,2 @@
-export * from './PlantTable'
+export * from './LandTable'
 export * from './EditableCell'

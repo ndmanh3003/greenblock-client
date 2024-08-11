@@ -22,18 +22,43 @@ import { EditableCell, EditableRow } from '.'
 import { clear, keyGen } from '../../utils'
 import { v4 as uuidv4 } from 'uuid'
 import { ButtonC } from '../ButtonC'
+import { useHandleError, useHandleSuccess } from '../../hooks'
+import {
+  IItem,
+  useGetBatchQuery,
+  useUpdateBatchMutation
+} from '../../service/store/batch'
 
-interface PlantTableItem {
-  id?: string
-  name: string
-  total: number
+interface LandTableItem extends Omit<IItem, '_id'> {
   key: string
+  _id?: string
 }
 
-export const PlantTable: React.FC = () => {
-  const [data, setData] = useState<PlantTableItem[]>(
-    keyGen(_data) as PlantTableItem[]
+export const LandTable: React.FC = () => {
+  const [data, setData] = useState<LandTableItem[]>(
+    keyGen([]) as LandTableItem[]
   )
+  const [total, setTotal] = useState({ empty: 0, planting: 0 })
+
+  const {
+    data: dataItems,
+    refetch,
+    error,
+    isLoading
+  } = useGetBatchQuery('land')
+  useHandleSuccess(dataItems, false, (data) => {
+    setData(keyGen(data.items) as LandTableItem[])
+    setTotal({ empty: data.empty, planting: data.planting || 0 })
+  })
+
+  const {
+    data: dataUpdate,
+    mutate,
+    error: errorUpdate,
+    isPending
+  } = useUpdateBatchMutation()
+  useHandleError([error, errorUpdate])
+  useHandleSuccess(dataUpdate, true, () => refetch())
 
   const handleDelete = (key: string) => {
     setData(data.filter((item) => item.key !== key))
@@ -45,15 +70,15 @@ export const PlantTable: React.FC = () => {
       return
     }
 
-    const newData: PlantTableItem = {
+    const newData: LandTableItem = {
       name: 'Add new item',
-      total: 0,
+      product: [],
       key: uuidv4()
     }
     setData([...data, newData])
   }
 
-  const handleSave = (row: PlantTableItem) => {
+  const handleSave = (row: LandTableItem) => {
     const newData = [...data]
     const index = newData.findIndex((item) => row.key === item.key)
     const item = newData[index]
@@ -71,7 +96,7 @@ export const PlantTable: React.FC = () => {
 
     const title = 'id,name\n'
     const csvContent = data.reduce((acc, item) => {
-      return `${acc}${item.id},${item.name}\n`
+      return `${acc}${item._id},${item.name}\n`
     }, title)
 
     const blob = new Blob([csvContent], {
@@ -100,11 +125,11 @@ export const PlantTable: React.FC = () => {
       const newData = lines.map((line) => {
         const [id, name] = line.split(',')
         return {
-          ...(id && { id }),
+          ...(id && { itemId: id }),
           ...(name && { name })
         }
       })
-      console.log(newData)
+      mutate({ type: 'land', items: newData })
     }
   }
 
@@ -115,8 +140,7 @@ export const PlantTable: React.FC = () => {
       width: '10%',
       editable: false,
       align: 'center',
-      //dont use index, use current index of data
-      render: (_: unknown, record: PlantTableItem) => {
+      render: (_: unknown, record: LandTableItem) => {
         return data.indexOf(record) + 1
       }
     },
@@ -132,18 +156,22 @@ export const PlantTable: React.FC = () => {
     },
     {
       title: 'Total',
-      dataIndex: 'total',
       width: '15%',
       editable: false,
       align: 'center',
-      sorter: (a: PlantTableItem, b: PlantTableItem) => a.total - b.total
+      render: (_: unknown, record: LandTableItem) => {
+        return record.product.length
+      },
+      sorter: (a: LandTableItem, b: LandTableItem) =>
+        a.product.length - b.product.length
     },
+
     {
       title: 'Operation',
       dataIndex: 'operation',
       align: 'center',
       width: '10%',
-      render: (_: unknown, record: PlantTableItem) => (
+      render: (_: unknown, record: LandTableItem) => (
         <ConfigProvider theme={{ token: { fontSize: 14 } }}>
           <Popconfirm
             title='Sure to delete?'
@@ -170,7 +198,7 @@ export const PlantTable: React.FC = () => {
 
   const columnsWithOnCell = columns.map((col) => ({
     ...col,
-    onCell: (record: PlantTableItem) => ({
+    onCell: (record: LandTableItem) => ({
       record,
       editable: col.editable,
       dataIndex: col.dataIndex,
@@ -200,14 +228,14 @@ export const PlantTable: React.FC = () => {
     <div>
       <div className='flex justify-between items-end mb-8'>
         <div>
-          <span className='text-2xl font-semibold'>Planting Area</span>
+          <span className='text-2xl font-semibold'>Landing Area</span>
           <div className='font-medium text-base mt-3 grid grid-cols-2 gap-x-5'>
             <span>- Total land</span>
-            <span>: 3</span>
+            <span>: {total.empty + total.planting}</span>
             <span>- Total planting</span>
-            <span>: 2</span>
+            <span>: {total.planting}</span>
             <span>- Total vacant</span>
-            <span>: 1</span>
+            <span>: {total.empty}</span>
           </div>
         </div>
         <div className='flex space-x-5'>
@@ -239,9 +267,16 @@ export const PlantTable: React.FC = () => {
           ))}
 
           <ButtonC
-            onClick={() => console.log(clear(data))}
+            onClick={() => {
+              const items = clear(data).map((item) => ({
+                name: item.name,
+                itemId: item._id
+              }))
+              mutate({ type: 'land', items })
+            }}
             variant='primary'
             className='!text-base !py-4 !px-3 !pr-4'
+            loading={isPending}
           >
             Update
           </ButtonC>
@@ -251,8 +286,8 @@ export const PlantTable: React.FC = () => {
         showSorterTooltip={false}
         components={components}
         rowClassName={() => 'editable-row'}
-        dataSource={data}
-        columns={columnsWithOnCell as ColumnType<PlantTableItem>[]}
+        dataSource={!isLoading ? data : []}
+        columns={columnsWithOnCell as ColumnType<LandTableItem>[]}
         pagination={{
           hideOnSinglePage: true,
           showSizeChanger: false
@@ -261,8 +296,3 @@ export const PlantTable: React.FC = () => {
     </div>
   )
 }
-
-const _data = [
-  { id: '111212qsd121', name: 'Item 1', total: 100 },
-  { id: '2111212qsd12', name: 'Item 2', total: 200 }
-]

@@ -22,19 +22,50 @@ import { EditableCell, EditableRow } from '.'
 import { clear, keyGen } from '../../utils'
 import { v4 as uuidv4 } from 'uuid'
 import { ButtonC } from '../ButtonC'
+import {
+  IItem,
+  useGetBatchQuery,
+  useUpdateBatchMutation
+} from '../../service/store/batch'
+import { useHandleError, useHandleSuccess } from '../../hooks'
 
-interface VarietyTableItem {
-  id?: string
-  name: string
-  quantity: number
-  total: number
+interface VarietyTableItem extends Omit<IItem, '_id' | 'metadata'> {
   key: string
+  _id?: string
+  quantity: number
 }
 
 export const VarietyTable: React.FC = () => {
   const [data, setData] = useState<VarietyTableItem[]>(
-    keyGen(_data) as VarietyTableItem[]
+    keyGen([]) as VarietyTableItem[]
   )
+  const [total, setTotal] = useState({ empty: 0, available: 0 })
+
+  const {
+    data: dataItems,
+    refetch,
+    error,
+    isLoading
+  } = useGetBatchQuery('variety')
+  useHandleSuccess(dataItems, false, (data) => {
+    const update = data.items.map((item) => {
+      return {
+        ...item,
+        quantity: item.metadata.quantity || 0
+      }
+    })
+    setData(keyGen(update) as VarietyTableItem[])
+    setTotal({ empty: data.empty, available: data.available || 0 })
+  })
+
+  const {
+    data: dataUpdate,
+    mutate,
+    error: errorUpdate,
+    isPending
+  } = useUpdateBatchMutation()
+  useHandleError([error, errorUpdate])
+  useHandleSuccess(dataUpdate, true, () => refetch())
 
   const handleDelete = (key: string) => {
     setData(data.filter((item) => item.key !== key))
@@ -49,7 +80,7 @@ export const VarietyTable: React.FC = () => {
     const newData: VarietyTableItem = {
       name: 'Add new item',
       quantity: 0,
-      total: 0,
+      product: [],
       key: uuidv4()
     }
     setData([...data, newData])
@@ -73,7 +104,7 @@ export const VarietyTable: React.FC = () => {
 
     const title = 'id,name,quantity\n'
     const csvContent = data.reduce((acc, item) => {
-      return `${acc}${item.id},${item.name},${item.quantity}\n`
+      return `${acc}${item._id},${item.name},${item.quantity}\n`
     }, title)
 
     const blob = new Blob([csvContent], {
@@ -100,13 +131,14 @@ export const VarietyTable: React.FC = () => {
       const lines = data.trim().split('\n').slice(1)
 
       const newData = lines.map((line) => {
-        const [id, name] = line.split(',')
+        const [id, name, quantity] = line.split(',')
         return {
-          ...(id && { id }),
-          ...(name && { name })
+          ...(id && { itemId: id }),
+          ...(name && { name }),
+          ...(quantity && { quantity: Number(quantity) })
         }
       })
-      console.log(newData)
+      mutate({ type: 'variety', items: newData })
     }
   }
 
@@ -148,11 +180,14 @@ export const VarietyTable: React.FC = () => {
     },
     {
       title: 'Total',
-      dataIndex: 'total',
       width: '15%',
       editable: false,
       align: 'center',
-      sorter: (a: VarietyTableItem, b: VarietyTableItem) => a.total - b.total
+      render: (_: unknown, record: VarietyTableItem) => {
+        return record.product.length
+      },
+      sorter: (a: VarietyTableItem, b: VarietyTableItem) =>
+        a.product.length - b.product.length
     },
     {
       title: 'Operation',
@@ -220,11 +255,11 @@ export const VarietyTable: React.FC = () => {
           <span className='text-2xl font-semibold'>Cultivated Variety</span>
           <div className='font-medium text-base mt-3 grid grid-cols-2 gap-x-5'>
             <span>- Total variety</span>
-            <span>: 3</span>
+            <span>: {total.empty + total.available}</span>
             <span>- Total available</span>
-            <span>: 2</span>
+            <span>: {total.available}</span>
             <span>- Total out of stock</span>
-            <span>: 1</span>
+            <span>: {total.empty}</span>
           </div>
         </div>
         <div className='flex space-x-5'>
@@ -256,9 +291,17 @@ export const VarietyTable: React.FC = () => {
           ))}
 
           <ButtonC
-            onClick={() => console.log(clear(data))}
+            onClick={() => {
+              const items = clear(data).map((item) => ({
+                name: item.name,
+                itemId: item._id,
+                quantity: item.quantity
+              }))
+              mutate({ type: 'variety', items })
+            }}
             variant='primary'
             className='!text-base !py-4 !px-3 !pr-4'
+            loading={isPending}
           >
             Update
           </ButtonC>
@@ -268,7 +311,7 @@ export const VarietyTable: React.FC = () => {
         showSorterTooltip={false}
         components={components}
         rowClassName={() => 'editable-row'}
-        dataSource={data}
+        dataSource={!isLoading ? data : []}
         columns={columnsWithOnCell as ColumnType<VarietyTableItem>[]}
         pagination={{
           hideOnSinglePage: true,
@@ -278,9 +321,3 @@ export const VarietyTable: React.FC = () => {
     </div>
   )
 }
-
-const _data = [
-  { id: '111212qsd121', name: 'Item 1', total: 100, quantity: 15 },
-  { id: '2111212qsd12', name: 'Item 2', total: 400, quantity: 20 },
-  { id: '311212qsd121', name: 'Item 3', total: 300, quantity: 5 }
-]

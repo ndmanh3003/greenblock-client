@@ -22,7 +22,8 @@ export const Admin: React.FC = () => {
   const {
     refetch,
     data: dataGetAll,
-    error
+    error,
+    isLoading
   } = useGetAllQuery({
     type: state.type,
     code: state.code
@@ -147,7 +148,11 @@ export const Admin: React.FC = () => {
             placeholder='Enter your code'
           />
         </Form>
-        <Table columns={columns} dataSource={data} className='mt-1' />
+        <Table
+          columns={columns}
+          dataSource={!isLoading ? data : []}
+          className='mt-1'
+        />
       </ConfigProvider>
     </div>
   )

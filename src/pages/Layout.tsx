@@ -4,11 +4,15 @@ import { useEffect, useState } from 'react'
 import { Background, Float, Footer } from '../components'
 import { message } from 'antd'
 import { Routes } from '../routes'
+import NProgress from 'nprogress'
+import 'nprogress/nprogress.css'
+
+NProgress.configure({ showSpinner: false })
+message.config({ maxCount: 3, duration: 2 })
 
 export const Layout = () => {
   const location = useLocation()
   const [page, setPage] = useState(0)
-  message.config({ maxCount: 3, duration: 2 })
 
   useEffect(() => {
     if (location.pathname == Routes.HOMEPAGE) setPage(1)
@@ -19,6 +23,11 @@ export const Layout = () => {
       setPage(2)
     else if (location.pathname == Routes.RECORD) setPage(3)
     else setPage(0)
+  }, [location])
+
+  useEffect(() => {
+    NProgress.start()
+    NProgress.done()
   }, [location])
 
   return (

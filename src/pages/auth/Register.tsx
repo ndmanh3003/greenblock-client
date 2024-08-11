@@ -10,9 +10,8 @@ import {
   ruleRequired,
   SubmitC
 } from '../../components'
-import { useRegisterMutation } from '../../service/store/auth/auth.query'
 import { useHandleError, useHandleSuccess } from '../../hooks'
-import { IRegisterReq } from '../../service/store/auth'
+import { IRegisterReq, useRegisterMutation } from '../../service/store/auth'
 import { Routes } from '../../routes'
 import { useNavigate } from 'react-router-dom'
 

@@ -2,6 +2,7 @@ import { Modal } from 'antd'
 import { useEffect, useState } from 'react'
 import { IAccount, useGetAllQuery } from '../service/store/auth'
 import { useHandleError, useHandleSuccess } from '../hooks'
+import { v4 as uuidv4 } from 'uuid'
 
 interface IFooterModal {
   // eslint-disable-next-line no-unused-vars
@@ -10,13 +11,18 @@ interface IFooterModal {
 }
 
 export const FooterModal = ({ modal, setModal }: IFooterModal) => {
-  const [src, setSrc] = useState<IAccount[]>([])
+  const [data, setData] = useState<IAccount[]>([])
 
-  const { data, error, refetch } = useGetAllQuery({
+  const {
+    data: dataGetAll,
+    error,
+    refetch,
+    isLoading
+  } = useGetAllQuery({
     type: modal as 'business' | 'inspector'
   })
   useHandleError([error])
-  useHandleSuccess(data, false, (data) => setSrc(data))
+  useHandleSuccess(dataGetAll, false, (data) => setData(data))
 
   useEffect(() => {
     if (!modal) return
@@ -36,9 +42,13 @@ export const FooterModal = ({ modal, setModal }: IFooterModal) => {
           {typeof modal === 'string' && 'Our ' + modal}
         </h1>
         <div className='grid grid-cols-2 gap-5 max-h-[350px] overflow-scroll pr-3'>
-          {src &&
-            src.map((item) => (
-              <div className='flex justify-between p-4 rounded-xl border-2'>
+          {!isLoading &&
+            data &&
+            data.map((item) => (
+              <div
+                className='flex justify-between p-4 rounded-xl border-2'
+                key={uuidv4()}
+              >
                 <div>
                   <h2 className='font-semibold -mb-1 text-lg'>{item.name}</h2>
                   <a href='mailto:dđ' className='!text-base'>

@@ -16,7 +16,7 @@ export const Layout = () => {
   const navigate = useNavigate()
   const [info, setInfo] = useState<IGetMeRes>()
 
-  const { data, error } = useGetMeQuery()
+  const { data, error, isLoading } = useGetMeQuery()
   useHandleSuccess(data, false, (data) => {
     setInfo(data)
     if (
@@ -54,7 +54,7 @@ export const Layout = () => {
               logout()
             }}
             type='link'
-            loading={isPending}
+            loading={isPending || isLoading}
           >
             Logout
           </Button>

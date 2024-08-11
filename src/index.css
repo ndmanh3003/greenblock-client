@@ -126,3 +126,8 @@ body {
   text-align: right !important;
   padding-right: 15px !important;
 }
+
+/* !! */
+#nprogress .bar {
+  background: #21ba43 !important;
+}
