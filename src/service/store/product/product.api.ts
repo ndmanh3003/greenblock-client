@@ -6,6 +6,7 @@ import {
   IProduct
 } from './product.type'
 
+
 export const getOverallProductApi = async () => {
   return await instance.get<IRespond<IGetOverallProductRes>>('/product/overall')
 }
@@ -15,3 +16,4 @@ export const getAllProductApi = async (data: IGetAllProductReq) => {
     params: data
   })
 }
+
