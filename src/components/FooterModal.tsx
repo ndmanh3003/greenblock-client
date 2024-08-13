@@ -1,8 +1,9 @@
 import { Modal } from 'antd'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IAccount, useGetAllQuery } from '../service/store/auth'
 import { useHandleError, useHandleSuccess } from '../hooks'
 import { v4 as uuidv4 } from 'uuid'
+import { useHandleRefetch } from '../hooks/useHandleRefetch'
 
 interface IFooterModal {
   // eslint-disable-next-line no-unused-vars
@@ -23,11 +24,7 @@ export const FooterModal = ({ modal, setModal }: IFooterModal) => {
   })
   useHandleError([error])
   useHandleSuccess(dataGetAll, false, (data) => setData(data))
-
-  useEffect(() => {
-    if (!modal) return
-    refetch()
-  }, [modal, refetch])
+  useHandleRefetch(refetch, [modal], () => modal === 0)
 
   return (
     <Modal

@@ -5,13 +5,38 @@ import {
   SelectC,
   SubmitC,
   IStatus,
-  IRecord
+  IRecord,
+  IValueSelectC
 } from '../../components'
+import { useGetAllQuery } from '../../service/store/auth'
+import { useState } from 'react'
+import { useHandleError, useHandleSuccess } from '../../hooks'
+import { tokensStorage } from '../../service/localStorage'
+import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
-export const Hr = ({ setData, setCurrent, data }: IRecord) => {
-  const onFinish = (values: IStatus) => {
-    setData(values)
-    setCurrent(1)
+export const Hr = ({ dispatch, state }: IRecord) => {
+  const [businessList, setBusinessList] = useState<IValueSelectC[]>()
+
+  const {
+    data: dataBusiness,
+    error,
+    isLoading,
+    refetch
+  } = useGetAllQuery({ type: 'business' })
+  useHandleError([error])
+  useHandleSuccess(dataBusiness, false, (data) => {
+    const value = data.map((item) => ({
+      value: item._id,
+      label: item.name
+    })) as IValueSelectC[]
+    setBusinessList(value)
+  })
+  useHandleRefetch(refetch)
+
+  const onFinish = async (values: IStatus) => {
+    await tokensStorage.removeToken()
+    dispatch({ type: 'UPDATE_DATA', payload: values })
+    dispatch({ type: 'UPDATE_CURRENT', payload: 1 })
   }
 
   return (
@@ -25,7 +50,7 @@ export const Hr = ({ setData, setCurrent, data }: IRecord) => {
         autoComplete='off'
         requiredMark={false}
         colon={false}
-        initialValues={data}
+        initialValues={state.data || {}}
       >
         <InputC
           name='code'
@@ -38,10 +63,7 @@ export const Hr = ({ setData, setCurrent, data }: IRecord) => {
           label='Company'
           placeholder='Select your company'
           rules={ruleRequired}
-          value={[
-            { value: 'china', label: 'China' },
-            { value: 'usa', label: 'U.S.A' }
-          ]}
+          value={isLoading ? [] : businessList || []}
         />
         <SubmitC className='!w-fit mt-2' wrapperCol={8}>
           Continue

@@ -1,22 +1,67 @@
-import { Form } from 'antd'
-import { ruleRequired, SelectC, SubmitC } from '../form'
+import { Form, message } from 'antd'
+import { IValueSelectC, ruleRequired, SelectC, SubmitC } from '../form'
 import { ButtonC, IRecord, IStatus } from '../../components'
 import { useState } from 'react'
+import { allCurrent, useGetAllProductQuery } from '../../service/store/product'
+import { useHandleError, useHandleSuccess } from '../../hooks'
 
-export const Product = ({ data, setData, setCurrent }: IRecord) => {
-  const [type, setType] = useState<number | null>(null)
+export const Product = ({ dispatch, state }: IRecord) => {
+  const [productList, setProductList] = useState<IValueSelectC[]>()
 
-  const onFinish = (values: IStatus & { type: number }) => {
+  const {
+    data: dataGetAll,
+    // refetch,
+    isLoading,
+    error
+  } = useGetAllProductQuery({
+    businessId: state.data?.businessId,
+    code: state.data?.code
+  })
+  useHandleError([error], () =>
+    dispatch({ type: 'UPDATE_CURRENT', payload: 0 })
+  )
+
+  useHandleSuccess(dataGetAll, false, (data) => {
+    if (data.length === 0) {
+      dispatch({ type: 'UPDATE_CURRENT', payload: 0 })
+      message.info('No product to handle')
+      return
+    }
+    setProductList(
+      data?.map((item) => ({
+        value: item._id,
+        label:
+          item.name +
+          (item.current === allCurrent.HARVESTED ? ' (harvested)' : '')
+      }))
+    )
+  })
+
+  const onFinish = (values: IStatus & { type: string }) => {
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-    const { type: _type, ...rest } = values
+    const { type, productId, ...rest } = values
+
+    const isHarvested = productList
+      ?.find((item) => item.value === productId)
+      ?.label.includes('harvested')
+    if (isHarvested)
+      if (type !== 'DELETE') {
+        message.error('This product is harvested')
+        return
+      } else message.warning('Delete resets to "Planting" and quantity to 0')
+
     rest.isHarvested = rest.isDeleted = undefined
 
-    if (type === 2) rest.isDeleted = true
-    else if (type === 1) rest.isHarvested = true
+    if (type == 'DELETE') rest.isDeleted = true
+    else if (type == 'HARVEST') rest.isHarvested = true
     else rest.isHarvested = false
 
-    setData({ ...data, ...rest })
-    setCurrent(2)
+    dispatch({
+      type: 'UPDATE_DATA',
+      payload: { productId: productId.split(' ')[0], ...rest }
+    })
+    dispatch({ type: 'UPDATE_CURRENT', payload: 2 })
+    setProductList(undefined)
   }
 
   return (
@@ -30,20 +75,25 @@ export const Product = ({ data, setData, setCurrent }: IRecord) => {
         autoComplete='off'
         requiredMark={false}
         colon={false}
-        initialValues={data}
+        initialValues={state.data || {}}
       >
         <SelectC
           name='type'
           label='Activity'
           placeholder='Select your activity'
           rules={ruleRequired}
-          value={_activities}
-          onChange={(value) => setType(value)}
+          value={Object.entries(_activities).map(([key, value]) => ({
+            value: key,
+            label: value
+          }))}
           defaultValue={() => {
-            if (data?.isDeleted == null && data?.isHarvested == null)
+            if (
+              state.data?.isDeleted == null &&
+              state.data?.isHarvested == null
+            )
               return null
-            if (data?.isDeleted) return 2
-            if (data?.isHarvested) return 1
+            if (state.data?.isDeleted) return 2
+            if (state.data?.isHarvested) return 1
             return 0
           }}
         />
@@ -52,7 +102,7 @@ export const Product = ({ data, setData, setCurrent }: IRecord) => {
           label='Product'
           placeholder='Select your product'
           rules={ruleRequired}
-          value={_products}
+          value={isLoading ? [] : productList || []}
         />
         <Form.Item className='relative mt-16'>
           <SubmitC className='!w-fit' wrapperCol={8}>
@@ -61,7 +111,7 @@ export const Product = ({ data, setData, setCurrent }: IRecord) => {
           <ButtonC
             variant='primary'
             className='!rounded-xl !w-fit absolute top-0 !text-base !font-medium !text-white hover:!text-white'
-            onClick={() => setCurrent(0)}
+            onClick={() => dispatch({ type: 'UPDATE_CURRENT', payload: 0 })}
           >
             Previous
           </ButtonC>
@@ -71,14 +121,8 @@ export const Product = ({ data, setData, setCurrent }: IRecord) => {
   )
 }
 
-const _activities = [
-  { value: 0, label: 'Record product update' },
-  { value: 1, label: 'Record product harvest' },
-  { value: 2, label: 'Delete nearest status' }
-]
-
-const _products = [
-  { value: 'apple', label: 'Apple' },
-  { value: 'banana', label: 'Banana' },
-  { value: 'cherry', label: 'Cherry' }
-]
+const _activities = {
+  UPDATE: 'Record product update',
+  HARVEST: 'Record product harvest',
+  DELETE: 'Delete nearest status'
+}

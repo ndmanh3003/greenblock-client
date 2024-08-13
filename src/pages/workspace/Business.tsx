@@ -3,6 +3,7 @@ import { AppstoreAddOutlined, SnippetsOutlined } from '@ant-design/icons'
 import { useState } from 'react'
 import { LandTable, TableGuide } from '../../components'
 import { VarietyTable } from '../../components/table/VarietyTable'
+import { ProductCode } from '../../components/ProductCode'
 
 export const Business = () => {
   const [current, setCurrent] = useState<number>(0)
@@ -72,4 +73,4 @@ const items: MenuItem[] = [
   }
 ]
 
-const _table = [<LandTable />, <VarietyTable />, <div>Table 3</div>]
+const _table = [<LandTable />, <VarietyTable />, <ProductCode />]

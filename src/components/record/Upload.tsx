@@ -12,17 +12,17 @@ import {
   TextAreaC
 } from '../../components'
 
-export const Upload = ({ data, setData, setCurrent }: IRecord) => {
+export const Upload = ({ dispatch, state }: IRecord) => {
   const [fileList, setFileList] = useState<UploadFile[]>([])
   const [hash, setHash] = useState<string[]>([])
-  const isDelete = data?.isDeleted
-  const isHarvested = data?.isHarvested
+  const isDelete = state.data?.isDeleted
+  const isHarvested = state.data?.isHarvested
 
   const onFinish = (values: IStatus) => {
     if (fileList.some((f) => f.status !== 'done')) return
     values.img = hash
-    setData({ ...data, ...values })
-    setCurrent(2)
+    dispatch({ type: 'UPDATE_DATA', payload: values })
+    dispatch({ type: 'UPDATE_CURRENT', payload: 1 })
   }
 
   return (
@@ -36,7 +36,7 @@ export const Upload = ({ data, setData, setCurrent }: IRecord) => {
         autoComplete='off'
         requiredMark={false}
         colon={false}
-        initialValues={data}
+        initialValues={state.data || {}}
       >
         {!isDelete && (
           <>
@@ -77,7 +77,7 @@ export const Upload = ({ data, setData, setCurrent }: IRecord) => {
           <ButtonC
             variant='primary'
             className='!rounded-xl !w-fit absolute top-0 !text-base !font-medium !text-white hover:!text-white'
-            onClick={() => setCurrent(1)}
+            onClick={() => dispatch({ type: 'UPDATE_CURRENT', payload: 1 })}
           >
             Previous
           </ButtonC>
