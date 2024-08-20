@@ -51,7 +51,7 @@ export const Upload = ({ dispatch, state }: IRecord) => {
 
   const onFinish = (values: IStatus & { isConfirm: boolean }) => {
     if (fileList.some((f) => f.status !== 'done')) {
-      message.error('Please wait until all images are uploaded')
+      message.warning('Please wait until all images are uploaded')
       return
     }
 
