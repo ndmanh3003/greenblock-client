@@ -1,8 +1,18 @@
 /* eslint-disable no-unused-vars */
+import React from 'react'
+
+export interface IState {
+  data?: IStatus
+  current: number
+}
+
+export type Action =
+  | { type: 'UPDATE_CURRENT'; payload: number }
+  | { type: 'UPDATE_DATA'; payload: IStatus }
+
 export interface IRecord {
-  setData: (data: IStatus) => void
-  setCurrent: (current: number) => void
-  data: IStatus | undefined
+  state: IState
+  dispatch: React.Dispatch<Action>
 }
 
 export interface IStatus {
@@ -11,7 +21,7 @@ export interface IStatus {
 
   productId: string
   isHarvested?: boolean
-  isDeleted?: boolean
+  isDelete?: boolean
 
   img?: string[]
   desc?: string

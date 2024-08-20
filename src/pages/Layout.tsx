@@ -8,7 +8,7 @@ import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 
 NProgress.configure({ showSpinner: false })
-message.config({ maxCount: 3, duration: 2 })
+message.config({ maxCount: 3, duration: 3 })
 
 export const Layout = () => {
   const location = useLocation()

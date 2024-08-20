@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Button, ConfigProvider, Form, message, Popconfirm, Table } from 'antd'
 import type { TableProps } from 'antd'
 import { InputC } from '../../components'
@@ -10,6 +10,7 @@ import {
 } from '../../service/store/auth'
 import { useHandleError, useHandleSuccess } from '../../hooks'
 import { DeleteOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
+import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
 interface DataType extends IAccount {
   key: string
@@ -31,6 +32,7 @@ export const Admin: React.FC = () => {
   useHandleSuccess(dataGetAll, false, (data) =>
     setData(data.map((d) => ({ ...d, key: d._id })))
   )
+  useHandleRefetch(refetch, [state], () => !state.type || !state.code)
 
   const {
     mutate,
@@ -40,10 +42,6 @@ export const Admin: React.FC = () => {
   } = useVerifyMutation()
   useHandleError([error, errorVerify])
   useHandleSuccess(dataVerify, true, () => refetch())
-
-  useEffect(() => {
-    if (state.type && state.code) refetch()
-  }, [state, refetch])
 
   const onFinish = (values: { token: string }) => {
     const { token } = values

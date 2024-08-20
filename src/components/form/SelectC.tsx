@@ -3,8 +3,13 @@ import { DownOutlined } from '@ant-design/icons'
 import React from 'react'
 import { IFormItem } from '.'
 
+export interface IValueSelectC {
+  value: string | number
+  label: string
+}
+
 interface ISelectC {
-  value: { value: string | number; label: string }[]
+  value: IValueSelectC[]
 }
 
 export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
@@ -17,6 +22,15 @@ export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
   return (
     <Form.Item label={label} name={name} rules={rules}>
       <Select
+        // * if you want both search by value and label
+        // filterOption={(input, option) => {
+        //   const { children, value } = option
+        //   return (
+        //     (children as string).toLowerCase().indexOf(input.toLowerCase()) >=
+        //     0 || (value as string).toLowerCase().indexOf(input.toLowerCase()) >= 0
+        //   )
+        // }}
+        optionFilterProp='children'
         showSearch
         suffixIcon={
           <DownOutlined style={{ color: 'white', fontSize: '13px' }} />

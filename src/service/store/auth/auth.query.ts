@@ -34,8 +34,7 @@ export const useGetAllQuery = (data: IGetAllReq) =>
   useQuery({
     queryKey: ['all', data.type, data.code],
     queryFn: () => getAllApi(data),
-    enabled: false,
-    retry: false
+    enabled: false
   })
 
 export const useVerifyMutation = () =>

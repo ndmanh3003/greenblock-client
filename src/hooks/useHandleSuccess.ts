@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { message } from 'antd'
 import { AxiosResponse } from 'axios'
 import { useEffect } from 'react'
@@ -16,10 +17,9 @@ export const useHandleSuccess = <T>(
   useEffect(() => {
     if (!response) return
 
-    const { message: messageS, data } = response.data
+    const { message: messageD, data } = response.data
 
-    if (isMessage) message.success(messageS)
+    if (isMessage) message.success(messageD)
     fn?.(data as T)
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [response])
 }

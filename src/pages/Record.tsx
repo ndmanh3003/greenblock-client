@@ -5,28 +5,38 @@ import {
   UserOutlined,
   CheckCircleOutlined
 } from '@ant-design/icons'
-import React, { useState } from 'react'
-import { Hr, IStatus, Product, Upload } from '../components'
+import React, { useReducer } from 'react'
+import { Action, Hr, IState, Product, Upload } from '../components'
+
+const reducer = (state: IState, action: Action): IState => {
+  switch (action.type) {
+  case 'UPDATE_CURRENT':
+    return { ...state, current: action.payload }
+  case 'UPDATE_DATA':
+    return { ...state, data: { ...state.data, ...action.payload } }
+  default:
+    return state
+  }
+}
 
 export const Record = () => {
-  const [current, setCurrent] = useState(0)
-  const [data, setData] = useState<IStatus>()
+  const [state, dispatch] = useReducer(reducer, { current: 0 })
 
   const _steps: (StepProps & { form: React.ReactNode })[] = [
     {
       title: 'HR Information',
       icon: <UserOutlined />,
-      form: <Hr data={data} setData={setData} setCurrent={setCurrent} />
+      form: <Hr state={state} dispatch={dispatch} />
     },
     {
       title: 'Product Information',
       icon: <ProductOutlined />,
-      form: <Product data={data} setData={setData} setCurrent={setCurrent} />
+      form: <Product state={state} dispatch={dispatch} />
     },
     {
       title: 'Upload Information',
       icon: <CloudUploadOutlined />,
-      form: <Upload data={data} setData={setData} setCurrent={setCurrent} />
+      form: <Upload state={state} dispatch={dispatch} />
     }
   ]
   return (
@@ -43,12 +53,16 @@ export const Record = () => {
                 key={i}
                 title={s.title}
                 status={
-                  i == current ? 'process' : i > current ? 'wait' : 'finish'
+                  i == state.current
+                    ? 'process'
+                    : i > state.current
+                      ? 'wait'
+                      : 'finish'
                 }
                 icon={
-                  i < current ? (
+                  i < state.current ? (
                     <CheckCircleOutlined />
-                  ) : i == current ? (
+                  ) : i == state.current ? (
                     s.icon
                   ) : (
                     React.cloneElement(s.icon as React.ReactElement, {
@@ -62,7 +76,9 @@ export const Record = () => {
         </ConfigProvider>
       </div>
 
-      <div className='mt-10 w-[600px] mx-auto'>{_steps[current].form}</div>
+      <div className='mt-10 w-[600px] mx-auto'>
+        {_steps[state.current].form}
+      </div>
     </div>
   )
 }

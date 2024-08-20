@@ -1,7 +1,7 @@
 import { Form, Popconfirm } from 'antd'
 import { InputC, ruleRequired } from './form'
 import { EditOutlined, CloseOutlined } from '@ant-design/icons'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { ButtonC } from './ButtonC'
 import {
   allCurrent,
@@ -14,10 +14,7 @@ import { v4 as uuidv4 } from 'uuid'
 
 export const ProductCode = () => {
   const [data, setData] = useState<Partial<IGetOverallProductRes>>()
-
-  useEffect(() => {
-    console.log('data', data)
-  }, [data])
+  const [code, setCode] = useState('')
 
   const {
     data: dataOverall,
@@ -42,23 +39,23 @@ export const ProductCode = () => {
       <h2 className='text-lg font-semibold mt-5'>Secret Code</h2>
       {!isLoading && data && (
         <>
-          {' '}
           <Form>
             <InputC
               disabled={isPending}
-              onChange={(e) => setData({ ...data, code: e.target.value })}
+              onChange={(e) => setCode(e.target.value)}
               rules={ruleRequired}
               defaultValue={data?.code}
               name='code'
               suffix={
                 <Popconfirm
                   title='Sure to update?'
-                  onConfirm={() => mutate(data?.code || '')}
+                  onConfirm={() => mutate(code)}
                   style={{ fontSize: 14 }}
                   cancelText={<CloseOutlined style={{ fontSize: 12 }} />}
                   cancelButtonProps={{ className: '!aspect-square !p-0' }}
                   okText={<EditOutlined style={{ fontSize: 12 }} />}
                   okButtonProps={{ className: '!aspect-square !p-0' }}
+                  disabled={!code}
                 >
                   <EditOutlined className='mr-3 text-2xl cursor-pointer hover:!text-primary transition-all' />
                 </Popconfirm>

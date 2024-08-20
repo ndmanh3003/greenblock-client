@@ -1,4 +1,4 @@
-import { Form, UploadFile } from 'antd'
+import { Form, message, UploadFile } from 'antd'
 import { useState } from 'react'
 import {
   ButtonC,
@@ -11,18 +11,59 @@ import {
   SubmitC,
   TextAreaC
 } from '../../components'
+import { useHandleStatusProductMutation } from '../../service/store/product'
+import { useHandleError, useHandleSuccess } from '../../hooks'
+import { CheckboxC } from './../form/CheckboxC'
+import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
-export const Upload = ({ data, setData, setCurrent }: IRecord) => {
+export const Upload = ({ dispatch, state }: IRecord) => {
   const [fileList, setFileList] = useState<UploadFile[]>([])
+  const [isConfirm, setIsConfirm] = useState(false)
   const [hash, setHash] = useState<string[]>([])
-  const isDelete = data?.isDeleted
-  const isHarvested = data?.isHarvested
+  const isDelete = state.data?.isDelete
+  const isHarvested = state.data?.isHarvested
 
-  const onFinish = (values: IStatus) => {
-    if (fileList.some((f) => f.status !== 'done')) return
-    values.img = hash
-    setData({ ...data, ...values })
-    setCurrent(2)
+  const { mutate, error, data } = useHandleStatusProductMutation()
+  useHandleError([error], () => setIsConfirm(false))
+  useHandleSuccess(data, true, () =>
+    dispatch({ type: 'UPDATE_CURRENT', payload: 1 })
+  )
+  useHandleRefetch(
+    () =>
+      mutate({
+        businessId: state.data!.businessId,
+        code: state.data!.code,
+        productId: state.data!.productId,
+        ...(state.data?.isDelete
+          ? { isDelete: Boolean(state.data?.isDelete) }
+          : {
+            isHarvested: Boolean(state.data?.isHarvested),
+            img: state.data?.img,
+            desc: state.data?.desc,
+            ...(isHarvested
+              ? { quantityOut: Number(state.data?.quantityOut) }
+              : {})
+          })
+      }),
+    [isConfirm],
+    () => !isConfirm
+  )
+
+  const onFinish = (values: IStatus & { isConfirm: boolean }) => {
+    if (fileList.some((f) => f.status !== 'done')) {
+      message.error('Please wait until all images are uploaded')
+      return
+    }
+
+    const { isConfirm, ...rest } = values
+    if (!isConfirm) {
+      message.error('Please confirm the information')
+      return
+    }
+
+    rest.img = hash
+    dispatch({ type: 'UPDATE_DATA', payload: rest })
+    setIsConfirm(true)
   }
 
   return (
@@ -36,7 +77,7 @@ export const Upload = ({ data, setData, setCurrent }: IRecord) => {
         autoComplete='off'
         requiredMark={false}
         colon={false}
-        initialValues={data}
+        initialValues={state.data || {}}
       >
         {!isDelete && (
           <>
@@ -70,6 +111,9 @@ export const Upload = ({ data, setData, setCurrent }: IRecord) => {
             </IpfsUpload>
           </>
         )}
+        <CheckboxC name='isConfirm' wrapperCol={8}>
+          I confirm the provided information.
+        </CheckboxC>
         <Form.Item className='relative'>
           <SubmitC className='!w-fit' wrapperCol={8}>
             Submit
@@ -77,7 +121,7 @@ export const Upload = ({ data, setData, setCurrent }: IRecord) => {
           <ButtonC
             variant='primary'
             className='!rounded-xl !w-fit absolute top-0 !text-base !font-medium !text-white hover:!text-white'
-            onClick={() => setCurrent(1)}
+            onClick={() => dispatch({ type: 'UPDATE_CURRENT', payload: 1 })}
           >
             Previous
           </ButtonC>

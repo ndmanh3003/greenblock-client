@@ -92,8 +92,7 @@ export function EditableCell<T>({
                     return Number(value)
                   }
                 } as Rule
-                // eslint-disable-next-line indent
-              ]
+            ]
             : [])
         ]}
       >
