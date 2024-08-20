@@ -5,4 +5,8 @@ export * from './table'
 
 export * from './ButtonC'
 export * from './TableGuide'
+export * from './ProductCode'
 export * from './FooterModal'
+export * from './ProductManagement'
+export * from './ProductInfo'
+export * from './TagCurrent'

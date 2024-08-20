@@ -1,9 +1,12 @@
 import { ConfigProvider, Menu, MenuProps } from 'antd'
 import { AppstoreAddOutlined, SnippetsOutlined } from '@ant-design/icons'
 import { useState } from 'react'
-import { LandTable, TableGuide } from '../../components'
-import { VarietyTable } from '../../components/table/VarietyTable'
-import { ProductCode } from '../../components/ProductCode'
+import {
+  LandTable,
+  ProductCode,
+  TableGuide,
+  VarietyTable
+} from '../../components'
 
 export const Business = () => {
   const [current, setCurrent] = useState<number>(0)
@@ -34,7 +37,7 @@ export const Business = () => {
             </ConfigProvider>
           </div>
         </div>
-        <div className='w-full h-fit flex flex-col space-y-10'>
+        <div className='w-full h-fit'>
           <div className='border rounded-2xl overflow-hidden w-full h-fit p-10'>
             <ConfigProvider
               theme={{

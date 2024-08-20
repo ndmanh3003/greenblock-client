@@ -6,4 +6,5 @@ export interface IFormItem {
   rules?: Rule[]
   label?: string
   wrapperCol?: number
+  isOutline?: boolean
 }

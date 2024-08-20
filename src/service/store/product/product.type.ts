@@ -33,10 +33,12 @@ export interface IProduct {
   land: string
 
   inspector: IAccount
-  quantityOut: number
-  cert: string
-  quality: number
-  desc: string
+  quantityOut?: number
+  cert?: string
+  quality?: number
+  desc?: string
+
+  exportAt?: string
 }
 
 export interface IGetAllProductReq {

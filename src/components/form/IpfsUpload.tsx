@@ -12,7 +12,7 @@ interface IIpfsUploadC {
   setFileList: (data: UploadFile[]) => void
   fileList: UploadFile[]
   hash: string[] | undefined
-  listType: 'picture' | 'picture-card'
+  listType?: 'picture' | 'picture-card'
 }
 
 export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
@@ -25,6 +25,7 @@ export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
   fileList,
   hash,
   children,
+  label,
   ...props
 }) => {
   const handleChange: UploadProps['onChange'] = async (info) => {
@@ -79,7 +80,7 @@ export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
 
   return (
     <div className={cn(!fileList.length && 'relative')}>
-      <Form.Item wrapperCol={{ offset: wrapperCol }}>
+      <Form.Item wrapperCol={{ offset: wrapperCol }} label={label}>
         {!fileList.length && (
           <Form.Item
             name={name}
@@ -96,7 +97,7 @@ export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
           fileList={fileList}
           accept='image/*'
           beforeUpload={() => false}
-          onChange={handleChange}
+          onChange={async (info) => await handleChange(info)}
           onPreview={async (file) => {
             const index = fileList.findIndex((f) => f.uid === file.uid)
             const ipfsHash = hash![index]
@@ -104,10 +105,10 @@ export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
           }}
           {...props}
         >
-          {props.listType === 'picture' ? (
+          {props.listType === 'picture' || !props.listType ? (
             <ButtonC
               variant='primary'
-              icon={<UploadOutlined />}
+              icon={<UploadOutlined className={cn('text-white', className)} />}
               className={cn(
                 '!text-white hover:!text-white !font-medium !text-base',
                 className
@@ -121,6 +122,7 @@ export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
                 style={{
                   fontSize: '20px'
                 }}
+                className={className}
               />
               <div className='mt-2 text-base'>{children}</div>
             </div>

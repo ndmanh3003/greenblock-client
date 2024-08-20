@@ -9,12 +9,18 @@ export const TextAreaC: React.FC<IFormItem & TextAreaProps> = ({
   rules,
   label,
   className,
+  isOutline,
   ...props
 }) => {
   return (
     <Form.Item name={name} rules={rules} label={label}>
       <Input.TextArea
-        className={cn(cnInput, '!px-2', className)}
+        className={cn(
+          cnInput,
+          '!px-2',
+          isOutline && 'border-gray-200',
+          className
+        )}
         showCount
         autoSize={{ minRows: 2 }}
         maxLength={100}

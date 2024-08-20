@@ -1,4 +1,4 @@
-import { Line } from '../../components'
+import { ProductManagement } from './../../components/ProductManagement'
 
 export const Inspector = () => {
   return (
@@ -18,11 +18,7 @@ export const Inspector = () => {
       </header>
 
       <main>
-        <h1 className='font-bold text-3xl mt-8'>
-          List of Products
-          <Line theme='light' />
-        </h1>
-        <div className='grid-cols-3 grid gap-4 '></div>
+        <ProductManagement></ProductManagement>
       </main>
     </div>
   )

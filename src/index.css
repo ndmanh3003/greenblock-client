@@ -131,3 +131,7 @@ body {
 #nprogress .bar {
   background: #21ba43 !important;
 }
+
+.ant-form-item-no-colon {
+  font-weight: 500;
+}

@@ -4,6 +4,7 @@ import React from 'react'
 import { cn, cnInput } from '../../utils'
 
 export const InputC: React.FC<IFormItem & InputProps> = ({
+  isOutline,
   name,
   rules,
   label,
@@ -12,7 +13,10 @@ export const InputC: React.FC<IFormItem & InputProps> = ({
 }) => {
   return (
     <Form.Item name={name} rules={rules} label={label}>
-      <Input className={cn(cnInput, className)} {...props} />
+      <Input
+        className={cn(cnInput, className, isOutline && 'border-gray-200')}
+        {...props}
+      />
     </Form.Item>
   )
 }
