@@ -4,7 +4,5 @@ export * from './record'
 export * from './table'
 
 export * from './ButtonC'
-export * from './ProductCard'
 export * from './TableGuide'
-export * from './HistoryModal'
 export * from './FooterModal'

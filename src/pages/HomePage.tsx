@@ -99,7 +99,7 @@ const _prouductInfo = ['About us', 'Our solution', 'Process & Usage Guide']
 const _nav = [
   { name: 'Our Partners', key: 'business' },
   { name: 'Our Inspector', key: 'inspector' },
-  { name: 'Inspector Space', link: Routes.INSPECTOR },
-  { name: 'Business Space', link: Routes.BUSINESS },
+  { name: 'Registration', link: Routes.REGISTER },
+  { name: 'Workspace', link: Routes.BUSINESS },
   { name: 'Record Management', link: Routes.RECORD }
 ]

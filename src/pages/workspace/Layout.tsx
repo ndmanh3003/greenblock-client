@@ -1,4 +1,4 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
+import { Outlet, useNavigate } from 'react-router-dom'
 import { Line } from '../../components'
 import {
   IGetMeRes,
@@ -8,24 +8,17 @@ import {
 import { useHandleError, useHandleSuccess } from '../../hooks'
 import { useState } from 'react'
 import { Routes } from '../../routes'
-import { Button, message } from 'antd'
+import { Button } from 'antd'
 import { tokensStorage } from '../../service/localStorage'
 
 export const Layout = () => {
-  const location = useLocation()
   const navigate = useNavigate()
   const [info, setInfo] = useState<IGetMeRes>()
 
   const { data, error, isLoading } = useGetMeQuery()
   useHandleSuccess(data, false, (data) => {
     setInfo(data)
-    if (
-      (location.pathname.includes(Routes.BUSINESS) && !data.isBusiness) ||
-      (location.pathname.includes(Routes.INSPECTOR) && data.isBusiness)
-    ) {
-      message.warning('You are not authorized to access this page')
-      navigate('')
-    }
+    if (!data.isBusiness) navigate(Routes.INSPECTOR)
   })
 
   const {

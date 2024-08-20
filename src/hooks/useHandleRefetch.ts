@@ -9,7 +9,6 @@ export const useHandleRefetch = (
   useEffect(
     () => {
       if (!refecth) return
-      console.log('refetch')
       if (destroy && destroy()) return
       if (typeof refecth === 'function') refecth()
     },
