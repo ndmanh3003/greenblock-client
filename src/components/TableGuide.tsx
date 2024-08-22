@@ -1,4 +1,8 @@
-import { ExclamationCircleFilled, CaretRightOutlined } from '@ant-design/icons'
+import {
+  ExclamationCircleFilled,
+  CaretRightOutlined,
+  EditOutlined
+} from '@ant-design/icons'
 import { Collapse, ConfigProvider } from 'antd'
 
 export const TableGuide = () => {
@@ -30,11 +34,12 @@ export const TableGuide = () => {
 const items = [
   {
     key: '1',
-    label: 'Human Resource and Ecosystem',
+    label: 'Batch Management',
     children: (
       <div>
-        - Make changes directly in the table - everything is editable! <br />
-        - Any duplicated information will be automatically removed.
+        - Edit table content directly in cells marked with an <EditOutlined />{' '}
+        icon at the beginning of each row!
+        <br /> - Any duplicated information will be automatically removed.
         <br />- You also can work with the file:
         <div className='pl-8'>
           • Import Data: Upload a text file to add your own data.
@@ -58,13 +63,12 @@ const items = [
   },
   {
     key: '2',
-    label: 'Promotion and Product',
+    label: 'Product Administration',
     children: (
       <div>
         - All changes are updated automatically - no need for manual saving!
         <br />
-        - Search, sort, and filter options available in the header row of a
-        table (or at the first of a list).
+        - Search, sort, and filter options available in the header of a table.
         <br />- Filters and sorts reset when you navigate away from the table.
         <div className='text-red-500 mt-3 flex space-x-2'>
           <ExclamationCircleFilled style={{ fontSize: 20 }} />

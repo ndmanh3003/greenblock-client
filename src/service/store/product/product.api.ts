@@ -20,3 +20,7 @@ export const getAllProductApi = async (data: IGetAllProductReq) => {
 export const handleStatusProductApi = async (data: IHandleStatusProductReq) => {
   return await instance.put<IRespond>('/product/record', data)
 }
+
+export const getProductDetailApi = async (id: string) => {
+  return await instance.get<IRespond<IProduct>>('/product/' + id)
+}

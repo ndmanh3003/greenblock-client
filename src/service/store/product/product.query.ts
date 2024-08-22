@@ -2,6 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import {
   getAllProductApi,
   getOverallProductApi,
+  getProductDetailApi,
   handleStatusProductApi
 } from './product.api'
 import { IGetAllProductReq, IHandleStatusProductReq } from './product.type'
@@ -23,3 +24,9 @@ export const useHandleStatusProductMutation = () => {
     mutationFn: (data: IHandleStatusProductReq) => handleStatusProductApi(data)
   })
 }
+
+export const useGetProductDetailQuery = (id: string) =>
+  useQuery({
+    queryKey: ['detail', id],
+    queryFn: () => getProductDetailApi(id)
+  })

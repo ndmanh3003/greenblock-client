@@ -3,12 +3,20 @@ import { Link, useNavigate } from 'react-router-dom'
 import { ConfigProvider, Input } from 'antd'
 import { ButtonC, Line } from '../components'
 import { Routes } from '../routes'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { FooterModal } from '../components/FooterModal'
 
 export const HomePage = () => {
   const navigate = useNavigate()
   const [modal, setModal] = useState<number | string>(0)
+  const [time, setTime] = useState<'morning' | 'afternoon' | 'evening'>()
+
+  useEffect(() => {
+    const hours = new Date().getHours()
+    if (hours >= 5 && hours <= 11) setTime('morning')
+    else if (hours >= 12 && hours <= 17) setTime('afternoon')
+    else setTime('evening')
+  }, [])
 
   return (
     <div className='h-screen w-full pt-2 pb-10 flex flex-col justify-between items-stretch'>
@@ -48,9 +56,12 @@ export const HomePage = () => {
 
       <section>
         <div className='flex gap-4 items-center'>
-          <img src='moon-evening.svg' className='w-20 h-20' />
+          <img
+            src={time === 'evening' ? 'moon-evening.svg' : 'sun-morning.svg'}
+            className='w-20 h-20'
+          />
           <div className='flex flex-col text-white gap-1'>
-            <span className='font-semibold text-3xl'>Good evening</span>
+            <span className='font-semibold text-3xl'>{`Good ${time}`}</span>
             <span className='text-base font-light'>
               What are you looking for today?
             </span>

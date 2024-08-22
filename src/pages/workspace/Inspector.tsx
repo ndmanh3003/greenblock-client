@@ -8,12 +8,13 @@ export const Inspector = () => {
           Principle of Correct Inspection
         </h1>
         <div className='font-medium leading-normal'>
-          Step 1: Visually inspect for contamination or spoilage.
+          Step 1:Select product and click "Inspecting" to package all data
+          without further updates.
           <br />
-          Step 2: Conduct laboratory tests for pathogens and quality standards.
+          Step 2: Review product information and manufacturing history.
           <br />
-          Step 3: Verify results against regulatory standards and document
-          findings.
+          Step 3: Assess quality, upload certificate, and submit by clicking
+          "Inspect".
         </div>
       </header>
 

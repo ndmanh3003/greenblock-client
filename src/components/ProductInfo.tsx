@@ -1,17 +1,53 @@
-import { ConfigProvider, Form, Image, message, Rate, UploadFile } from 'antd'
-import { InputC, IpfsUpload, ruleRequired, TextAreaC } from './form'
+/* eslint-disable indent */
+import { ConfigProvider, Form, message, Rate, UploadFile } from 'antd'
+import {
+  InputC,
+  IpfsUpload,
+  ruleRequired,
+  TextAreaC,
+  TagCurrent,
+  Timeline,
+  SubmitC,
+  ButtonC
+} from '.'
 import { useState } from 'react'
-import { TagCurrent } from '.'
+import {
+  allCurrent,
+  IProduct,
+  IStatus,
+  roleCurrent,
+  useGetProductDetailQuery
+} from '../service/store/product'
+import { useHandleError, useHandleSuccess } from '../hooks'
+import { cn } from '../utils'
+import { useNavigate } from 'react-router-dom'
 
 export const ProductInfo = ({
-  id
-  // isBusiness
+  id,
+  isBusiness
 }: {
   id: string
   isBusiness: boolean
 }) => {
   const [hash, setHash] = useState<string[]>([])
+  const navigate = useNavigate()
   const [fileList, setFileList] = useState<UploadFile[]>([])
+  const [product, setProduct] = useState<IProduct>()
+
+  const { data, error, isLoading } = useGetProductDetailQuery(id)
+  useHandleError([error], () => navigate(0))
+  useHandleSuccess(data, false, (data) => {
+    if (Array.isArray(data.record)) {
+      data.record.forEach((record: IStatus) => {
+        if (Array.isArray(record.img))
+          record.img = record.img.map(
+            (imgi) => `${import.meta.env.VITE_GETWAY_IPFS}${imgi}`
+          )
+      })
+    }
+    setProduct(data)
+  })
+
   const copyToClipboard = () => {
     navigator.clipboard
       .writeText(id)
@@ -22,6 +58,9 @@ export const ProductInfo = ({
         message.error('Failed to copy!')
       })
   }
+
+  if (isLoading) return <div>Loading...</div>
+
   return (
     <div className='w-full'>
       <div
@@ -31,6 +70,7 @@ export const ProductInfo = ({
         ID: {id}
       </div>
       <ConfigProvider
+        wave={{ disabled: true }}
         theme={{
           token: {
             colorText: 'black',
@@ -47,133 +87,135 @@ export const ProductInfo = ({
       >
         <div className='text-2xl font-semibold'>
           <span className='mr-2'>Information</span>
-          <TagCurrent state='planting' />
+          <TagCurrent state={product?.current || 'planting'} />
         </div>
         <Form colon={false} layout='vertical'>
           <InputC
             label='Prouct Name'
-            value={'jhhdjd'}
+            value={product?.name}
             onChange={() => console.log(111)}
             isOutline
-            disabled
+            disabled={!isBusiness}
             className='!text-black'
           />
           <TextAreaC
             label='Description'
-            value={'jhhdjd'}
+            value={product?.desc || 'NULL'}
             onChange={() => console.log(111)}
             isOutline
-            disabled
+            disabled={!isBusiness}
             className='!text-black'
           />
           <div className='grid grid-cols-2 gap-x-5'>
             <InputC
+              label='Business'
+              value={product?.business.name}
+              isOutline
+              disabled
+              className='!text-black'
+            />
+            <InputC
+              label='Inspector'
+              value={product?.inspector.name}
+              isOutline
+              disabled={!isBusiness}
+              className='!text-black'
+            />
+            <InputC
               label='Planting Area'
-              value={'jhhdjd'}
+              value={product?.land}
               isOutline
               disabled
               className='!text-black'
             />
             <InputC
               label='Cultivated Variety'
-              value={'jhhdjd'}
+              value={product?.variety}
               isOutline
               disabled
               className='!text-black'
             />
             <InputC
               label='Quantity In'
-              value={30}
+              value={product?.quantityIn}
               isOutline
               disabled
               className='!text-black'
             />
             <InputC
               label='Quantity Out'
-              value={30}
+              value={product?.quantityOut || 'NULL'}
               isOutline
-              disabled
+              disabled={!isBusiness}
               className='!text-black'
             />
           </div>
         </Form>
-        <div className='text-2xl font-semibold'>Inspection</div>
-        <Form colon={false} layout='vertical'>
-          <div className='grid grid-cols-2 space-x-5'>
-            <Form.Item name='rate' label='Rate'>
-              <Rate allowClear />
-            </Form.Item>
-            <IpfsUpload
-              setHash={setHash}
-              fileList={fileList}
-              setFileList={setFileList}
-              hash={hash}
-              name='cert'
-              maxCount={1}
-              rules={ruleRequired}
-              className='!text-black hover:!text-black mt-1'
-              label='Certification'
-            >
-              Upload
-            </IpfsUpload>
-          </div>
-        </Form>
-        <div className='text-2xl font-semibold mb-2'>History Record</div>
-        <div className='mt-5 border-l-2 '>
-          {_timeline.map((item, index) => (
-            <div
-              key={index}
-              className='pl-5 my-5 relative grid grid-cols-2 gap-x-10'
-            >
-              <div className='w-full'>
-                <div className='h-4 w-4 border-4 rounded-full border-green1 absolute -left-[9px] top-[5px] bg-white' />
-                <div className='text-lg font-semibold flex justify-between'>
-                  <span>{item.title}</span>
-                  <span className='text-gray-800 text-base font-normal'>
-                    {item.time}
-                  </span>
-                </div>
-                <div className='text-base'>{item.content}</div>
-              </div>
-              <div className='w-full aspect-video rounded-2xl overflow-hidden'>
-                <Image.PreviewGroup
-                  items={[
-                    'https://indigo-kind-manatee-688.mypinata.cloud/ipfs/QmQRk4AejgLP2jV6jmYU3m9maXe5Yv4gkYL9u1XkcX8qM2',
-                    'https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp',
-                    'https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp'
-                  ]}
-                >
-                  <img
-                    src='https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp'
-                    className='h-full w-full object-cover'
-                  />
-                </Image.PreviewGroup>
-              </div>
+        <div className='text-2xl font-semibold mt-10'>Inspection</div>
+        {(!isBusiness || (isBusiness && product?.cert)) && (
+          <Form colon={false} layout='vertical'>
+            <div className='grid grid-cols-2 gap-x-5'>
+              <Form.Item name='rate' label='Rate'>
+                <Rate
+                  allowClear
+                  allowHalf
+                  value={product?.quality}
+                  disabled={
+                    isBusiness ||
+                    roleCurrent.business.includes(product?.current as string)
+                  }
+                />
+              </Form.Item>
+              {isBusiness ||
+              roleCurrent.business.includes(product?.current as string) ? (
+                <div>View certification</div>
+              ) : (
+                <>
+                  <IpfsUpload
+                    setHash={setHash}
+                    fileList={fileList}
+                    setFileList={setFileList}
+                    hash={hash}
+                    name='cert'
+                    maxCount={1}
+                    rules={ruleRequired}
+                    className={cn(
+                      '!text-black hover:!text-black !bg-transparent !p-0 !mt-0 !shadow-none',
+                      (isBusiness ||
+                        roleCurrent.business.includes(
+                          product?.current as string
+                        )) &&
+                        'hidden'
+                    )}
+                    label='Certification'
+                  >
+                    Upload
+                  </IpfsUpload>
+                  <div className='flex gap-x-5 items-start col-span-2 justify-start'>
+                    <ButtonC
+                      variant='outline'
+                      className={cn(
+                        'w-fit rounded-xl !text-base !font-medium !outline-primary mt-[2px] !text-primary !py-[18px]',
+                        product?.current === allCurrent.INSPECTING && 'hidden'
+                      )}
+                    >
+                      Inspecting
+                    </ButtonC>
+                    <SubmitC
+                      className='w-fit !text-base !font-medium rounded-xl'
+                      variant='primary'
+                    >
+                      Inspect
+                    </SubmitC>
+                  </div>
+                </>
+              )}
             </div>
-          ))}
-        </div>
+          </Form>
+        )}
+        <div className='text-2xl font-semibold mt-10 mb-2'>History Record</div>
+        <Timeline timeline={product?.record as IStatus[]} />
       </ConfigProvider>
     </div>
   )
 }
-
-const _timeline = [
-  {
-    title: 'Create a services site',
-    time: '2015-09-01',
-    content:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.'
-  },
-  {
-    title: 'Create a services site',
-    time: '2015-09-01',
-    content:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.'
-  },
-  {
-    title: 'Create a services site',
-    time: '2015-09-01',
-    content:
-      'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam.'
-  }
-]

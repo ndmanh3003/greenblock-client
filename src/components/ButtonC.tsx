@@ -1,8 +1,8 @@
 import { Button, ButtonProps } from 'antd'
 import { cn } from '../utils'
 
-interface IButtonC extends ButtonProps {
-  variant: 'primary' | 'linear' | 'outline'
+export interface IButtonC extends ButtonProps {
+  variant?: 'primary' | 'linear' | 'outline'
 }
 
 const style = {
@@ -22,7 +22,7 @@ export const ButtonC = ({
     <Button
       className={cn(
         '!font-semibold !p-5 !pr-8 !border-0 !text-lg transition ease-in-out duration-300 delay-75',
-        style[variant],
+        style[variant || 'linear'],
         className
       )}
       type='primary'

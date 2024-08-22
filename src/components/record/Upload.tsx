@@ -99,7 +99,6 @@ export const Upload = ({ dispatch, state }: IRecord) => {
               setHash={setHash}
               fileList={fileList}
               setFileList={setFileList}
-              wrapperCol={8}
               hash={hash}
               name='img'
               maxCount={5}
