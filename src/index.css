@@ -135,3 +135,11 @@ body {
 .ant-form-item-no-colon {
   font-weight: 500;
 }
+
+#components-back-top-demo-custom .ant-back-top {
+  bottom: 100px;
+}
+
+#components-back-top-demo-custom .ant-back-top {
+  bottom: 200px;
+}

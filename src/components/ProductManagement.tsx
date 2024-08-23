@@ -13,12 +13,13 @@ export const ProductManagement = () => {
   const {
     data,
     // refetch,
-    // isLoading,
+    isLoading,
     error
   } = useGetAllProductQuery({})
   useHandleError([error])
   useHandleSuccess(data, false, (data) => setProductList(data))
 
+  if (isLoading) return
   return (
     <div>
       <h1 className='font-bold text-3xl mt-8'>

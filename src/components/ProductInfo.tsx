@@ -8,7 +8,8 @@ import {
   TagCurrent,
   Timeline,
   SubmitC,
-  ButtonC
+  ButtonC,
+  BackTopC
 } from '.'
 import { useState } from 'react'
 import {
@@ -63,6 +64,7 @@ export const ProductInfo = ({
 
   return (
     <div className='w-full'>
+      <BackTopC />
       <div
         className='cursor-pointer block w-fit mb-5'
         onClick={copyToClipboard}
