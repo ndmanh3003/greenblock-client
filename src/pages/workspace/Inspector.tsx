@@ -19,7 +19,7 @@ export const Inspector = () => {
       </header>
 
       <main>
-        <ProductManagement></ProductManagement>
+        <ProductManagement />
       </main>
     </div>
   )

@@ -4,7 +4,8 @@ import {
   IGetAllProductReq,
   IGetOverallProductRes,
   IHandleStatusProductReq,
-  IProduct
+  IProduct,
+  IUpdateProductReq
 } from './product.type'
 
 export const getOverallProductApi = async () => {
@@ -23,4 +24,8 @@ export const handleStatusProductApi = async (data: IHandleStatusProductReq) => {
 
 export const getProductDetailApi = async (id: string) => {
   return await instance.get<IRespond<IProduct>>('/product/' + id)
+}
+
+export const updateProductApi = async (data: IUpdateProductReq) => {
+  return await instance.put<IRespond>('/product', data)
 }

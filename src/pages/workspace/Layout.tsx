@@ -1,4 +1,4 @@
-import { Outlet, useNavigate } from 'react-router-dom'
+import { Outlet, useLocation, useNavigate } from 'react-router-dom'
 import { Line } from '../../components'
 import {
   IGetMeRes,
@@ -13,12 +13,14 @@ import { tokensStorage } from '../../service/localStorage'
 
 export const Layout = () => {
   const navigate = useNavigate()
+  const location = useLocation()
   const [info, setInfo] = useState<IGetMeRes>()
 
   const { data, error, isLoading } = useGetMeQuery()
   useHandleSuccess(data, false, (data) => {
     setInfo(data)
-    if (!data.isBusiness) navigate(Routes.INSPECTOR)
+    if (!data.isBusiness && location.pathname.includes(Routes.BUSINESS))
+      navigate(Routes.INSPECTOR)
   })
 
   const {

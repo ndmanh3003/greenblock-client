@@ -50,16 +50,11 @@ export const Upload = ({ dispatch, state }: IRecord) => {
   )
 
   const onFinish = (values: IStatus & { isConfirm: boolean }) => {
-    if (fileList.some((f) => f.status !== 'done')) {
-      message.warning('Please wait until all images are uploaded')
-      return
-    }
+    if (fileList.some((f) => f.status !== 'done'))
+      return message.warning('Please wait until all images are uploaded')
 
     const { isConfirm, ...rest } = values
-    if (!isConfirm) {
-      message.error('Please confirm the information')
-      return
-    }
+    if (!isConfirm) return message.error('Please confirm the information')
 
     rest.img = hash
     dispatch({ type: 'UPDATE_DATA', payload: rest })

@@ -65,10 +65,8 @@ export const LandTable: React.FC = () => {
   }
 
   const handleAdd = () => {
-    if (data.some((item) => item.name === 'Add new item')) {
-      message.warning('Please save the previous new item')
-      return
-    }
+    if (data.some((item) => item.name === 'Add new item'))
+      return message.warning('Please save the previous new item')
 
     const newData: LandTableItem = {
       name: 'Add new item',
@@ -89,10 +87,7 @@ export const LandTable: React.FC = () => {
   const handleExport = () => {
     clear(data)
 
-    if (data.length === 0) {
-      message.warning('No data to export')
-      return
-    }
+    if (data.length === 0) return message.warning('No data to export')
 
     const title = 'id,name\n'
     const csvContent = data.reduce((acc, item) => {

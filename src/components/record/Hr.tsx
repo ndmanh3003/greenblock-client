@@ -11,7 +11,6 @@ import {
 import { useGetAllQuery } from '../../service/store/auth'
 import { useState } from 'react'
 import { useHandleError, useHandleSuccess } from '../../hooks'
-import { tokensStorage } from '../../service/localStorage'
 import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
 export const Hr = ({ dispatch, state }: IRecord) => {
@@ -34,7 +33,6 @@ export const Hr = ({ dispatch, state }: IRecord) => {
   useHandleRefetch(refetch)
 
   const onFinish = async (values: IStatus) => {
-    await tokensStorage.removeToken()
     dispatch({ type: 'UPDATE_DATA', payload: values })
     dispatch({ type: 'UPDATE_CURRENT', payload: 1 })
   }

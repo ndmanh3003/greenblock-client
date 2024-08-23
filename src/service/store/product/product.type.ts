@@ -56,3 +56,14 @@ export interface IHandleStatusProductReq {
   isHarvested?: boolean
   quantityOut?: number
 }
+
+export interface IUpdateProductReq {
+  productId: string
+  name?: string
+  desc?: string
+  current?: (typeof allCurrent)[keyof typeof allCurrent]
+  quantityOut?: number
+  inspector?: string
+  quality?: number
+  cert?: string
+}

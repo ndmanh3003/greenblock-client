@@ -25,7 +25,10 @@ const router = createBrowserRouter(
 
       <Route path='/' element={<ProtectedPage />}>
         <Route path='/' element={<Pages.LayoutWorkspace />}>
-          <Route path={Routes.INSPECTOR} element={<Pages.Inspector />} />
+          <Route
+            path={Routes.INSPECTOR + '/:id?'}
+            element={<Pages.Inspector />}
+          />
           <Route path={Routes.BUSINESS} element={<Pages.Business />} />
         </Route>
       </Route>

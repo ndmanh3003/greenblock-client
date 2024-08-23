@@ -23,8 +23,7 @@ export const Product = ({ dispatch, state }: IRecord) => {
   useHandleSuccess(dataGetAll, false, (data) => {
     if (data.length === 0) {
       dispatch({ type: 'UPDATE_CURRENT', payload: 0 })
-      message.info('No product to handle')
-      return
+      return message.info('No product to handle')
     }
     setProductList(
       data?.map((item) => ({
@@ -45,8 +44,7 @@ export const Product = ({ dispatch, state }: IRecord) => {
       ?.label.includes('harvested')
     if (isHarvested)
       if (type !== 'DELETE') {
-        message.error('This product is harvested')
-        return
+        return message.error('This product is harvested')
       } else message.warning('Delete resets to "Planting" and quantity to 0')
 
     rest.isHarvested = rest.isDelete = undefined

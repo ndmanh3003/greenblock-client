@@ -5,10 +5,13 @@ import { DeleteOutlined, HomeOutlined } from '@ant-design/icons'
 import { cn } from '../utils'
 import { useHandleError, useHandleSuccess } from '../hooks'
 import { ProductInfo, TagCurrent } from '.'
+import { useNavigate, useParams } from 'react-router-dom'
+import { Routes } from '../routes'
 
 export const ProductManagement = () => {
-  const [current, setCurrent] = useState<string | null>(null)
   const [productList, setProductList] = useState<IProduct[]>()
+  const { id } = useParams()
+  const navigate = useNavigate()
 
   const {
     data,
@@ -34,9 +37,12 @@ export const ProductManagement = () => {
                 key={product._id}
                 className={cn(
                   'my-1 group transition-all duration-100 cursor-pointer py-2 px-6 pr-12 relative hover:!bg-gray-100',
-                  product._id === current && 'bg-linear1'
+                  product._id === id && 'bg-linear1'
                 )}
-                onClick={() => setCurrent(product._id)}
+                onClick={() =>
+                  id !== product._id &&
+                  navigate(`${Routes.INSPECTOR}/${product._id}`)
+                }
               >
                 <DeleteOutlined className='!text-red-500 absolute text-lg right-4 top-1/2 -translate-y-1/2 hidden group-hover:flex' />
                 <div className='font-semibold text-lg truncate whitespace-nowrap overflow-hidden'>
@@ -51,9 +57,9 @@ export const ProductManagement = () => {
               </div>
             ))}
         </div>
-        {current && (
+        {id && (
           <div className='border rounded-2xl overflow-hidden w-full h-fit p-10'>
-            <ProductInfo id={current} isBusiness={false} />
+            <ProductInfo isBusiness={false} />
           </div>
         )}
       </main>

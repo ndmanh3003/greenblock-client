@@ -46,10 +46,7 @@ export const Admin: React.FC = () => {
   const onFinish = (values: { token: string }) => {
     const { token } = values
     const [isBusiness, code] = token.split('@//')
-    if (!isBusiness || !code) {
-      message.error('Invalid code')
-      return
-    }
+    if (!isBusiness || !code) return message.error('Invalid code')
 
     setState({
       type: Number(isBusiness) ? 'business' : 'inspector',

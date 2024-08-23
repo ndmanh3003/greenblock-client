@@ -3,9 +3,14 @@ import {
   getAllProductApi,
   getOverallProductApi,
   getProductDetailApi,
-  handleStatusProductApi
+  handleStatusProductApi,
+  updateProductApi
 } from './product.api'
-import { IGetAllProductReq, IHandleStatusProductReq } from './product.type'
+import {
+  IGetAllProductReq,
+  IHandleStatusProductReq,
+  IUpdateProductReq
+} from './product.type'
 
 export const useGetOverallProductQuery = () =>
   useQuery({
@@ -30,3 +35,9 @@ export const useGetProductDetailQuery = (id: string) =>
     queryKey: ['detail', id],
     queryFn: () => getProductDetailApi(id)
   })
+
+export const useUpdateProductMutation = () => {
+  return useMutation({
+    mutationFn: (data: IUpdateProductReq) => updateProductApi(data)
+  })
+}
