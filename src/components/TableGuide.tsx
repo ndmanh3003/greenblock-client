@@ -8,7 +8,7 @@ import { Collapse, ConfigProvider } from 'antd'
 export const TableGuide = () => {
   return (
     <div className='rounded-2xl w-full h-fit overflow-hidden p-10 pb-3 px-10 relative'>
-      <div className='w-full h-full bg-[url("bs-guide.png")] absolute -z-20 top-0 right-0' />
+      <div className='w-full h-full bg-[url("/bs-guide.png")] absolute -z-20 top-0 right-0' />
       <h1 className='font-bold text-3xl'>File Data Manager and Editor</h1>
       <div className='font-medium leading-normal'>
         Here's a quick guide on how to use our data management features:

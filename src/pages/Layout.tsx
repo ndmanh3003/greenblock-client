@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom'
+import { Outlet, useLocation, useParams } from 'react-router-dom'
 import 'antd/dist/reset.css'
 import { useEffect, useState } from 'react'
 import { Background, Float, Footer } from '../components'
@@ -12,18 +12,23 @@ message.config({ maxCount: 3, duration: 3 })
 
 export const Layout = () => {
   const location = useLocation()
+  const { id } = useParams()
   const [page, setPage] = useState(0)
 
   useEffect(() => {
-    if (location.pathname == Routes.HOMEPAGE) setPage(1)
+    if (
+      location.pathname == `${Routes.HOMEPAGE}${id}` ||
+      location.pathname == Routes.HOMEPAGE
+    )
+      setPage(1)
     else if (
-      location.pathname == Routes.LOGIN ||
-      location.pathname == Routes.REGISTER
+      location.pathname.includes(Routes.LOGIN) ||
+      location.pathname.includes(Routes.REGISTER)
     )
       setPage(2)
-    else if (location.pathname == Routes.RECORD) setPage(3)
+    else if (location.pathname.includes(Routes.RECORD)) setPage(3)
     else setPage(0)
-  }, [location])
+  }, [location, id])
 
   useEffect(() => {
     NProgress.start()

@@ -11,10 +11,12 @@ import {
 import { useHandleError, useHandleSuccess } from '../hooks'
 import { useChangeCodeMutation } from '../service/store/batch'
 import { v4 as uuidv4 } from 'uuid'
+import { useNavigate } from 'react-router-dom'
 
 export const ProductCode = () => {
   const [data, setData] = useState<Partial<IGetOverallProductRes>>()
   const [code, setCode] = useState('')
+  const navigate = useNavigate()
 
   const {
     data: dataOverall,
@@ -85,6 +87,7 @@ export const ProductCode = () => {
       <ButtonC
         variant='primary'
         className='!text-0lg rounded-full !font-medium mt-5'
+        onClick={() => navigate('product')}
       >
         View and manage product
       </ButtonC>

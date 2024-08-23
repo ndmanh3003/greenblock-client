@@ -19,7 +19,9 @@ export const Layout = () => {
   const { data, error, isLoading } = useGetMeQuery()
   useHandleSuccess(data, false, (data) => {
     setInfo(data)
-    if (!data.isBusiness && location.pathname.includes(Routes.BUSINESS))
+    if (data.isBusiness && location.pathname.includes(Routes.INSPECTOR))
+      navigate(Routes.BUSINESS)
+    else if (!data.isBusiness && location.pathname.includes(Routes.BUSINESS))
       navigate(Routes.INSPECTOR)
   })
 
@@ -56,7 +58,7 @@ export const Layout = () => {
         </div>
         <Line theme='light' />
       </header>
-      <Outlet />
+      {data && <Outlet />}
     </div>
   )
 }

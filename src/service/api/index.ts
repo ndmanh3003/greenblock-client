@@ -54,7 +54,7 @@ const refreshAccessToken = async () => {
 
 export const instance = axios.create({
   baseURL: import.meta.env.VITE_API_ENDPOINT,
-  timeout: 5000,
+  timeout: 15000,
   headers: {
     'Content-Type': 'application/json'
   }

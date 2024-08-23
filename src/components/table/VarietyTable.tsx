@@ -28,6 +28,7 @@ import {
   useUpdateBatchMutation
 } from '../../service/store/batch'
 import { useHandleError, useHandleSuccess } from '../../hooks'
+import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
 interface VarietyTableItem extends Omit<IItem, '_id' | 'metadata'> {
   key: string
@@ -47,6 +48,7 @@ export const VarietyTable: React.FC = () => {
     error,
     isLoading
   } = useGetBatchQuery('variety')
+  useHandleRefetch(refetch)
   useHandleSuccess(dataItems, false, (data) => {
     const update = data.items.map((item) => {
       return {

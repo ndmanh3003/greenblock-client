@@ -24,8 +24,7 @@ export const Login = () => {
       refreshToken: data.refreshToken
     })
 
-    if (data.isBusiness) navigate(Routes.BUSINESS)
-    else navigate(Routes.INSPECTOR)
+    navigate(Routes.BUSINESS)
   })
 
   const onFinish = async (values: ILoginReq) => {

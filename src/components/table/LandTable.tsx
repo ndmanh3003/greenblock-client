@@ -28,6 +28,7 @@ import {
   useGetBatchQuery,
   useUpdateBatchMutation
 } from '../../service/store/batch'
+import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
 interface LandTableItem extends Omit<IItem, '_id' | 'metadata'> {
   key: string
@@ -46,6 +47,7 @@ export const LandTable: React.FC = () => {
     error,
     isLoading
   } = useGetBatchQuery('land')
+  useHandleRefetch(refetch)
   useHandleSuccess(dataItems, false, (data) => {
     setData(keyGen(data.items) as LandTableItem[])
     setTotal({ empty: data.empty, planting: data.planting || 0 })

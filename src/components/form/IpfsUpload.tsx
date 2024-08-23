@@ -93,6 +93,7 @@ export const IpfsUpload: React.FC<IIpfsUploadC & IFormItem & UploadProps> = ({
           </Form.Item>
         )}
         <Upload
+          disabled={fileList.some((f) => f.status !== 'done')}
           multiple={false}
           fileList={fileList}
           accept='image/*'

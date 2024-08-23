@@ -5,7 +5,8 @@ import { IBatchReq } from './batch.type'
 export const useGetBatchQuery = (type: 'land' | 'variety') =>
   useQuery({
     queryKey: ['items', type],
-    queryFn: () => getBatchApi(type)
+    queryFn: () => getBatchApi(type),
+    enabled: false
   })
 
 export const useUpdateBatchMutation = () =>

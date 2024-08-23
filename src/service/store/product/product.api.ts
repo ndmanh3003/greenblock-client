@@ -1,6 +1,7 @@
 import { IRespond } from '../../../hooks'
 import { instance } from '../../api'
 import {
+  ICreateProductReq,
   IGetAllProductReq,
   IGetOverallProductRes,
   IHandleStatusProductReq,
@@ -28,4 +29,12 @@ export const getProductDetailApi = async (id: string) => {
 
 export const updateProductApi = async (data: IUpdateProductReq) => {
   return await instance.put<IRespond>('/product', data)
+}
+
+export const deleteProductApi = async (id: string) => {
+  return await instance.delete<IRespond>('/product/' + id)
+}
+
+export const createProductApi = async (data: ICreateProductReq) => {
+  return await instance.post<IRespond>('/product', data)
 }

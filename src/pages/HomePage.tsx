@@ -1,7 +1,6 @@
-import { PhoneFilled, LoginOutlined, SearchOutlined } from '@ant-design/icons'
+import { PhoneFilled, LoginOutlined } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
-import { ConfigProvider, Input } from 'antd'
-import { ButtonC, Line } from '../components'
+import { ButtonC, InfoProductModal, Line } from '../components'
 import { Routes } from '../routes'
 import { useEffect, useState } from 'react'
 import { FooterModal } from '../components/FooterModal'
@@ -67,20 +66,7 @@ export const HomePage = () => {
             </span>
           </div>
         </div>
-        <ConfigProvider
-          theme={{
-            token: {
-              colorText: 'black',
-              colorTextPlaceholder: '#00000063'
-            }
-          }}
-        >
-          <Input
-            prefix={<SearchOutlined className='mr-3 text-2xl' />}
-            className='text-lg rounded-full py-3 px-5 w-[450px] mt-5'
-            placeholder='ID Product'
-          />
-        </ConfigProvider>
+        <InfoProductModal></InfoProductModal>
       </section>
 
       <footer className='self-center rounded-full w-full max-w-6xl h-20 bg-white flex justify-between divide-x-2 overflow-hidden'>
@@ -111,6 +97,6 @@ const _nav = [
   { name: 'Our Partners', key: 'business' },
   { name: 'Our Inspector', key: 'inspector' },
   { name: 'Registration', link: Routes.REGISTER },
-  { name: 'Workspace', link: Routes.BUSINESS },
+  { name: 'Workspace', link: Routes.INSPECTOR },
   { name: 'Record Management', link: Routes.RECORD }
 ]

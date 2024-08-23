@@ -20,8 +20,8 @@ export const BackTopC = () => {
     <>
       {visible && (
         <BackTop>
-          <div className='fixed left-1/2 bottom-1 transform -translate-x-1/2 -translate-y-1/2 h-8 w-8 bg-green-300 rounded-full hover:bg-green-400 transition duration-75 flex items-center justify-center z-50'>
-            <VerticalAlignTopOutlined className='!text-xl' />
+          <div className='fixed left-1/2 bottom-1 transform -translate-x-1/2 -translate-y-1/2 h-9 w-9 border-2 border-primary rounded-full transition duration-75 flex items-center justify-center z-50 bg-white'>
+            <VerticalAlignTopOutlined className='!text-xl !text-primary' />
           </div>
         </BackTop>
       )}

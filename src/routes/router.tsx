@@ -5,7 +5,7 @@ import {
 } from 'react-router-dom'
 import * as Routes from './paths'
 import * as Pages from '../pages'
-import { ProtectedPage, RetrictedPage } from '../components'
+import { ProductManagement, ProtectedPage, RetrictedPage } from '../components'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -14,7 +14,7 @@ const router = createBrowserRouter(
       element={<Pages.Layout />}
       errorElement={<Pages.Error />}
     >
-      <Route index element={<Pages.HomePage />} />
+      <Route path='/:id?' element={<Pages.HomePage />} />
 
       <Route path='/' element={<RetrictedPage />}>
         <Route path='/' element={<Pages.LayoutAuth />}>
@@ -30,6 +30,10 @@ const router = createBrowserRouter(
             element={<Pages.Inspector />}
           />
           <Route path={Routes.BUSINESS} element={<Pages.Business />} />
+          <Route
+            path={Routes.BUSINESS + '/product/:id?'}
+            element={<ProductManagement />}
+          />
         </Route>
       </Route>
 

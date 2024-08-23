@@ -10,12 +10,16 @@ export interface IValueSelectC {
 
 interface ISelectC {
   value: IValueSelectC[]
+  colorDropdown?: string
+  colorIcon?: string
 }
 
 export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
   name,
   rules,
   label,
+  colorDropdown,
+  colorIcon,
   value,
   ...props
 }) => {
@@ -33,10 +37,12 @@ export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
         optionFilterProp='children'
         showSearch
         suffixIcon={
-          <DownOutlined style={{ color: 'white', fontSize: '13px' }} />
+          <DownOutlined
+            style={{ color: colorIcon || 'white', fontSize: '13px' }}
+          />
         }
         dropdownStyle={{
-          backgroundColor: 'transparent',
+          backgroundColor: colorDropdown || 'transparent',
           backdropFilter: 'blur(20px)'
         }}
         dropdownAlign={{ offset: [0, 10] }}

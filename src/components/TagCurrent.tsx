@@ -17,7 +17,7 @@ export const TagCurrent = ({
   return (
     <Tag
       color={color[state.toUpperCase() as keyof typeof color]}
-      className='!w-fit'
+      className='!w-fit !font-bold'
       bordered={false}
     >
       {state}

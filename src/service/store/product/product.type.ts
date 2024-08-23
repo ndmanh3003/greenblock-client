@@ -67,3 +67,11 @@ export interface IUpdateProductReq {
   quality?: number
   cert?: string
 }
+
+export interface ICreateProductReq {
+  name: string
+  variety: string
+  land: string
+  inspector: string
+  quantityIn: number
+}

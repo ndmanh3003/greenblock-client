@@ -1,9 +1,14 @@
+import { useEffect } from 'react'
 import { ProductManagement } from './../../components/ProductManagement'
 
 export const Inspector = () => {
+  useEffect(() => {
+    console.log(11111)
+  })
+
   return (
     <div>
-      <header className='h-[250px] w-full rounded-2xl my-3 bg-[url("inspector-bg.svg")] bg-right bg-no-repeat bg-cover flex flex-col justify-center pl-20'>
+      <header className='h-[250px] w-full rounded-2xl my-3 bg-[url("/inspector-bg.svg")] bg-right bg-no-repeat bg-cover flex flex-col justify-center pl-20'>
         <h1 className='font-bold text-3xl mt-8'>
           Principle of Correct Inspection
         </h1>
