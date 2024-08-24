@@ -1,12 +1,22 @@
+import { useEffect, useState } from 'react'
+
 export const Background = ({ media }: { media: number }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth)
+
+  useEffect(() => {
+    const handleResize = () => setWindowWidth(window.innerWidth)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <>
       {media == 1 && (
         <>
           <video
             src='/hp-bg.mp4'
-            className='fixed object-cover h-full w-full -z-50 hidden lg:block'
-            autoPlay
+            className='fixed object-cover h-full w-full -z-50 lg:block hidden'
+            autoPlay={windowWidth >= 1280}
             loop
             muted
           />

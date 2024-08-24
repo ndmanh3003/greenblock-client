@@ -18,19 +18,14 @@ export const Layout = () => {
   const [isWide, setIsWide] = useState(window.innerWidth >= 1280)
 
   useEffect(() => {
-    console.log('effect')
     const exceptions = [
       Routes.HOMEPAGE,
       Routes.LOGIN,
       Routes.REGISTER,
       `${Routes.HOMEPAGE}${id}`
     ]
-    const handleResize = () => {
-      console.log('resize')
-      setIsWide(window.innerWidth >= 1280)
-    }
+    const handleResize = () => setIsWide(window.innerWidth >= 1280)
     if (exceptions.some((e) => location.pathname === e)) {
-      console.log('set wide')
       setIsWide(true)
       return window.removeEventListener('resize', handleResize)
     }
