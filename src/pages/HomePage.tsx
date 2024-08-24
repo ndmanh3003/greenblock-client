@@ -77,6 +77,7 @@ export const HomePage = () => {
         >
           <Drawer
             placement='top'
+            getContainer={false}
             closable={true}
             onClose={() => setOpen(false)}
             open={open}
