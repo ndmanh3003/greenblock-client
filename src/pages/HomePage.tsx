@@ -91,10 +91,11 @@ export const HomePage = () => {
           >
             <div className='text-base font-medium'>
               <div>
-                GreenBlock enhances mobile usability by allowing registration
-                and product traceability, while reserving login and advanced
-                features for larger screens, ensuring a smooth experience across
-                all devices.
+                GreenBlock is designed to be fully accessible across all
+                devices, including smartphones and tablets. However, for the
+                optimal experience, we recommend using a laptop or desktop
+                computer. This will ensure you benefit from the full range of
+                features and functionalities that GreenBlock has to offer.
               </div>
               <br />
               Tap to explore more information about GreenBlock!
