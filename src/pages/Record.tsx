@@ -40,7 +40,7 @@ export const Record = () => {
     }
   ]
   return (
-    <div className='m-auto w-[1000px]'>
+    <div className='m-auto w-[900px]'>
       <div className='px-10 py-5 w-full rounded-full overflow-hidden bg-black bg-opacity-30 backdrop-blur-xl'>
         <ConfigProvider
           theme={{

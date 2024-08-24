@@ -9,11 +9,11 @@ interface QuickPageProps {
 
 export const QuickPage = ({ title, children }: QuickPageProps) => {
   return (
-    <div className='h-screen w-full flex flex-col items-center justify-center text-white'>
-      <h1 className='text-5xl font-extrabold bg-linear2 inline-block text-transparent bg-clip-text'>
+    <div className='h-screen w-full flex flex-col items-center justify-center text-white px-2'>
+      <h1 className='text-5xl text-center font-extrabold bg-linear2 inline-block text-transparent bg-clip-text'>
         {title}
       </h1>
-      <div className='w-[500px] text-center leading-relaxed text-lg bg-green2 inline-block text-transparent bg-clip-text font-medium'>
+      <div className='lg:w-[500px] w-fit text-center leading-relaxed text-lg bg-green2 inline-block text-transparent bg-clip-text font-medium'>
         {children}
       </div>
 
