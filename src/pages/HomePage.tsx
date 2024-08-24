@@ -77,16 +77,17 @@ export const HomePage = () => {
         >
           <Drawer
             placement='top'
-            getContainer={false}
             closable={true}
             onClose={() => setOpen(false)}
             open={open}
-            key='top'
             title={
               <img src='/logo-horizontal-green.svg' className='h-10 mx-auto' />
             }
-            height='fit-content'
-            style={{ borderRadius: '1rem' }}
+            height={500}
+            style={{
+              borderBottomLeftRadius: '1rem',
+              borderBottomRightRadius: '1rem'
+            }}
           >
             <div className='text-base font-medium'>
               <div>
