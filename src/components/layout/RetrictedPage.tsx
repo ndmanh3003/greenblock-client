@@ -8,7 +8,8 @@ export const RetrictedPage = () => {
 
   useEffect(() => {
     const auth = tokensStorage.getToken()
-    if (auth) {
+    const isHomePage = window.location.pathname === '/'
+    if (auth && !isHomePage) {
       navigate('')
       message.warning('You are already logged in')
     }

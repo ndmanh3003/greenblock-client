@@ -8,6 +8,20 @@ body {
   font-family: 'Manrope';
 }
 
+/* !INPUT AUTOCOMPLETE */
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+input:-webkit-autofill:active {
+  transition:
+    background-color 5000s ease-in-out 0s,
+    color 5000s ease-in-out 0s;
+  transition-delay:
+    background-color 5000s,
+    color 5000s;
+}
+
+/* !SCROLLBAR */
 ::-webkit-scrollbar {
   width: 5px;
   height: 5px;
@@ -92,6 +106,11 @@ body {
 
 .ant-menu-item:active {
   background-color: #074c324c !important;
+}
+
+/* !ANTD: MODAL */
+.ant-modal-content {
+  border-radius: 1rem !important;
 }
 
 /*! ANTD: COLLAPSE */

@@ -29,6 +29,7 @@ import {
 } from '../../service/store/batch'
 import { useHandleError, useHandleSuccess } from '../../hooks'
 import { useHandleRefetch } from '../../hooks/useHandleRefetch'
+import millify from 'millify'
 
 interface VarietyTableItem extends Omit<IItem, '_id' | 'metadata'> {
   key: string
@@ -172,6 +173,9 @@ export const VarietyTable: React.FC = () => {
       editable: true,
       isNumber: true,
       align: 'center',
+      render: (_: unknown, record: VarietyTableItem) => {
+        return millify(record.quantity)
+      },
       sorter: (a: VarietyTableItem, b: VarietyTableItem) =>
         a.quantity - b.quantity
     },
@@ -181,7 +185,7 @@ export const VarietyTable: React.FC = () => {
       editable: false,
       align: 'center',
       render: (_: unknown, record: VarietyTableItem) => {
-        return record.product.length
+        return millify(record.product.length)
       },
       sorter: (a: VarietyTableItem, b: VarietyTableItem) =>
         a.product.length - b.product.length

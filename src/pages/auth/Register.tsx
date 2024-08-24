@@ -34,12 +34,7 @@ export const Register = () => {
   }
 
   return (
-    <Form
-      name='register'
-      className='register-form'
-      onFinish={onFinish}
-      autoComplete='off'
-    >
+    <Form name='register' className='register-form' onFinish={onFinish}>
       <InputC placeholder='Company name' rules={ruleRequired} name='name' />
       <InputC placeholder='Email' rules={ruleEmail} name='email' />
       <PasswordC

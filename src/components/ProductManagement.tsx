@@ -34,7 +34,11 @@ export const ProductManagement = () => {
     <>
       <div className='flex items-end justify-between'>
         <h1 className='font-bold text-3xl mt-8 mb-0'>List of Products</h1>
-        <CreateProductModal />
+        <div>
+          {window.location.pathname.includes(Routes.BUSINESS) && (
+            <CreateProductModal />
+          )}
+        </div>
       </div>
       <Line theme='light' />
       {productList && productList.length === 0 && (

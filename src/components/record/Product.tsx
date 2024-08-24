@@ -1,7 +1,7 @@
 import { Form, message } from 'antd'
 import { IValueSelectC, ruleRequired, SelectC, SubmitC } from '../form'
 import { ButtonC, IRecord, IStatus } from '../../components'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { allCurrent, useGetAllProductQuery } from '../../service/store/product'
 import { useHandleError, useHandleSuccess } from '../../hooks'
 
@@ -21,10 +21,6 @@ export const Product = ({ dispatch, state }: IRecord) => {
     dispatch({ type: 'UPDATE_CURRENT', payload: 0 })
   )
   useHandleSuccess(dataGetAll, false, (data) => {
-    if (data.length === 0) {
-      dispatch({ type: 'UPDATE_CURRENT', payload: 0 })
-      return message.info('No product to handle')
-    }
     setProductList(
       data?.map((item) => ({
         value: item._id,
@@ -34,6 +30,13 @@ export const Product = ({ dispatch, state }: IRecord) => {
       }))
     )
   })
+
+  useEffect(() => {
+    if (productList && !productList.length) {
+      message.error('No product found')
+      return dispatch({ type: 'UPDATE_CURRENT', payload: 0 })
+    }
+  }, [dispatch, productList])
 
   const onFinish = (values: IStatus & { type: string }) => {
     // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
@@ -82,7 +85,6 @@ export const Product = ({ dispatch, state }: IRecord) => {
         labelCol={{ span: 8 }}
         labelAlign='left'
         onFinish={onFinish}
-        autoComplete='off'
         requiredMark={false}
         colon={false}
         initialValues={handleData()}

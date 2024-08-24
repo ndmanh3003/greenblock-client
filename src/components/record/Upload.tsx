@@ -69,7 +69,6 @@ export const Upload = ({ dispatch, state }: IRecord) => {
         labelCol={{ span: 8 }}
         labelAlign='left'
         onFinish={onFinish}
-        autoComplete='off'
         requiredMark={false}
         colon={false}
         initialValues={state.data || {}}

@@ -44,6 +44,15 @@ export const ProductInfo = () => {
   const [inspector, setInspector] = useState<IValueSelectC[]>()
 
   useEffect(() => {
+    if (
+      !window.location.pathname.includes(Routes.BUSINESS) &&
+      !window.location.pathname.includes(Routes.INSPECTOR) &&
+      product &&
+      !roleCurrent.business.includes(product.current)
+    ) {
+      navigate(Routes.HOMEPAGE)
+      return message.error('Product not ready for tracibility')
+    }
     if (window.location.pathname.includes(Routes.BUSINESS)) setIsBusiness(true)
     else setIsBusiness(false)
 
@@ -53,7 +62,7 @@ export const ProductInfo = () => {
       business: product?.business?.name,
       inspectorName: product?.inspector?.name
     })
-  }, [product, form])
+  }, [product, form, navigate])
 
   const {
     data,
@@ -230,7 +239,7 @@ export const ProductInfo = () => {
                   rules: ruleRequired
                 })}
               />
-              <div className='grid grid-cols-2 gap-x-5'>
+              <div className='grid lg:grid-cols-2 gap-x-5'>
                 <InputC
                   label='Business'
                   name='business'
@@ -343,7 +352,7 @@ export const ProductInfo = () => {
                 onFinish={handleInspect}
                 initialValues={{ quality: product?.quality }}
               >
-                <div className='grid grid-cols-2 gap-x-5'>
+                <div className='grid lg:grid-cols-2 gap-x-5'>
                   <Form.Item name='quality' label='Quality'>
                     <Rate
                       allowClear

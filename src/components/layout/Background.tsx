@@ -5,12 +5,16 @@ export const Background = ({ media }: { media: number }) => {
         <>
           <video
             src='/hp-bg.mp4'
-            className='fixed object-cover h-full w-full -z-50'
+            className='fixed object-cover h-full w-full -z-50 hidden lg:block'
             autoPlay
             loop
             muted
           />
-          <div className='fixed h-full w-full bg-black bg-opacity-40 -z-40' />
+          <img
+            src='/hp-bg-phone.jpg'
+            className='fixed object-cover h-full w-full -z-50 lg:hidden'
+          />
+          <div className='fixed h-full w-full bg-black bg-opacity-10 -z-40' />
         </>
       )}
       {media == 2 && (

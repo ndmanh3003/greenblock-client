@@ -10,7 +10,8 @@ export const ProtectedPage = () => {
 
   useEffect(() => {
     const auth = tokensStorage.getToken()
-    if (!auth) {
+    const isLoginPage = window.location.pathname.includes(Routes.LOGIN)
+    if (!auth && !isLoginPage) {
       navigate(Routes.LOGIN)
       message.warning('Login to access this page')
     }

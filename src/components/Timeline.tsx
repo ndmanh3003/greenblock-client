@@ -21,7 +21,7 @@ export function Timeline({ timeline }: { timeline: IStatus[] }) {
                 ) : null}
                 <div className='relative flex space-x-3'>
                   <div className='flex h-8 w-8 items-center justify-center rounded-full ring-8 ring-white  border-green1 border-4 bg-white'></div>
-                  <div className='min-w-0 flex-1 justify-between space-x-4 pt-1.5 grid grid-cols-2 gap-x-5'>
+                  <div className='min-w-0 flex-1 justify-between pt-1.5 grid lg:grid-cols-2 gap-2 lg:gap-5'>
                     <div>
                       <div className='text-lg font-semibold flex justify-between'>
                         {convertToClientTimezone(

@@ -29,6 +29,7 @@ import {
   useUpdateBatchMutation
 } from '../../service/store/batch'
 import { useHandleRefetch } from '../../hooks/useHandleRefetch'
+import millify from 'millify'
 
 interface LandTableItem extends Omit<IItem, '_id' | 'metadata'> {
   key: string
@@ -157,7 +158,7 @@ export const LandTable: React.FC = () => {
       editable: false,
       align: 'center',
       render: (_: unknown, record: LandTableItem) => {
-        return record.product.length
+        return millify(record.product.length)
       },
       sorter: (a: LandTableItem, b: LandTableItem) =>
         a.product.length - b.product.length

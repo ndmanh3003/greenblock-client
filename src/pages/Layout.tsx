@@ -39,7 +39,7 @@ export const Layout = () => {
     <div className='w-full h-screen'>
       <Background media={page} />
       {page != 1 && <Float />}
-      <div className='h-fit min-h-full w-full max-w-[1500px] mx-auto px-14 flex flex-col justify-between'>
+      <div className='h-fit min-h-full w-full max-w-[1500px] mx-auto lg:px-14 flex flex-col justify-between'>
         <Outlet />
       </div>
       {page != 1 && <Footer />}

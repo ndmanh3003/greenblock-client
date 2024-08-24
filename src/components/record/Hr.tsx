@@ -15,7 +15,6 @@ import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
 export const Hr = ({ dispatch, state }: IRecord) => {
   const [businessList, setBusinessList] = useState<IValueSelectC[]>()
-
   const {
     data: dataBusiness,
     error,
@@ -45,7 +44,6 @@ export const Hr = ({ dispatch, state }: IRecord) => {
         labelCol={{ span: 8 }}
         labelAlign='left'
         onFinish={onFinish}
-        autoComplete='off'
         requiredMark={false}
         colon={false}
         initialValues={state.data || {}}
