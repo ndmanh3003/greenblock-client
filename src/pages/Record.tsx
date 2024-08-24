@@ -47,7 +47,7 @@ export const Record = () => {
             token: { colorPrimary: 'white', fontSize: 16 }
           }}
         >
-          <Steps className='cursor-default'>
+          <Steps className='cursor-default' responsive={false}>
             {_steps.map((s, i) => (
               <Steps.Step
                 key={i}
