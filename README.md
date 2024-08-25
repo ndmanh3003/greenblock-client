@@ -4,6 +4,14 @@
 ![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)
 ![Node](https://img.shields.io/badge/node-%3E%3D14.0.0-green.svg)
 
+## 🌐 Live Demo
+
+You can view the live version of the GreenBlock platform at the following URL:
+
+[GreenBlock Live Demo](https://greenblock.vercel.app/)
+
+Feel free to explore the features and see how our platform works in a real-world setting!
+
 ## 🚀 Project Overview
 
 GreenBlock is a revolutionary platform designed to elevate traceability in modern industries. By harnessing the power of blockchain, our solution guarantees transparency and trust, enabling users to verify the origins and histories of products across various sectors.
