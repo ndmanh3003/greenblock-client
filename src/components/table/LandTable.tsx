@@ -22,13 +22,12 @@ import { EditableCell, EditableRow } from '.'
 import { clear, keyGen } from '../../utils'
 import { v4 as uuidv4 } from 'uuid'
 import { ButtonC } from '../ButtonC'
-import { useHandleError, useHandleSuccess } from '../../hooks'
+import { useHandleError, useHandleRefetch, useHandleSuccess } from '../../hooks'
 import {
   IItem,
   useGetBatchQuery,
   useUpdateBatchMutation
 } from '../../service/store/batch'
-import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 import millify from 'millify'
 
 interface LandTableItem extends Omit<IItem, '_id' | 'metadata'> {

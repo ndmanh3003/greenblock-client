@@ -2,9 +2,8 @@
 import { Modal } from 'antd'
 import { useState } from 'react'
 import { IAccount, useGetAllQuery } from '../service/store/auth'
-import { useHandleError, useHandleSuccess } from '../hooks'
+import { useHandleError, useHandleRefetch, useHandleSuccess } from '../hooks'
 import { v4 as uuidv4 } from 'uuid'
-import { useHandleRefetch } from '../hooks/useHandleRefetch'
 
 interface IHomepageModal {
   // eslint-disable-next-line no-unused-vars

@@ -1,10 +1,13 @@
 import { Tag } from 'antd'
 import { allCurrent } from '../service/store/product'
+import { cn } from '../utils'
 
 export const TagCurrent = ({
-  state
+  state,
+  className
 }: {
   state: (typeof allCurrent)[keyof typeof allCurrent]
+  className?: string
 }) => {
   const color = {
     PLANTING: 'green',
@@ -17,10 +20,10 @@ export const TagCurrent = ({
   return (
     <Tag
       color={color[state.toUpperCase() as keyof typeof color]}
-      className='!w-fit !font-bold'
+      className={cn('!w-fit !font-bold', className)}
       bordered={false}
     >
-      {state}
+      {state.toLowerCase()}
     </Tag>
   )
 }

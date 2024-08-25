@@ -10,8 +10,7 @@ import {
 } from '../../components'
 import { useGetAllQuery } from '../../service/store/auth'
 import { useState } from 'react'
-import { useHandleError, useHandleSuccess } from '../../hooks'
-import { useHandleRefetch } from '../../hooks/useHandleRefetch'
+import { useHandleError, useHandleRefetch, useHandleSuccess } from '../../hooks'
 
 export const Hr = ({ dispatch, state }: IRecord) => {
   const [businessList, setBusinessList] = useState<IValueSelectC[]>()

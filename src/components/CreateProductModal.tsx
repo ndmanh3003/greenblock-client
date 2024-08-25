@@ -11,8 +11,7 @@ import {
   SubmitC
 } from './form'
 import { useGetAllQuery } from '../service/store/auth'
-import { useHandleError, useHandleSuccess } from '../hooks'
-import { useHandleRefetch } from '../hooks/useHandleRefetch'
+import { useHandleError, useHandleRefetch, useHandleSuccess } from '../hooks'
 import { useGetBatchQuery } from '../service/store/batch'
 import {
   ICreateProductReq,

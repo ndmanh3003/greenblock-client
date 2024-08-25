@@ -12,9 +12,8 @@ import {
   TextAreaC
 } from '../../components'
 import { useHandleStatusProductMutation } from '../../service/store/product'
-import { useHandleError, useHandleSuccess } from '../../hooks'
+import { useHandleError, useHandleRefetch, useHandleSuccess } from '../../hooks'
 import { CheckboxC } from './../form/CheckboxC'
-import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
 export const Upload = ({ dispatch, state }: IRecord) => {
   const [fileList, setFileList] = useState<UploadFile[]>([])

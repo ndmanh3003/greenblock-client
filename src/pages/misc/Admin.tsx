@@ -8,9 +8,8 @@ import {
   useGetAllQuery,
   useVerifyMutation
 } from '../../service/store/auth'
-import { useHandleError, useHandleSuccess } from '../../hooks'
+import { useHandleError, useHandleRefetch, useHandleSuccess } from '../../hooks'
 import { DeleteOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
-import { useHandleRefetch } from '../../hooks/useHandleRefetch'
 
 interface DataType extends IAccount {
   key: string

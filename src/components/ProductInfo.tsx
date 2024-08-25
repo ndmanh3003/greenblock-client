@@ -24,12 +24,11 @@ import {
   useGetProductDetailQuery,
   useUpdateProductMutation
 } from '../service/store/product'
-import { useHandleError, useHandleSuccess } from '../hooks'
+import { useHandleError, useHandleRefetch, useHandleSuccess } from '../hooks'
 import { cn } from '../utils'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Routes } from '../routes'
 import { useGetAllQuery } from '../service/store/auth'
-import { useHandleRefetch } from '../hooks/useHandleRefetch'
 import { useQueryClient } from '@tanstack/react-query'
 
 export const ProductInfo = () => {

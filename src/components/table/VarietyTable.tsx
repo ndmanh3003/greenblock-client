@@ -27,8 +27,7 @@ import {
   useGetBatchQuery,
   useUpdateBatchMutation
 } from '../../service/store/batch'
-import { useHandleError, useHandleSuccess } from '../../hooks'
-import { useHandleRefetch } from '../../hooks/useHandleRefetch'
+import { useHandleError, useHandleRefetch, useHandleSuccess } from '../../hooks'
 import millify from 'millify'
 
 interface VarietyTableItem extends Omit<IItem, '_id' | 'metadata'> {
