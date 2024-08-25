@@ -42,9 +42,9 @@ export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
           />
         }
         dropdownStyle={{
-          backgroundColor: colorDropdown || 'transparent',
-          backdropFilter: 'blur(20px)'
+          backgroundColor: colorDropdown || 'transparent'
         }}
+        dropdownClassName='!backdrop-blur-lg'
         dropdownAlign={{ offset: [0, 10] }}
         {...props}
       >

@@ -1,13 +1,14 @@
 import {
   PhoneFilled,
   LoginOutlined,
-  UnorderedListOutlined
+  UnorderedListOutlined,
+  FormOutlined
 } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { ButtonC, InfoProductModal, Line } from '../components'
 import { Routes } from '../routes'
 import { useEffect, useState } from 'react'
-import { FooterModal } from '../components/FooterModal'
+import { HomepageModal } from '../components/HomepageModal'
 import { ConfigProvider, Drawer } from 'antd'
 
 export const HomePage = () => {
@@ -25,7 +26,7 @@ export const HomePage = () => {
 
   return (
     <div className='h-screen w-full pt-2 lg:pb-10 flex flex-col justify-between items-stretch'>
-      <FooterModal modal={modal} setModal={setModal} />
+      <HomepageModal modal={modal} setModal={setModal} />
       <header className='w-full px-5 lg:px-0'>
         <div className='bg-white bg-opacity-50 w-fit px-2 py-1 rounded-md flex gap-1 items-center ml-auto'>
           <PhoneFilled rotate={90} className='text-xl' />
@@ -41,12 +42,13 @@ export const HomePage = () => {
             <Link to='/' className='h-14 mb-[14px]'>
               <img src='/logo-vertical.svg' className='h-full' alt='Logo' />
             </Link>
-            {_prouductInfo.map((item, index) => (
+            {_prouductInfo.map((item) => (
               <div
-                key={index}
+                key={item.key}
                 className='group w-fit cursor-pointer hidden lg:block'
+                onClick={() => setModal(item.key)}
               >
-                <span>{item}</span>
+                <span>{item.name}</span>
                 <div className='h-1 w-full bg-green1 rounded-full mt-2 opacity-0 group-hover:opacity-100 transition ease-in-out delay-100 duration-300 ' />
               </div>
             ))}
@@ -99,21 +101,33 @@ export const HomePage = () => {
               </div>
               <br />
               Tap to explore more information about GreenBlock!
-              {_prouductInfo.map((item, index) => (
-                <div key={index} className='w-fit cursor-pointer my-2'>
-                  - {item}
+              {_prouductInfo.map((item) => (
+                <div
+                  key={item.key}
+                  className='w-fit cursor-pointer my-2'
+                  onClick={() => setModal(item.key)}
+                >
+                  - {item.name}
                 </div>
               ))}
               <br />
-              <div className='flex gap-5 items-end'>
-                <div>Join with us now!</div>
+              <div>Join with us now!</div>
+              <div className='flex gap-5 items-end mt-2'>
                 <ButtonC
                   variant='primary'
-                  icon={<LoginOutlined />}
+                  icon={<FormOutlined />}
                   onClick={() => navigate(Routes.REGISTER)}
                   className='!text-base !font-semibold'
                 >
                   Register
+                </ButtonC>
+                <ButtonC
+                  variant='primary'
+                  icon={<LoginOutlined />}
+                  onClick={() => navigate(Routes.LOGIN)}
+                  className='!text-base !font-semibold'
+                >
+                  Login
                 </ButtonC>
               </div>
             </div>
@@ -138,8 +152,22 @@ export const HomePage = () => {
       </section>
 
       <div className='w-full flex flex-col divide-y-2'>
-        <div className='w-full h-[48px] block lg:hidden'>
-          <InfoProductModal />
+        <div className='block lg:hidden'>
+          <div className='flex gap-4 items-center'>
+            <img
+              src={time === 'evening' ? 'moon-evening.svg' : 'sun-morning.svg'}
+              className='w-20 h-20'
+            />
+            <div className='flex flex-col text-white gap-1'>
+              <span className='font-semibold text-3xl'>{`Good ${time}`}</span>
+              <span className='text-base font-light'>
+                What are you looking for today?
+              </span>
+            </div>
+          </div>
+          <div className='w-full h-[48px]'>
+            <InfoProductModal />
+          </div>
         </div>
         <footer className='self-center lg:rounded-full w-full max-w-6xl h-fit lg:h-20 bg-white flex justify-between divide-x-2 overflow-hidden mx-auto'>
           {_nav.map((item, index) => (
@@ -164,11 +192,23 @@ export const HomePage = () => {
   )
 }
 
-const _prouductInfo = ['About us', 'Our solution', 'Process & Usage Guide']
-
+const _prouductInfo = [
+  {
+    name: 'About Us',
+    key: 'about-us'
+  },
+  {
+    name: 'Our Solution',
+    key: 'our-solution'
+  },
+  {
+    name: 'Process & Usage Guide',
+    key: 'process-&-usage-guide'
+  }
+]
 const _nav = [
   { name: 'Our Partners', key: 'business' },
-  { name: 'Our Inspector', key: 'inspector' },
+  { name: 'Our Inspectors', key: 'inspector' },
   { name: 'Registration', link: Routes.REGISTER },
   { name: 'Workspace', link: Routes.INSPECTOR },
   { name: 'Record Management', link: Routes.RECORD }
