@@ -2,7 +2,8 @@ import {
   PhoneFilled,
   LoginOutlined,
   UnorderedListOutlined,
-  FormOutlined
+  FormOutlined,
+  MailFilled
 } from '@ant-design/icons'
 import { Link, useNavigate } from 'react-router-dom'
 import { ButtonC, InfoProductModal, Line } from '../components'
@@ -28,11 +29,19 @@ export const HomePage = () => {
     <div className='h-screen w-full pt-2 lg:pb-10 flex flex-col justify-between items-stretch'>
       <HomepageModal modal={modal} setModal={setModal} />
       <header className='w-full px-5 lg:px-0'>
-        <div className='bg-white bg-opacity-50 w-fit px-2 py-1 rounded-md flex gap-1 items-center ml-auto'>
-          <PhoneFilled rotate={90} className='text-xl' />
-          <span className='font-medium'>
-            <a href='tel:19005555'>1900 5555</a>
-          </span>
+        <div className='flex w-fit ml-auto gap-5'>
+          <div className='w-fit px-2 py-1 rounded-md flex gap-1 ml-auto'>
+            <PhoneFilled rotate={90} className='text-xl' />
+            <span className='font-medium'>
+              <a href='tel:19005555'>1900 5555</a>
+            </span>
+          </div>
+          <div className='bg-white bg-opacity-50 w-fit px-2 py-1 rounded-md flex gap-1 ml-auto'>
+            <MailFilled className='text-xl' />
+            <span className='font-medium'>
+              <a href='mailto:ndmanh3003@gmail.com'>ndmanh3003</a>
+            </span>
+          </div>
         </div>
 
         <Line theme='dark' />

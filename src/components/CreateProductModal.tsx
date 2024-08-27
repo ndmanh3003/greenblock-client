@@ -18,7 +18,7 @@ import {
   useCreateProductMutation
 } from '../service/store/product'
 import { useForm } from 'antd/es/form/Form'
-import { useNavigate } from 'react-router-dom'
+import { useQueryClient } from '@tanstack/react-query'
 
 export const CreateProductModal = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -26,7 +26,7 @@ export const CreateProductModal = () => {
   const [variaties, setVarieties] = useState<IValueSelectC[]>([])
   const [lands, setLands] = useState<IValueSelectC[]>([])
   const [form] = useForm()
-  const navigate = useNavigate()
+  const queryClient = useQueryClient()
 
   const {
     data: dataInspectors,
@@ -48,9 +48,10 @@ export const CreateProductModal = () => {
   const {
     data: dataLands,
     error: errorLands,
-    isLoading: isLoadingLands
+    isLoading: isLoadingLands,
+    refetch: fetchLands
   } = useGetBatchQuery('land')
-  useHandleRefetch(fetchInspectors)
+  useHandleRefetch(fetchLands)
   useHandleSuccess(dataLands, false, (data) => {
     const value = data.items.map((item) => ({
       value: item._id,
@@ -62,9 +63,10 @@ export const CreateProductModal = () => {
   const {
     data: dataVarieties,
     error: errorVarieties,
-    isLoading: isLoadingVarieties
+    isLoading: isLoadingVarieties,
+    refetch: fetchVarieties
   } = useGetBatchQuery('variety')
-  useHandleRefetch(fetchInspectors)
+  useHandleRefetch(fetchVarieties)
   useHandleSuccess(dataVarieties, false, (data) => {
     const value = data.items.map((item) => ({
       value: item._id,
@@ -81,6 +83,7 @@ export const CreateProductModal = () => {
   } = useCreateProductMutation()
   useHandleSuccess(dataCreate, true, () => {
     form.resetFields()
+    queryClient.invalidateQueries({ queryKey: ['allproduct'] })
   })
 
   const onFinish = (values: ICreateProductReq) => {
@@ -118,74 +121,73 @@ export const CreateProductModal = () => {
         width={800}
         height={300}
         open={isModalOpen}
-        onCancel={() => {
-          setIsModalOpen(false)
-          navigate(0)
-        }}
+        onCancel={() => setIsModalOpen(false)}
         footer={() => <></>}
       >
         <div className='text-black m-5 text-base'>
           <h1 className='text-2xl font-semibold text-green2 mb-5'>
             Create a new product
           </h1>
-          <Form
-            layout='vertical'
-            requiredMark={false}
-            form={form}
-            onFinish={onFinish}
-          >
-            <InputC
-              name='name'
-              isOutline
-              label='Product Name'
-              rules={ruleRequired}
-            />
-            <div className='grid grid-cols-2 gap-x-5'>
-              <SelectC
-                label='Inspector'
-                name='inspector'
-                isOutline
-                colorDropdown='white'
-                className='!text-black !bg-white'
-                value={isLoadingInspectors ? [] : inspectors || []}
-                colorIcon='#acadad'
-                rules={ruleRequired}
-              />
-              <InputC
-                name='quantityIn'
-                isOutline
-                label='Quantity In'
-                rules={ruleNumber}
-              />
-              <SelectC
-                label='Planting Area'
-                name='land'
-                isOutline
-                colorDropdown='white'
-                className='!text-black !bg-white'
-                value={isLoadingLands ? [] : lands || []}
-                colorIcon='#acadad'
-                rules={ruleRequired}
-              />
-              <SelectC
-                label='Cultivated Variety'
-                name='variety'
-                isOutline
-                colorDropdown='white'
-                className='!text-black !bg-white'
-                value={isLoadingVarieties ? [] : variaties || []}
-                colorIcon='#acadad'
-                rules={ruleRequired}
-              />
-            </div>
-            <SubmitC
-              className='w-fit !text-base !font-medium rounded-xl'
-              variant='primary'
-              loading={isPending}
+          <div className='max-h-[50vh] overflow-auto pr-2'>
+            <Form
+              layout='vertical'
+              requiredMark={false}
+              form={form}
+              onFinish={onFinish}
             >
-              Create
-            </SubmitC>
-          </Form>
+              <InputC
+                name='name'
+                isOutline
+                label='Product Name'
+                rules={ruleRequired}
+              />
+              <div className='grid grid-cols-2 gap-x-5'>
+                <SelectC
+                  label='Inspector'
+                  name='inspector'
+                  isOutline
+                  colorDropdown='white'
+                  className='!text-black !bg-white'
+                  value={isLoadingInspectors ? [] : inspectors || []}
+                  colorIcon='#acadad'
+                  rules={ruleRequired}
+                />
+                <InputC
+                  name='quantityIn'
+                  isOutline
+                  label='Quantity In'
+                  rules={ruleNumber}
+                />
+                <SelectC
+                  label='Planting Area'
+                  name='land'
+                  isOutline
+                  colorDropdown='white'
+                  className='!text-black !bg-white'
+                  value={isLoadingLands ? [] : lands || []}
+                  colorIcon='#acadad'
+                  rules={ruleRequired}
+                />
+                <SelectC
+                  label='Cultivated Variety'
+                  name='variety'
+                  isOutline
+                  colorDropdown='white'
+                  className='!text-black !bg-white'
+                  value={isLoadingVarieties ? [] : variaties || []}
+                  colorIcon='#acadad'
+                  rules={ruleRequired}
+                />
+              </div>
+              <SubmitC
+                className='w-fit !text-base !font-medium rounded-xl'
+                variant='primary'
+                loading={isPending}
+              >
+                Create
+              </SubmitC>
+            </Form>
+          </div>
         </div>
       </Modal>
       <Tooltip

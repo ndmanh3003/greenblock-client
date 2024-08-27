@@ -137,6 +137,7 @@ export const Admin: React.FC = () => {
         <h1 className='text-4xl font-bold'>Admin Verification</h1>
         <Form onFinish={onFinish}>
           <InputC
+            type='password'
             name='token'
             className='!border-gray-200 inline-block'
             placeholder='Enter your code'

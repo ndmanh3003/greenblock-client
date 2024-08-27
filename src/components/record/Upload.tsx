@@ -22,7 +22,7 @@ export const Upload = ({ dispatch, state }: IRecord) => {
   const isDelete = state.data?.isDelete
   const isHarvested = state.data?.isHarvested
 
-  const { mutate, error, data } = useHandleStatusProductMutation()
+  const { mutate, error, data, isPending } = useHandleStatusProductMutation()
   useHandleError([error], () => setIsConfirm(false))
   useHandleSuccess(data, true, () =>
     dispatch({ type: 'UPDATE_CURRENT', payload: 1 })
@@ -70,7 +70,6 @@ export const Upload = ({ dispatch, state }: IRecord) => {
         onFinish={onFinish}
         requiredMark={false}
         colon={false}
-        initialValues={state.data || {}}
       >
         {!isDelete && (
           <>
@@ -107,7 +106,7 @@ export const Upload = ({ dispatch, state }: IRecord) => {
           I confirm the provided information.
         </CheckboxC>
         <Form.Item className='relative'>
-          <SubmitC className='!w-fit' wrapperCol={8}>
+          <SubmitC className='!w-fit' wrapperCol={8} loading={isPending}>
             Submit
           </SubmitC>
           <ButtonC

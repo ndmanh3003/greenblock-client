@@ -136,7 +136,7 @@ export const ProductManagement = () => {
           hidden: !productList || productList.length === 0 || isLoading
         })}
       >
-        <div className='min-w-[350px] h-fit max-h-screen rounded-2xl bg-white border-[1px] overflow-y-auto py-3'>
+        <div className='min-w-[350px] w-[350px] overflow-hidden h-fit max-h-screen rounded-2xl border-[1px] overflow-y-auto py-3'>
           {productList &&
             productList
               .filter((product) => matchesFilter(product))
@@ -164,7 +164,7 @@ export const ProductManagement = () => {
                     }}
                   >
                     <Popconfirm
-                      title='Sure to update?'
+                      title='Sure to delete?'
                       onConfirm={() => mutate(product._id)}
                       style={{ fontSize: 14 }}
                       cancelText={<CloseOutlined style={{ fontSize: 12 }} />}
@@ -192,7 +192,7 @@ export const ProductManagement = () => {
                     <TagCurrent state={product.current} />
                     <div className='flex items-center space-x-2 col-span-2'>
                       <HomeOutlined />
-                      <span>
+                      <span className='line-clamp-1'>
                         {window.location.pathname.includes(Routes.BUSINESS)
                           ? product.inspector.name
                           : product.business.name}

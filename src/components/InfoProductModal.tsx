@@ -86,7 +86,9 @@ export const InfoProductModal = () => {
             <h1 className='text-2xl font-semibold text-green2 mb-5'>
               GreenBlock Traceability
             </h1>
-            <ProductInfo />
+            <div className='max-h-[50vh] overflow-auto pr-2'>
+              <ProductInfo />
+            </div>
           </div>
         </Modal>
       </ConfigProvider>

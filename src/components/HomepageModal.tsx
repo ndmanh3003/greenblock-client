@@ -43,7 +43,7 @@ export const HomepageModal = ({ modal, setModal }: IHomepageModal) => {
                 .replace(/-/g, ' ')
                 .replace(/\b\w/g, (char) => char.toUpperCase())}
         </h1>
-        <div className='max-h-[50vh] overflow-auto'>
+        <div className='max-h-[50vh] overflow-auto pr-2'>
           {_roles.includes(modal as string) ? (
             <div className='grid lg:grid-cols-2 gap-5 pr-3'>
               {!isLoading &&

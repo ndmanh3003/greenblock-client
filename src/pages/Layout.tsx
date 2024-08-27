@@ -22,7 +22,9 @@ export const Layout = () => {
       Routes.HOMEPAGE,
       Routes.LOGIN,
       Routes.REGISTER,
-      `${Routes.HOMEPAGE}${id}`
+      `${Routes.HOMEPAGE}${id}`,
+      Routes.WAITLIST,
+      import.meta.env.VITE_API_ERROR_PAGE
     ]
     const handleResize = () => setIsWide(window.innerWidth >= 1280)
     if (exceptions.some((e) => location.pathname === e)) {

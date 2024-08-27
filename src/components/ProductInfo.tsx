@@ -93,7 +93,6 @@ export const ProductInfo = () => {
       ])
       setHash([data.cert])
     }
-
     setProduct(data)
   })
 
@@ -103,9 +102,10 @@ export const ProductInfo = () => {
     error: errorUpdate,
     isPending
   } = useUpdateProductMutation()
-  useHandleSuccess(dataUpdate, true, () =>
+  useHandleSuccess(dataUpdate, true, () => {
     queryClient.invalidateQueries({ queryKey: ['allproduct'] })
-  )
+    queryClient.invalidateQueries({ queryKey: ['detail'] })
+  })
 
   const {
     data: dataInspectors,
@@ -291,7 +291,9 @@ export const ProductInfo = () => {
                   label='Quantity Out'
                   name='quantityOut'
                   isOutline
-                  disabled={!isBusiness}
+                  disabled={
+                    !isBusiness || product?.current === allCurrent.PLANTING
+                  }
                   className='!text-black'
                   {...(product?.current !== allCurrent.PLANTING && {
                     rules: ruleNumber
