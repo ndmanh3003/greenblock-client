@@ -26,13 +26,14 @@ import {
 } from '../service/store/product'
 import { useHandleError, useHandleRefetch, useHandleSuccess } from '../hooks'
 import { cn } from '../utils'
-import { useNavigate, useParams } from 'react-router-dom'
+import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Routes } from '../routes'
 import { useGetAllQuery } from '../service/store/auth'
 import { useQueryClient } from '@tanstack/react-query'
 
 export const ProductInfo = () => {
   const queryClient = useQueryClient()
+  const location = useLocation()
   const { id } = useParams() as { id: string }
   const [form] = Form.useForm()
   const [isBusiness, setIsBusiness] = useState<boolean>(true)
@@ -62,7 +63,7 @@ export const ProductInfo = () => {
       business: product?.business?.name,
       inspectorName: product?.inspector?.name
     })
-  }, [product, form, navigate])
+  }, [product, form, navigate, location.pathname])
 
   const {
     data,
