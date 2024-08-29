@@ -57,6 +57,7 @@ export const ProductInfo = () => {
 
     form.setFieldsValue({
       ...product,
+      desc: product?.desc || '',
       inspector: product?.inspector?._id,
       business: product?.business?.name,
       inspectorName: product?.inspector?.name
