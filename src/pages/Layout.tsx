@@ -24,7 +24,8 @@ export const Layout = () => {
       Routes.REGISTER,
       `${Routes.HOMEPAGE}${id}`,
       Routes.WAITLIST,
-      import.meta.env.VITE_API_ERROR_PAGE
+      import.meta.env.VITE_API_ERROR_PAGE,
+      Routes.LOGOUT
     ]
     const handleResize = () => setIsWide(window.innerWidth >= 1280)
     if (exceptions.some((e) => location.pathname === e)) {

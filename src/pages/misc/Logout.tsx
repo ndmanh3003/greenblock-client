@@ -9,7 +9,7 @@ export const Logout = () => {
   const navigate = useNavigate()
   const { mutate, error, data, isPending } = useLogoutMutation()
   useHandleError([error])
-  useHandleSuccess(data, true, () => navigate(0))
+  useHandleSuccess(data, true, () => navigate(''))
 
   return (
     <QuickPage title='You are already logged in'>
