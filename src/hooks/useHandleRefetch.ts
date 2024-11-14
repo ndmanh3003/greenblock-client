@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect } from 'react'
 
 export const useHandleRefetch = (
@@ -8,9 +7,15 @@ export const useHandleRefetch = (
 ) => {
   useEffect(
     () => {
-      if (!refecth) return
-      if (destroy && destroy()) return
-      if (typeof refecth === 'function') refecth()
+      if (!refecth) {
+        return
+      }
+      if (destroy && destroy()) {
+        return
+      }
+      if (typeof refecth === 'function') {
+        refecth()
+      }
     },
     deps || [refecth]
   )

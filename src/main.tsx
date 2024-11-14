@@ -1,49 +1,23 @@
+import { router } from '@/routes' // eslint-disable-line
+import { QueryClientProvider } from '@tanstack/react-query'
+import { ConfigProvider } from 'antd'
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import './index.css'
+import { Provider } from 'react-redux'
 import { RouterProvider } from 'react-router-dom'
-import { ConfigProvider } from 'antd'
-import router from './routes/router'
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: { retry: false },
-    mutations: { retry: false }
-  }
-})
+import './index.css'
+import { queryClient, themeConfig } from '@/config'
+import { store } from '@/service/store'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
-    <QueryClientProvider client={queryClient}>
-      <ConfigProvider
-        theme={{
-          token: {
-            fontFamily: 'Manrope',
-            colorPrimary: '#A1C038',
-            colorText: '#ffffff',
-            colorTextPlaceholder: '#ffffffa2',
-            colorTextDescription: '#ffffff'
-          },
-          components: {
-            Form: {
-              labelColor: 'white',
-              labelFontSize: 18,
-              marginLG: 27
-            },
-            Select: {
-              optionSelectedColor: '#21BA43',
-              selectorBg: 'transparent',
-              paddingContentHorizontal: 20,
-              optionFontSize: 16,
-              optionSelectedBg: 'rgba(0, 0, 0, 0.2)'
-            },
-            Message: { fontSize: 30 }
-          }
-        }}
-      >
-        <RouterProvider router={router} />
-      </ConfigProvider>
-    </QueryClientProvider>
+    <Provider store={store}>
+      <QueryClientProvider client={queryClient}>
+        <ConfigProvider theme={themeConfig}>
+          <RouterProvider router={router} />
+        </ConfigProvider>
+      </QueryClientProvider>
+    </Provider>
   </React.StrictMode>
 )

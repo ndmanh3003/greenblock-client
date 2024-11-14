@@ -1,12 +1,14 @@
-import { Outlet, useLocation, useParams } from 'react-router-dom'
 import 'antd/dist/reset.css'
-import { useEffect, useState } from 'react'
-import { Background, Float, Footer } from '../components'
 import { message } from 'antd'
-import { Routes } from '../routes'
 import NProgress from 'nprogress'
 import 'nprogress/nprogress.css'
-import { cn } from '../utils'
+
+import { useEffect, useState } from 'react'
+import { Outlet, useLocation, useParams } from 'react-router-dom'
+
+import { Background, Float, Footer } from '@/components'
+import { Routes } from '@/routes'
+import { cn, responsiveScreen } from '@/utils'
 
 NProgress.configure({ showSpinner: false })
 message.config({ maxCount: 3, duration: 3 })
@@ -14,19 +16,20 @@ message.config({ maxCount: 3, duration: 3 })
 export const Layout = () => {
   const location = useLocation()
   const { id } = useParams()
-  const [page, setPage] = useState(0)
+  const [page, setPage] = useState<1 | 2 | 3 | 0>(0)
   const [isWide, setIsWide] = useState(window.innerWidth >= 1280)
 
+  const exceptions = [...responsiveScreen, `${Routes.HOMEPAGE}${id}`]
+
+  const screenMap = {
+    [`${Routes.HOMEPAGE}${id}`]: 1,
+    [Routes.HOMEPAGE]: 1,
+    [Routes.LOGIN]: 2,
+    [Routes.REGISTER]: 2,
+    [Routes.RECORD]: 3
+  }
+
   useEffect(() => {
-    const exceptions = [
-      Routes.HOMEPAGE,
-      Routes.LOGIN,
-      Routes.REGISTER,
-      `${Routes.HOMEPAGE}${id}`,
-      Routes.WAITLIST,
-      import.meta.env.VITE_API_ERROR_PAGE,
-      Routes.LOGOUT
-    ]
     const handleResize = () => setIsWide(window.innerWidth >= 1280)
     if (exceptions.some((e) => location.pathname === e)) {
       setIsWide(true)
@@ -39,18 +42,11 @@ export const Layout = () => {
   }, [location, id])
 
   useEffect(() => {
-    if (
-      location.pathname == `${Routes.HOMEPAGE}${id}` ||
-      location.pathname == Routes.HOMEPAGE
+    const matchingPage = Object.keys(screenMap).find(
+      (path) => location.pathname === path
     )
-      setPage(1)
-    else if (
-      location.pathname.includes(Routes.LOGIN) ||
-      location.pathname.includes(Routes.REGISTER)
-    )
-      setPage(2)
-    else if (location.pathname.includes(Routes.RECORD)) setPage(3)
-    else setPage(0)
+
+    setPage(matchingPage ? (screenMap[matchingPage] as 1 | 2 | 3) : 0)
   }, [location, id])
 
   useEffect(() => {
@@ -60,7 +56,7 @@ export const Layout = () => {
 
   return (
     <div
-      className={cn('w-full h-screen', {
+      className={cn('min-h-dvh flex flex-col', {
         'w-[1280px]': !isWide
       })}
     >
@@ -68,7 +64,7 @@ export const Layout = () => {
       {page != 1 && <Float />}
       <div
         className={cn(
-          'h-fit min-h-full w-full max-w-[1500px] mx-auto flex flex-col justify-between',
+          'h-fit min-h-full w-full max-w-[1500px] mx-auto flex flex-col justify-between flex-auto relative',
           {
             'lg:px-14': isWide,
             'px-14': !isWide

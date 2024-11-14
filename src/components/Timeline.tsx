@@ -1,14 +1,15 @@
 import { Image } from 'antd'
 import { useState } from 'react'
-import { IStatus } from '../service/store/product'
 import { v4 as uuidv4 } from 'uuid'
-import { convertToClientTimezone } from '../utils'
+
+import { IStatus } from '@/service/api/product'
+import { convertToClientTimezone } from '@/utils'
 
 export function Timeline({ timeline }: { timeline: IStatus[] }) {
   const [modelVisible, setModelVisible] = useState<number>(-1)
   return (
     <div className='flow-root'>
-      <ul role='list' className='-mb-8'>
+      <ul className='-mb-8' role='list'>
         {timeline &&
           timeline.map((event, eventIdx) => (
             <li key={uuidv4()}>
@@ -44,10 +45,10 @@ export function Timeline({ timeline }: { timeline: IStatus[] }) {
                         }}
                       >
                         <img
-                          src={event.img[0]}
                           className='h-full w-full object-cover scale-105'
+                          src={event.img[0]}
                         />
-                        <div className='bg-black bg-opacity-40 group-hover:flex hidden h-full w-full absolute top-0 right-0 transition-all items-center justify-center text-white font-medium text-base'>
+                        <div className='bg-black bg-opacity-40 group-hover:flex hidden h-full w-full absolute top-0 right-0 items-center justify-center text-white font-medium text-base'>
                           View all
                         </div>
                       </Image.PreviewGroup>

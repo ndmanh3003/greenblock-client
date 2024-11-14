@@ -5,7 +5,9 @@ export const useDebounce = <T>(fn: (value: T) => void, delay: number) => {
 
   return useCallback(
     (value: T) => {
-      if (timeoutRef.current) clearTimeout(timeoutRef.current)
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current)
+      }
 
       timeoutRef.current = setTimeout(() => {
         fn(value)
@@ -14,8 +16,3 @@ export const useDebounce = <T>(fn: (value: T) => void, delay: number) => {
     [fn, delay]
   )
 }
-
-//Usage
-// import { useDebounce } from 'src/hooks'
-// const debouncedSearch = useDebounce((value) => setSearch(value), 500)
-// <Input onChange={(e) => debouncedSearch(e.target.value)} />

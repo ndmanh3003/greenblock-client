@@ -1,54 +1,51 @@
-import React, { useState } from 'react'
-import { Button, ConfigProvider, Form, message, Popconfirm, Table } from 'antd'
+import { CheckOutlined, CloseOutlined, DeleteOutlined } from '@ant-design/icons'
+import { Button, ConfigProvider, Form, Popconfirm, Table, message } from 'antd'
 import type { TableProps } from 'antd'
-import { InputC } from '../../components'
+import React, { useState } from 'react'
+
+import { _roles } from '@/assets/options'
+import { InputC } from '@/components'
+import { useHandleRefetch, useHandleSuccess } from '@/hooks'
 import {
   IAccount,
   IGetAllReq,
   useGetAllQuery,
   useVerifyMutation
-} from '../../service/store/auth'
-import { useHandleError, useHandleRefetch, useHandleSuccess } from '../../hooks'
-import { DeleteOutlined, CheckOutlined, CloseOutlined } from '@ant-design/icons'
+} from '@/service/api/auth'
 
 interface DataType extends IAccount {
   key: string
 }
 
 export const Admin: React.FC = () => {
-  const [state, setState] = useState<IGetAllReq>({ type: 'business' })
+  const [state, setState] = useState<IGetAllReq>({ type: _roles[0] })
   const [data, setData] = useState<DataType[]>()
 
   const {
     refetch,
     data: dataGetAll,
-    error,
     isLoading
   } = useGetAllQuery({
     type: state.type,
-    code: state.code
+    code: state?.code
   })
   useHandleSuccess(dataGetAll, false, (data) =>
     setData(data.map((d) => ({ ...d, key: d._id })))
   )
   useHandleRefetch(refetch, [state], () => !state.type || !state.code)
 
-  const {
-    mutate,
-    isPending,
-    data: dataVerify,
-    error: errorVerify
-  } = useVerifyMutation()
-  useHandleError([error, errorVerify])
-  useHandleSuccess(dataVerify, true, () => refetch())
+  const { mutate, isPending, data: dataVerify } = useVerifyMutation()
+  useHandleSuccess(dataVerify, 'Verified', () => refetch())
 
   const onFinish = (values: { token: string }) => {
     const { token } = values
     const [isBusiness, code] = token.split('@//')
-    if (!isBusiness || !code) return message.error('Invalid code')
+    if (!isBusiness || !code) {
+      return message.error('Invalid code')
+    }
 
     setState({
-      type: Number(isBusiness) ? 'business' : 'inspector',
+      type: _roles[Number(isBusiness)],
       code
     } as IGetAllReq)
   }
@@ -81,16 +78,11 @@ export const Admin: React.FC = () => {
       key: 'cert',
       align: 'center',
       width: '10%',
-      render: (_, record) => {
-        return (
-          <a
-            href={`${import.meta.env.VITE_GETWAY_IPFS}${record.cert}`}
-            target='_blank'
-          >
-            View
-          </a>
-        )
-      }
+      render: (_, record) => (
+        <a href={record.cert} rel='noreferrer' target='_blank'>
+          View
+        </a>
+      )
     },
     {
       title: 'Action',
@@ -100,19 +92,19 @@ export const Admin: React.FC = () => {
       render: (_, record) => (
         <div className='mx-5 flex'>
           <Button
-            type='link'
             disabled={isPending}
+            type='link'
             onClick={() => handleVerify(record._id, true)}
           >
             Verify
           </Button>
           <Popconfirm
-            title='Sure to delete?'
-            style={{ fontSize: 14 }}
-            cancelText={<CloseOutlined style={{ fontSize: 12 }} />}
             cancelButtonProps={{ className: '!aspect-square !p-0' }}
-            okText={<CheckOutlined style={{ fontSize: 12 }} />}
+            cancelText={<CloseOutlined style={{ fontSize: 12 }} />}
             okButtonProps={{ className: '!aspect-square !p-0' }}
+            okText={<CheckOutlined style={{ fontSize: 12 }} />}
+            style={{ fontSize: 14 }}
+            title='Sure to delete?'
             onConfirm={() => handleVerify(record._id, false)}
           >
             <DeleteOutlined style={{ fontSize: 16, color: 'red' }} />
@@ -137,16 +129,16 @@ export const Admin: React.FC = () => {
         <h1 className='text-4xl font-bold'>Admin Verification</h1>
         <Form onFinish={onFinish}>
           <InputC
-            type='password'
-            name='token'
             className='!border-gray-200 inline-block'
+            name='token'
             placeholder='Enter your code'
+            type='password'
           />
         </Form>
         <Table
-          columns={columns}
-          dataSource={!isLoading ? data : []}
           className='mt-1'
+          columns={columns}
+          dataSource={!isLoading && state?.code ? data : []}
         />
       </ConfigProvider>
     </div>

@@ -1,8 +1,9 @@
 import { Form } from 'antd'
-import { IFormItem } from '.'
 import React from 'react'
-import { cn } from '../../utils'
-import { ButtonC, IButtonC } from '../../components'
+
+import { IFormItem } from '.'
+import { ButtonC, IButtonC } from '@/components'
+import { cn } from '@/utils'
 
 export const SubmitC: React.FC<IButtonC & IFormItem> = ({
   wrapperCol,
@@ -14,9 +15,9 @@ export const SubmitC: React.FC<IButtonC & IFormItem> = ({
   return (
     <Form.Item wrapperCol={{ offset: wrapperCol }}>
       <ButtonC
+        className={cn('rounded-xl w-full', className)}
         htmlType='submit'
         variant={variant || 'linear'}
-        className={cn('rounded-xl w-full', className)}
         {...props}
       >
         {children}

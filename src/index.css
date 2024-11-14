@@ -8,6 +8,10 @@ body {
   font-family: 'Manrope';
 }
 
+*:not([class*='ant']) {
+  transition: all 0.3s ease-in-out;
+}
+
 /* !INPUT AUTOCOMPLETE */
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
@@ -109,7 +113,7 @@ input:-webkit-autofill:active {
 
 /* !ANTD: MODAL */
 .ant-modal-content {
-  border-radius: 1rem !important;
+  border-radius: 2rem !important;
 }
 
 /*! ANTD: COLLAPSE */

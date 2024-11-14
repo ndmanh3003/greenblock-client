@@ -1,7 +1,8 @@
 import { Checkbox, CheckboxProps, Form } from 'antd'
-import { IFormItem } from '.'
 import React from 'react'
-import { cn, cnInput } from '../../utils'
+
+import { IFormItem, cnInput } from '.'
+import { cn } from '@/utils'
 
 export const CheckboxC: React.FC<IFormItem & CheckboxProps> = ({
   name,
@@ -13,11 +14,11 @@ export const CheckboxC: React.FC<IFormItem & CheckboxProps> = ({
 }) => {
   return (
     <Form.Item
-      name={name}
-      valuePropName='checked'
       className='-translate-y-2'
-      wrapperCol={{ offset: wrapperCol }}
+      name={name}
       rules={rules}
+      valuePropName='checked'
+      wrapperCol={{ offset: wrapperCol }}
     >
       <Checkbox className={cn(cnInput, '!px-0', className)} {...props}>
         {children}

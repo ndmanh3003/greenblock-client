@@ -1,7 +1,8 @@
 import { Form, Input, InputProps } from 'antd'
-import { IFormItem } from '.'
 import React from 'react'
-import { cn, cnInput } from '../../utils'
+
+import { IFormItem, cnInput } from '.'
+import { cn } from '@/utils'
 
 export const InputC: React.FC<IFormItem & InputProps> = ({
   isOutline,
@@ -12,7 +13,7 @@ export const InputC: React.FC<IFormItem & InputProps> = ({
   ...props
 }) => {
   return (
-    <Form.Item name={name} rules={rules} label={label}>
+    <Form.Item label={label} name={name} rules={rules}>
       <Input
         className={cn(cnInput, className, isOutline && 'border-gray-200')}
         {...props}

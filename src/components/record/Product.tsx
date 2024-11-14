@@ -1,32 +1,41 @@
 import { Form, message } from 'antd'
-import { IValueSelectC, ruleRequired, SelectC, SubmitC } from '../form'
-import { ButtonC, IRecord, IStatus } from '../../components'
 import { useEffect, useState } from 'react'
-import { allCurrent, useGetAllProductQuery } from '../../service/store/product'
-import { useHandleError, useHandleSuccess } from '../../hooks'
 
-export const Product = ({ dispatch, state }: IRecord) => {
+import { IValueSelectC, SelectC, SubmitC, ruleRequired } from '../form'
+import { _currents } from '@/assets/options'
+import {
+  useAppDispatch,
+  useAppSelector,
+  useHandleError,
+  useHandleSuccess
+} from '@/hooks'
+import { IHandleRecordReq, useGetAllProductQuery } from '@/service/api/product'
+import { selectState, setCurrent, setData } from '@/service/store/state'
+
+const _activities = {
+  UPDATE: 'Record product update',
+  HARVEST: 'Record product harvest',
+  DELETE: 'Delete nearest status'
+}
+
+export const Product = () => {
+  const state = useAppSelector(selectState)
+  const dispatch = useAppDispatch()
   const [productList, setProductList] = useState<IValueSelectC[]>()
 
-  const {
-    data: dataGetAll,
-    // refetch,
-    isLoading,
-    error
-  } = useGetAllProductQuery({
-    businessId: state.data?.businessId,
-    code: state.data?.code
+  const { data, isLoading, error } = useGetAllProductQuery({
+    businessId: state.data!.businessId,
+    code: state.data!.code
   })
-  useHandleError([error], () =>
-    dispatch({ type: 'UPDATE_CURRENT', payload: 0 })
-  )
-  useHandleSuccess(dataGetAll, false, (data) => {
+
+  useHandleError([error], () => dispatch(setCurrent(0)))
+  useHandleSuccess(data, false, (data) => {
     setProductList(
-      data?.map((item) => ({
+      data?.products.map((item) => ({
         value: item._id,
         label:
           item.name +
-          (item.current === allCurrent.HARVESTED ? ' (harvested)' : '')
+          (item.current === _currents.HARVESTED ? ' (harvested)' : '')
       }))
     )
   })
@@ -34,64 +43,72 @@ export const Product = ({ dispatch, state }: IRecord) => {
   useEffect(() => {
     if (productList && !productList.length) {
       message.error('No product found')
-      return dispatch({ type: 'UPDATE_CURRENT', payload: 0 })
+      dispatch(setCurrent(0))
     }
-  }, [dispatch, productList])
+  }, [productList])
 
-  const onFinish = (values: IStatus & { type: string }) => {
-    // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
+  const onFinish = (values: IHandleRecordReq & { type: string }) => {
     const { type, productId, ...rest } = values
 
-    const isHarvested = productList
-      ?.find((item) => item.value === productId)
-      ?.label.includes('harvested')
-    if (isHarvested)
+    const isHarvested =
+      productList
+        ?.find((item) => item.value === productId)
+        ?.label.split(' ')
+        .at(-1) === '(harvested)'
+
+    if (isHarvested) {
       if (type !== 'DELETE') {
         return message.error('This product is harvested')
-      } else message.warning('Delete resets to "Planting" and quantity to 0')
+      } else {
+        message.warning('Delete resets to "Planting" and quantity to 0')
+      }
+    }
 
-    rest.isHarvested = rest.isDelete = undefined
+    if (type == 'DELETE') {
+      rest.isHarvested = -1
+    } else if (type == 'HARVEST') {
+      rest.isHarvested = 1
+    } else {
+      rest.isHarvested = 0
+    }
 
-    if (type == 'DELETE') rest.isDelete = true
-    else if (type == 'HARVEST') rest.isHarvested = true
-    else rest.isHarvested = false
-
-    dispatch({
-      type: 'UPDATE_DATA',
-      payload: { productId: productId.split(' ')[0], ...rest }
-    })
-    dispatch({ type: 'UPDATE_CURRENT', payload: 2 })
-    setProductList(undefined)
+    dispatch(setData({ productId: productId.split(' ')[0], ...rest }))
+    dispatch(setCurrent(2))
   }
 
   const handleData = () => {
-    let type = null
-    if (state.data?.isDelete == null && state.data?.isHarvested == null)
-      type = null
-    else if (state.data?.isDelete) type = 'DELETE'
-    else if (state.data?.isHarvested) type = 'HARVEST'
-    else type = 'UPDATE'
-    return {
-      productId: state.data?.productId,
-      type
+    if (!state.data?.productId) {
+      return
     }
+
+    let type
+
+    if (state.data?.isHarvested === -1) {
+      type = 'DELETE'
+    } else if (state.data?.isHarvested === 1) {
+      type = 'HARVEST'
+    } else {
+      type = 'UPDATE'
+    }
+
+    return { type, productId: state.data?.productId }
   }
 
   return (
     <div>
       <Form
         className='mx-auto'
-        name='form'
-        labelCol={{ span: 8 }}
-        labelAlign='left'
-        onFinish={onFinish}
-        requiredMark={false}
         colon={false}
         initialValues={handleData()}
+        labelAlign='left'
+        labelCol={{ span: 8 }}
+        name='form'
+        requiredMark={false}
+        onFinish={onFinish}
       >
         <SelectC
-          name='type'
           label='Activity'
+          name='type'
           placeholder='Select your activity'
           rules={ruleRequired}
           value={Object.entries(_activities).map(([key, value]) => ({
@@ -100,31 +117,25 @@ export const Product = ({ dispatch, state }: IRecord) => {
           }))}
         />
         <SelectC
-          name='productId'
           label='Product'
+          name='productId'
           placeholder='Select your product'
           rules={ruleRequired}
-          value={isLoading ? [] : productList || []}
+          value={isLoading && !productList ? [] : productList || []}
         />
-        <Form.Item className='relative mt-16'>
-          <SubmitC className='!w-fit' wrapperCol={8}>
-            Continue
-          </SubmitC>
-          <ButtonC
-            variant='primary'
-            className='!rounded-xl !w-fit absolute top-0 !text-base !font-medium !text-white hover:!text-white'
-            onClick={() => dispatch({ type: 'UPDATE_CURRENT', payload: 0 })}
+        <Form.Item className='relative mt-8 flex flex-col items-center'>
+          <SubmitC className='!w-fit'>Continue</SubmitC>
+          <div
+            className='!w-full text-base font-medium !text-primary underline-offset-1 text-center underline cursor-pointer'
+            onClick={() => {
+              dispatch(setCurrent(0))
+              dispatch(setData({ productId: '' } as IHandleRecordReq))
+            }}
           >
             Previous
-          </ButtonC>
+          </div>
         </Form.Item>
       </Form>
     </div>
   )
-}
-
-const _activities = {
-  UPDATE: 'Record product update',
-  HARVEST: 'Record product harvest',
-  DELETE: 'Delete nearest status'
 }

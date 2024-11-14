@@ -1,68 +1,71 @@
 import { Form } from 'antd'
+import { useState } from 'react'
+
 import {
+  IValueSelectC,
   InputC,
-  ruleRequired,
   SelectC,
   SubmitC,
-  IStatus,
-  IRecord,
-  IValueSelectC
-} from '../../components'
-import { useGetAllQuery } from '../../service/store/auth'
-import { useState } from 'react'
-import { useHandleError, useHandleRefetch, useHandleSuccess } from '../../hooks'
+  ruleRequired
+} from '@/components'
+import {
+  useAppDispatch,
+  useAppSelector,
+  useHandleRefetch,
+  useHandleSuccess
+} from '@/hooks'
+import { useGetAllQuery } from '@/service/api/auth'
+import { IHandleRecordReq } from '@/service/api/product'
+import { selectState, setCurrent, setData } from '@/service/store/state'
 
-export const Hr = ({ dispatch, state }: IRecord) => {
+export const Hr = () => {
+  const state = useAppSelector(selectState)
+  const dispatch = useAppDispatch()
   const [businessList, setBusinessList] = useState<IValueSelectC[]>()
-  const {
-    data: dataBusiness,
-    error,
-    isLoading,
-    refetch
-  } = useGetAllQuery({ type: 'business' })
-  useHandleError([error])
-  useHandleSuccess(dataBusiness, false, (data) => {
+
+  const { data, isLoading, refetch } = useGetAllQuery({ type: 'business' })
+  useHandleSuccess(data, false, (data) => {
     const value = data.map((item) => ({
       value: item._id,
       label: item.name
-    })) as IValueSelectC[]
+    }))
     setBusinessList(value)
   })
   useHandleRefetch(refetch)
 
-  const onFinish = async (values: IStatus) => {
-    dispatch({ type: 'UPDATE_DATA', payload: values })
-    dispatch({ type: 'UPDATE_CURRENT', payload: 1 })
+  const onFinish = async (values: IHandleRecordReq) => {
+    dispatch(setCurrent(1))
+    dispatch(setData(values))
   }
 
   return (
     <div>
       <Form
         className='mx-auto'
-        name='form'
-        labelCol={{ span: 8 }}
-        labelAlign='left'
-        onFinish={onFinish}
-        requiredMark={false}
         colon={false}
         initialValues={state.data || {}}
+        labelAlign='left'
+        labelCol={{ span: 8 }}
+        name='form'
+        requiredMark={false}
+        onFinish={onFinish}
       >
         <InputC
-          name='code'
           label='Code'
-          rules={ruleRequired}
+          name='code'
           placeholder='Input your company code'
+          rules={ruleRequired}
         />
         <SelectC
-          name='businessId'
           label='Company'
+          name='businessId'
           placeholder='Select your company'
           rules={ruleRequired}
           value={isLoading ? [] : businessList || []}
         />
-        <SubmitC className='!w-fit mt-2' wrapperCol={8}>
-          Continue
-        </SubmitC>
+        <Form.Item className='relative mt-8 flex flex-col items-center'>
+          <SubmitC className='!w-fit mt-2'>Continue</SubmitC>
+        </Form.Item>
       </Form>
     </div>
   )

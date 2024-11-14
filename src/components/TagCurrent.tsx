@@ -1,27 +1,25 @@
 import { Tag } from 'antd'
-import { allCurrent } from '../service/store/product'
-import { cn } from '../utils'
+
+import { _currents } from '@/assets/options'
+import { cn } from '@/utils'
+
+const colors = ['green', 'lime', 'magenta', 'cyan', 'blue', 'volcano']
 
 export const TagCurrent = ({
   state,
   className
 }: {
-  state: (typeof allCurrent)[keyof typeof allCurrent]
+  state: (typeof _currents)[keyof typeof _currents]
   className?: string
 }) => {
-  const color = {
-    PLANTING: 'green',
-    HARVESTED: 'lime',
-    INSPECTING: 'magenta',
-    INSPECTED: 'cyan',
-    EXPORTED: 'blue',
-    SOLD: 'volcano'
-  }
+  const index = Object.values(_currents).indexOf(state)
+  const color = colors[index]
+
   return (
     <Tag
-      color={color[state.toUpperCase() as keyof typeof color]}
-      className={cn('!w-fit !font-bold', className)}
       bordered={false}
+      className={cn('!w-fit !font-bold', className)}
+      color={color}
     >
       {state.toLowerCase()}
     </Tag>

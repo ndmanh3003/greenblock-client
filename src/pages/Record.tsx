@@ -1,64 +1,56 @@
-import { ConfigProvider, StepProps, Steps } from 'antd'
 import {
-  ProductOutlined,
+  CheckCircleOutlined,
   CloudUploadOutlined,
-  UserOutlined,
-  CheckCircleOutlined
+  ProductOutlined,
+  UserOutlined
 } from '@ant-design/icons'
-import React, { useReducer } from 'react'
-import { Action, Hr, IState, Product, Upload } from '../components'
+import { ConfigProvider, StepProps, Steps } from 'antd'
+import React from 'react'
 
-const reducer = (state: IState, action: Action): IState => {
-  switch (action.type) {
-  case 'UPDATE_CURRENT':
-    return { ...state, current: action.payload }
-  case 'UPDATE_DATA':
-    return { ...state, data: { ...state.data, ...action.payload } }
-  default:
-    return state
+import { Hr, Product, Upload } from '@/components'
+import { useAppSelector } from '@/hooks'
+import { selectState } from '@/service/store/state'
+
+const _steps: (StepProps & { form: React.ReactNode })[] = [
+  {
+    title: 'HR Information',
+    icon: <UserOutlined />,
+    form: <Hr />
+  },
+  {
+    title: 'Product Information',
+    icon: <ProductOutlined />,
+    form: <Product />
+  },
+  {
+    title: 'Upload Information',
+    icon: <CloudUploadOutlined />,
+    form: <Upload />
   }
-}
-
+]
 export const Record = () => {
-  const [state, dispatch] = useReducer(reducer, { current: 0 })
+  const state = useAppSelector(selectState)
 
-  const _steps: (StepProps & { form: React.ReactNode })[] = [
-    {
-      title: 'HR Information',
-      icon: <UserOutlined />,
-      form: <Hr state={state} dispatch={dispatch} />
-    },
-    {
-      title: 'Product Information',
-      icon: <ProductOutlined />,
-      form: <Product state={state} dispatch={dispatch} />
-    },
-    {
-      title: 'Upload Information',
-      icon: <CloudUploadOutlined />,
-      form: <Upload state={state} dispatch={dispatch} />
-    }
-  ]
   return (
-    <div className='m-auto w-[900px]'>
-      <div className='px-10 py-5 w-full rounded-full overflow-hidden bg-black bg-opacity-30 backdrop-blur-xl'>
+    <div className='lg:mx-auto mx-5 lg:w-full max-w-[800px] my-auto'>
+      <div className='px-10 py-5 rounded-full bg-black bg-opacity-30 backdrop-blur-xl w-fit mx-auto'>
+        <div className='font-medium text-xl text-white lg:hidden'>
+          <span className='mr-5'>{_steps[state.current].icon}</span>
+          {_steps[state.current].title}
+        </div>
         <ConfigProvider
           theme={{
             token: { colorPrimary: 'white', fontSize: 16 }
           }}
         >
-          <Steps className='cursor-default' responsive={false}>
+          <Steps
+            className='cursor-default'
+            responsive={false}
+            rootClassName='w-[750px] hidden lg:flex'
+          >
             {_steps.map((s, i) => (
               <Steps.Step
                 key={i}
-                title={s.title}
-                status={
-                  i == state.current
-                    ? 'process'
-                    : i > state.current
-                      ? 'wait'
-                      : 'finish'
-                }
                 icon={
                   i < state.current ? (
                     <CheckCircleOutlined />
@@ -70,13 +62,21 @@ export const Record = () => {
                     })
                   )
                 }
+                status={
+                  i == state.current
+                    ? 'process'
+                    : i > state.current
+                      ? 'wait'
+                      : 'finish'
+                }
+                title={s.title}
               />
             ))}
           </Steps>
         </ConfigProvider>
       </div>
 
-      <div className='mt-10 w-[600px] mx-auto'>
+      <div className='mt-10 mx-auto lg:max-w-[600px] h-[400px]'>
         {_steps[state.current].form}
       </div>
     </div>

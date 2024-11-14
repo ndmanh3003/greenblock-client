@@ -1,7 +1,7 @@
-import React, { useContext, useEffect, useRef, useState } from 'react'
 import type { GetRef, InputRef } from 'antd'
 import { Form, Input } from 'antd'
 import { Rule } from 'antd/es/form'
+import React, { useContext, useEffect, useRef, useState } from 'react'
 
 type FormInstance<T> = GetRef<typeof Form<T>>
 
@@ -13,13 +13,12 @@ interface EditableRowProps {
 }
 
 export const EditableRow: React.FC<EditableRowProps> = ({
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  index,
+  index: _,
   ...props
 }) => {
   const [form] = Form.useForm()
   return (
-    <Form form={form} component={false}>
+    <Form component={false} form={form}>
       <EditableContext.Provider value={form}>
         <tr {...props} />
       </EditableContext.Provider>
@@ -34,13 +33,11 @@ interface EditableCellProps<T> {
   children: React.ReactNode
   dataIndex: keyof T
   record: T
-  // eslint-disable-next-line no-unused-vars
   handleSave: (record: T) => void
 }
 
 export function EditableCell<T>({
-  // eslint-disable-next-line no-unused-vars, @typescript-eslint/no-unused-vars
-  title,
+  title: _,
   editable,
   children,
   dataIndex,
@@ -78,7 +75,6 @@ export function EditableCell<T>({
   if (editable) {
     childNode = editing ? (
       <Form.Item
-        style={{ margin: 0 }}
         name={dataIndex as string}
         rules={[
           { required: true, message: '' },
@@ -92,11 +88,12 @@ export function EditableCell<T>({
                     return Number(value)
                   }
                 } as Rule
-            ]
+              ]
             : [])
         ]}
+        style={{ margin: 0 }}
       >
-        <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+        <Input ref={inputRef} onBlur={save} onPressEnter={save} />
       </Form.Item>
     ) : (
       <div

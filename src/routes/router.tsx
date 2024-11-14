@@ -1,51 +1,52 @@
 import {
+  Route,
   createBrowserRouter,
-  createRoutesFromElements,
-  Route
+  createRoutesFromElements
 } from 'react-router-dom'
+
 import * as Routes from './paths'
-import * as Pages from '../pages'
-import { ProductManagement, ProtectedPage, RetrictedPage } from '../components'
+import { ProductList, ProtectedPage, RetrictedPage } from '@/components'
+import * as Pages from '@/pages'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route
-      path={Routes.HOMEPAGE}
       element={<Pages.Layout />}
       errorElement={<Pages.Error />}
+      path={Routes.HOMEPAGE}
     >
-      <Route path='/:id?' element={<Pages.HomePage />} />
+      <Route element={<Pages.HomePage />} path='/:id?' />
 
-      <Route path='/' element={<RetrictedPage />}>
-        <Route path='/' element={<Pages.LayoutAuth />}>
-          <Route path={Routes.LOGIN} element={<Pages.Login />} />
-          <Route path={Routes.REGISTER} element={<Pages.Register />} />
+      <Route element={<RetrictedPage />} path='/'>
+        <Route element={<Pages.LayoutAuth />} path='/'>
+          <Route element={<Pages.Login />} path={Routes.LOGIN} />
+          <Route element={<Pages.Register />} path={Routes.REGISTER} />
         </Route>
       </Route>
 
-      <Route path='/' element={<ProtectedPage />}>
-        <Route path='/' element={<Pages.LayoutWorkspace />}>
+      <Route element={<ProtectedPage />} path='/'>
+        <Route element={<Pages.LayoutWorkspace />} path='/'>
           <Route
-            path={Routes.INSPECTOR + '/:id?'}
             element={<Pages.Inspector />}
+            path={Routes.INSPECTOR + '/:id?'}
           />
-          <Route path={Routes.BUSINESS} element={<Pages.Business />} />
+          <Route element={<Pages.Business />} path={Routes.BUSINESS} />
           <Route
+            element={<ProductList />}
             path={Routes.BUSINESS + '/product/:id?'}
-            element={<ProductManagement />}
           />
         </Route>
       </Route>
 
-      <Route path={Routes.WAITLIST} element={<Pages.Waitlist />} />
+      <Route element={<Pages.Waitlist />} path={Routes.WAITLIST} />
       <Route
-        path={import.meta.env.VITE_API_ERROR_PAGE}
         element={<Pages.Error />}
+        path={import.meta.env.VITE_API_ERROR_PAGE}
       />
-      <Route path={Routes.LOGOUT} element={<Pages.Logout />} />
+      <Route element={<Pages.Logout />} path={Routes.LOGOUT} />
 
-      <Route path={Routes.ADMIN} element={<Pages.Admin />} />
-      <Route path={Routes.RECORD} element={<Pages.Record />} />
+      <Route element={<Pages.Admin />} path={Routes.ADMIN} />
+      <Route element={<Pages.Record />} path={Routes.RECORD} />
     </Route>
   )
 )

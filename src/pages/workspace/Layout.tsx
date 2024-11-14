@@ -1,38 +1,35 @@
-import { Outlet, useLocation, useNavigate } from 'react-router-dom'
-import { Line } from '../../components'
-import {
-  IGetMeRes,
-  useGetMeQuery,
-  useLogoutMutation
-} from '../../service/store/auth'
-import { useHandleError, useHandleSuccess } from '../../hooks'
-import { useState } from 'react'
-import { Routes } from '../../routes'
-import { Button } from 'antd'
-import { tokensStorage } from '../../service/localStorage'
+import { Button, message } from 'antd'
+import { useEffect } from 'react'
+import { Outlet, useLocation } from 'react-router-dom'
+
+import { Line } from '@/components'
+import { useAppDispatch, useAppSelector, useHandleSuccess } from '@/hooks'
+import { Routes } from '@/routes'
+import { useGetMeQuery, useLogoutMutation } from '@/service/api/auth'
+import { selectUser, setAccount } from '@/service/store/user'
 
 export const Layout = () => {
-  const navigate = useNavigate()
+  const dispatch = useAppDispatch()
+  const user = useAppSelector(selectUser)
   const location = useLocation()
-  const [info, setInfo] = useState<IGetMeRes>()
 
-  const { data, error, isLoading } = useGetMeQuery()
+  const { data, isLoading } = useGetMeQuery()
   useHandleSuccess(data, false, (data) => {
-    setInfo(data)
-    if (data.isBusiness && location.pathname.includes(Routes.INSPECTOR))
-      navigate(Routes.BUSINESS)
-    else if (!data.isBusiness && location.pathname.includes(Routes.BUSINESS))
-      navigate(Routes.INSPECTOR)
+    dispatch(setAccount(data))
   })
 
-  const {
-    mutate: logout,
-    error: errorLogout,
-    data: dataLogout,
-    isPending
-  } = useLogoutMutation()
-  useHandleError([errorLogout, error])
-  useHandleSuccess(dataLogout, true, () => navigate(''))
+  const { mutate, isPending } = useLogoutMutation()
+
+  useEffect(() => {
+    if (!user.name) {
+      return
+    }
+
+    if (location.pathname.includes(Routes.BUSINESS) !== user.isBusiness) {
+      mutate()
+      message.error('You are not authorized to access this page')
+    }
+  }, [user])
 
   return (
     <div className='h-full w-full'>
@@ -40,18 +37,15 @@ export const Layout = () => {
         <div className='mb-3 flex justify-between items-center'>
           <div>
             <div className='bg-linear1 text-green3 font-semibold px-3 py-[2px] inline rounded-md'>
-              {info?.isBusiness ? 'Business' : 'Inspector'}:
+              {user?.isBusiness ? 'Business' : 'Inspector'}:
             </div>
-            <span className='px-5 font-medium'>{info?.name}</span>
+            <span className='px-5 font-medium'>{user?.name}</span>
           </div>
           <Button
             className='!font-semibold !text-green2 !text-base !mr-2'
-            onClick={() => {
-              tokensStorage.removeToken()
-              logout()
-            }}
-            type='link'
             loading={isPending || isLoading}
+            type='link'
+            onClick={() => mutate()}
           >
             Logout
           </Button>

@@ -1,3 +1,2 @@
-export * from './LandTable'
+export * from './ItemsTable'
 export * from './EditableCell'
-export * from './VarietyTable'

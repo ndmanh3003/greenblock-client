@@ -1,8 +1,7 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import { message } from 'antd'
 import { useEffect } from 'react'
 
-interface IError {
+export interface IError {
   response: {
     data: {
       error_key?: string
@@ -11,16 +10,18 @@ interface IError {
   }
 }
 
-export const useHandleError = (err: unknown[], fn?: () => void) => {
+export const useHandleError = (errs: unknown[], fn?: () => void) => {
   useEffect(() => {
-    if (!err || err.length === 0) return
+    if (!errs || errs.length === 0) {
+      return
+    }
 
-    const errors = err as IError[]
-
-    errors.forEach((error) => {
-      if (error === undefined || error === null) return
+    errs.forEach((err) => {
+      if (err === undefined || err === null) {
+        return
+      }
       fn?.()
-      message.error(error.response.data.message)
+      message.error((err as IError).response.data.message)
     })
-  }, err)
+  }, errs)
 }

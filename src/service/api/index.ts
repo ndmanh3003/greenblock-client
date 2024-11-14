@@ -3,10 +3,10 @@ import axios, {
   AxiosResponse,
   InternalAxiosRequestConfig
 } from 'axios'
-import { tokensStorage } from '../localStorage/token'
 import NProgress from 'nprogress'
 
-// eslint-disable-next-line no-unused-vars
+import { tokensStorage } from '../localStorage/token'
+
 type callback = (token: string) => void
 
 let isRefreshing = false
@@ -16,7 +16,6 @@ function onRefreshed(token: string) {
   subscribers.map((cb) => cb(token))
 }
 
-// eslint-disable-next-line no-unused-vars
 function subscribeTokenRefresh(cb: (token: string) => void) {
   subscribers.push(cb)
 }
@@ -28,7 +27,9 @@ const logout = () => {
 
 const refreshAccessToken = async () => {
   const auth = tokensStorage.getToken()
-  if (!auth) logout()
+  if (!auth) {
+    logout()
+  }
 
   const refreshToken = auth?.refreshToken
   try {
@@ -108,7 +109,9 @@ instance.interceptors.response.use(
         })
       })
       return retryOrigReq
-    } else NProgress.done()
+    } else {
+      NProgress.done()
+    }
     return Promise.reject(error)
   }
 )

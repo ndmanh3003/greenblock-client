@@ -1,8 +1,9 @@
+import { message } from 'antd'
 import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
-import { tokensStorage } from '../../service/localStorage'
-import { message } from 'antd'
-import { Routes } from '../../routes'
+
+import { Routes } from '@/routes'
+import { tokensStorage } from '@/service/localStorage'
 
 export const RetrictedPage = () => {
   const navigate = useNavigate()

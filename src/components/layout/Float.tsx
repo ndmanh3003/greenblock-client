@@ -1,7 +1,8 @@
 import { Tooltip } from 'antd'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
-import { Routes } from '../../routes'
+
+import { Routes } from '@/routes'
 
 const Styled = styled.div`
   .ant-tooltip-inner {
@@ -19,11 +20,11 @@ export const Float = () => {
       <Link to={Routes.HOMEPAGE}>
         <Styled>
           <Tooltip
-            zIndex={9999}
-            title='Return to Home'
-            getPopupContainer={(triggerNode) => triggerNode}
             arrow={false}
+            getPopupContainer={(triggerNode) => triggerNode}
             placement='left'
+            title='Return to Home'
+            zIndex={9999}
           >
             <div className='bg-transparent text-transparent absolute z-10 w-full h-full'>
               Sample
@@ -31,7 +32,7 @@ export const Float = () => {
           </Tooltip>
         </Styled>
       </Link>
-      <img src='/logo.svg' className='absolute w-full h-full z-0' />
+      <img className='absolute w-full h-full z-0' src='/logo.svg' />
     </div>
   )
 }

@@ -1,6 +1,7 @@
-import { Form, Select, SelectProps } from 'antd'
 import { DownOutlined } from '@ant-design/icons'
+import { Form, Select, SelectProps } from 'antd'
 import React from 'react'
+
 import { IFormItem } from '.'
 
 export interface IValueSelectC {
@@ -26,7 +27,7 @@ export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
   return (
     <Form.Item label={label} name={name} rules={rules}>
       <Select
-        // * if you want both search by value and label
+        // * for both value and label search
         // filterOption={(input, option) => {
         //   const { children, value } = option
         //   return (
@@ -34,18 +35,18 @@ export const SelectC: React.FC<ISelectC & SelectProps & IFormItem> = ({
         //     0 || (value as string).toLowerCase().indexOf(input.toLowerCase()) >= 0
         //   )
         // }}
-        optionFilterProp='children'
         showSearch
+        dropdownAlign={{ offset: [0, 10] }}
+        dropdownStyle={{
+          backgroundColor: colorDropdown || 'transparent'
+        }}
+        optionFilterProp='children'
+        popupClassName='!backdrop-blur-lg'
         suffixIcon={
           <DownOutlined
             style={{ color: colorIcon || 'white', fontSize: '13px' }}
           />
         }
-        dropdownStyle={{
-          backgroundColor: colorDropdown || 'transparent'
-        }}
-        dropdownClassName='!backdrop-blur-lg'
-        dropdownAlign={{ offset: [0, 10] }}
         {...props}
       >
         {value.map((item: { value: string; label: string }) => (

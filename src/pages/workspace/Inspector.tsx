@@ -1,4 +1,4 @@
-import { ProductManagement } from './../../components/ProductManagement'
+import { ProductList } from '@/components/product/ProductList'
 
 export const Inspector = () => {
   return (
@@ -19,7 +19,7 @@ export const Inspector = () => {
       </header>
 
       <main>
-        <ProductManagement />
+        <ProductList />
       </main>
     </div>
   )
