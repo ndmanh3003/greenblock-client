@@ -7,7 +7,7 @@ interface QuickPageProps {
 
 export const QuickPage = ({ title, children }: QuickPageProps) => {
   return (
-    <div className='h-screen w-full flex flex-col items-center justify-center text-white px-2'>
+    <div className='w-full flex flex-col items-center justify-center text-white px-2 my-auto'>
       <h1 className='text-5xl text-center font-extrabold bg-linear2 inline-block text-transparent bg-clip-text'>
         {title}
       </h1>
