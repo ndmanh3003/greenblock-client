@@ -31,13 +31,22 @@ export const HomePage = () => {
     if (parentRef.current) {
       setChildWidth(parentRef.current.offsetWidth)
     }
-    const handleResize = () => {
+
+    const resizeObserver = new ResizeObserver(() => {
       if (parentRef.current) {
         setChildWidth(parentRef.current.offsetWidth)
       }
+    })
+
+    if (parentRef.current) {
+      resizeObserver.observe(parentRef.current)
     }
-    window.addEventListener('resize', handleResize)
-    return () => window.removeEventListener('resize', handleResize)
+
+    return () => {
+      if (parentRef.current) {
+        resizeObserver.unobserve(parentRef.current)
+      }
+    }
   }, [])
 
   const _nav = [
@@ -70,7 +79,7 @@ export const HomePage = () => {
   return (
     <div ref={parentRef} className='w-full'>
       <div
-        className='h-dvh w-full pt-2 lg:pb-10 flex flex-col justify-between items-stretch fixed'
+        className='h-dvh pt-2 lg:pb-10 flex flex-col justify-between items-stretch fixed'
         style={{ width: `${childWidth}px` }}
       >
         <HomepageModal modal={modal} setModal={setModal} />
